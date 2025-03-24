@@ -139,6 +139,7 @@ export default function Sidebar({ collapsed, handleCollapse }: any) {
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
   const { data: profile } = useProfile();
   const userRole = profile?.data?.user?.role || 0;
+  const homePath = userRole === _AUTHORITY ? '/normative-documents' : '/';
 
   const currentPath = location.pathname.split('?')[0] || '/';
 
@@ -159,7 +160,7 @@ export default function Sidebar({ collapsed, handleCollapse }: any) {
       <div className='h-[98%] overflow-auto'>
         {!collapsed && (
           <div className='flex flex-col items-center mt-4'>
-            <Link to={'/'}>
+            <Link to={homePath}>
               <img src={GerbIcon} alt='' className='w-20 h-20' />
             </Link>
             <div className='p-4 text-center text-white font-bold'>
