@@ -67,11 +67,9 @@ const LoginWithPassword: React.FC = () => {
       <div className='bg-white rounded-lg shadow-md p-6 max-w-md w-full'>
         <div className='flex flex-col items-center mt-4'>
           <img src={GerbIcon} alt='' className='w-30 h-30' />
-          <div className='p-4 text-center'>
-            <span className='font-bold font-sans'>
-              Farmasevtika maxsulotlari xavfsizligi markazi
-            </span>{' '}
-            davlat muassasasi
+          <div className='p-4 text-center font-bold'>
+            Oʻzbekiston Respublikasi Prezidenti Administratsiyasi huzuridagi Axborot va ommaviy
+            kommunikatsiyalar agentligi
           </div>
         </div>
         <h1 className='page-title text-center'>Xavfni tahlil qilish</h1>

@@ -31,11 +31,9 @@ const LoginWithOneId: React.FC = () => {
       <div className='bg-white rounded-lg shadow-md p-6 max-w-md w-full flex flex-col items-center'>
         <div className='flex flex-col items-center'>
           <img src={GerbIcon} alt='' className='w-30 h-30' />
-          <div className='p-4 pb-6 text-center'>
-            <span className='font-bold font-sans'>
-              Farmasevtika maxsulotlari xavfsizligi markazi
-            </span>{' '}
-            davlat muassasasi
+          <div className='p-4 pb-6 text-center font-bold'>
+            Oʻzbekiston Respublikasi Prezidenti Administratsiyasi huzuridagi Axborot va ommaviy
+            kommunikatsiyalar agentligi
           </div>
         </div>
         <h1 className='page-title'>Xavfni tahlil qilish</h1>
