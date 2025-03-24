@@ -171,10 +171,11 @@ export default function Sidebar({ collapsed, handleCollapse }: any) {
         )}
 
         <Menu
-          theme='light'
+          theme='dark'
           selectedKeys={selectedKeys}
           mode='inline'
           items={generateSidebarItems(t, userRole)}
+          style={{ backgroundColor: '#003a4f' }}
         />
       </div>
     </Sider>

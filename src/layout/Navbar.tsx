@@ -42,14 +42,14 @@ export default function Navbar({ collapsed, setCollapsed }: any) {
   return (
     <Header style={{ background: colorBgContainer, padding: '10px 40px' }}>
       <Spin spinning={isPending} size='large' fullscreen />
-      <div className='flex items-center justify-between'>
+      <div className='flex items-center justify-between relative'>
         <Button
           type='text'
           icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
           onClick={() => setCollapsed(!collapsed)}
           size='large'
         />
-        <h1 className='text-2xl font-bold text-[#014158]  font-sans'>
+        <h1 className='text-2xl absolute left-1/2 transform -translate-x-1/2 font-bold text-[#014158]  font-sans'>
           {t('Xavfni tahlil qilish tizimi')}
         </h1>
         <div className='flex items-center gap-4'>
