@@ -23,4 +23,5 @@ export const siderStyle: React.CSSProperties = {
   bottom: 0,
   scrollbarWidth: 'thin',
   scrollbarGutter: 'stable',
+  backgroundColor: '#003a4f',
 };

@@ -1,9 +1,10 @@
 import { Layout, theme } from 'antd';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Footer from './Footer';
 import Navbar from './Navbar';
 import Sidebar from './Sidebar/Sidebar';
+import { getSidebarCollapsed, setSidebarCollapsed } from '@/service/storage';
 
 const { Content } = Layout;
 
@@ -11,12 +12,22 @@ const AppLayout: React.FC = () => {
   const {
     token: { borderRadiusLG },
   } = theme.useToken();
+  const [collapsed, setCollapsed] = useState(false);
+
+  useEffect(() => {
+    setCollapsed(getSidebarCollapsed() || false);
+  }, []);
+
+  const handleCollapse = (value: boolean) => {
+    setCollapsed(value);
+    setSidebarCollapsed(value);
+  };
 
   return (
     <Layout>
-      <Sidebar />
+      <Sidebar collapsed={collapsed} onCollapse={setCollapsed} handleCollapse={handleCollapse} />
       <Layout>
-        <Navbar />
+        <Navbar collapsed={collapsed} setCollapsed={setCollapsed} />
 
         <Content style={{ margin: '0 16px' }}>
           {/* <Breadcrumb style={{ margin: '16px 0' }}>

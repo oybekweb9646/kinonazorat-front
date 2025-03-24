@@ -2,10 +2,12 @@
 
 .ant-pagination-item-link {
   background-color: #fff !important;
+  color: #014158 !important;
+  border-radius: 50% !important;
 }
 
 .page-title {
-  color: #002140;
+  color: #014158;
   font-weight: 600;
   font-size: 22px;
   line-height: 30px;

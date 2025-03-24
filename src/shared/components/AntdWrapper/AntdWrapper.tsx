@@ -27,57 +27,78 @@ export default function AntdWrapper({ children }: { children: React.ReactNode })
         token: {
           colorBgContainer: '#fff',
           colorPrimary: '#0d6efd',
-          colorSuccess: '#198754',
-          colorError: '#dc3545',
+          colorSuccess: '#66bb6a',
+          colorError: '#f44336',
           colorWarning: '#ffc107',
           colorInfo: '#0dcaf0',
         },
         components: {
+          Menu: {
+            colorPrimary: '#00738A',
+            // colorBgMask: '#014158',
+            colorBgContainer: '#003a4f',
+            colorText: '#fff',
+            colorPrimaryActive: '#00738A',
+            colorPrimaryTextActive: '#00738A',
+            colorPrimaryHover: '#00738A',
+            colorPrimaryTextHover: '#00738A',
+            // colorBgTextActive: '#014158',
+          },
           Button: {
-            colorPrimary: '#6A89A7',
-            colorPrimaryHover: '#6A89A7',
-            colorPrimaryActive: '#002140',
+            colorPrimary: '#00738A',
+            colorPrimaryHover: '#00738A',
+            colorPrimaryActive: '#014158',
+            borderRadius: 50,
+          },
+          Input: {
+            colorPrimary: '#00738A',
+            colorPrimaryHover: '#00738A',
+            borderRadius: 50,
+          },
+          Select: {
+            borderRadius: 50,
+            colorPrimary: '#00738A',
           },
           Switch: {
-            colorPrimary: '#198754',
+            colorPrimary: '#07bc0c',
             colorBgContainer: '#d9d9d9',
-            colorPrimaryHover: '#198754',
+            colorPrimaryHover: '#07bc0c',
           },
           Checkbox: {
-            colorPrimary: '#198754',
+            colorPrimary: '#07bc0c',
             // colorBgContainer: '#d9d9d9',
-            colorPrimaryHover: '#198754',
+            colorPrimaryHover: '#07bc0c',
           },
           Radio: {
-            colorPrimary: '#6A89A7',
+            colorPrimary: '#00738A',
             // colorBgContainer: '#d9d9d9',
-            colorPrimaryHover: '#6A89A7',
+            colorPrimaryHover: '#00738A',
           },
           Table: {
-            headerBg: '#002140',
+            headerBg: '#014158',
             headerColor: '#fff',
-            footerBg: '#002140',
+            footerBg: '#014158',
             footerColor: '#fff',
           },
           Spin: {
-            colorPrimary: '#002140',
+            colorPrimary: '#014158',
           },
 
           Pagination: {
-            itemActiveBg: '#002140',
+            itemActiveBg: '#014158',
             itemLinkBg: '#fff',
             colorBgContainer: '#fff',
           },
 
           Card: {
-            headerBg: '#002140',
+            headerBg: '#014158',
             colorTextHeading: '#fff',
           },
           Modal: {
-            titleColor: '#002140',
+            titleColor: '#014158',
           },
           Form: {
-            labelColor: '#002140',
+            labelColor: '#014158',
           },
         },
       }}

@@ -1,4 +1,3 @@
-import { getSidebarCollapsed, setSidebarCollapsed } from '@/service/storage';
 import {
   BankOutlined,
   CheckOutlined,
@@ -133,10 +132,10 @@ function generateSidebarItems(t: TFunction, userRole: number) {
   ];
 }
 
-export default function Sidebar() {
+export default function Sidebar({ collapsed, handleCollapse }: any) {
   const { t } = useTranslation();
   const location = useLocation();
-  const [collapsed, setCollapsed] = useState(false);
+
   const [selectedKeys, setSelectedKeys] = useState<string[]>([]);
   const { data: profile } = useProfile();
   const userRole = profile?.data?.user?.role || 0;
@@ -148,22 +147,14 @@ export default function Sidebar() {
     setSelectedKeys(keys);
   }, [currentPath]);
 
-  useEffect(() => {
-    setCollapsed(getSidebarCollapsed() || false);
-  }, []);
-
-  const handleCollapse = (value: boolean) => {
-    setCollapsed(value);
-    setSidebarCollapsed(value);
-  };
-
   return (
     <Sider
       style={siderStyle}
       collapsible
       collapsed={collapsed}
       onCollapse={handleCollapse}
-      width={250}
+      width={280}
+      trigger={null}
     >
       <div className='h-[98%] overflow-auto'>
         {!collapsed && (
@@ -171,17 +162,15 @@ export default function Sidebar() {
             <Link to={'/'}>
               <img src={GerbIcon} alt='' className='w-20 h-20' />
             </Link>
-            <div className='p-4 text-center text-white'>
-              <span className='font-bold font-sans'>
-                Farmasevtika maxsulotlari xavfsizligi markazi
-              </span>{' '}
-              davlat muassasasi
+            <div className='p-4 text-center text-white font-bold'>
+              Oʻzbekiston Respublikasi Prezidenti Administratsiyasi huzuridagi Axborot va ommaviy
+              kommunikatsiyalar agentligi
             </div>
           </div>
         )}
 
         <Menu
-          theme='dark'
+          theme='light'
           selectedKeys={selectedKeys}
           mode='inline'
           items={generateSidebarItems(t, userRole)}

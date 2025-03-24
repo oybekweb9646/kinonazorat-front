@@ -1,5 +1,10 @@
-import { Avatar, Dropdown, Layout, Segmented, Spin, theme } from 'antd';
-import { LogoutOutlined, UserOutlined } from '@ant-design/icons';
+import { Avatar, Button, Dropdown, Layout, Select, Spin, theme } from 'antd';
+import {
+  LogoutOutlined,
+  MenuFoldOutlined,
+  MenuUnfoldOutlined,
+  UserOutlined,
+} from '@ant-design/icons';
 import { changeLanguage } from '@/shared/i18n';
 import { useTranslation } from 'react-i18next';
 import { useMutation } from '@/shared/hooks';
@@ -9,7 +14,7 @@ import Profile from '@/shared/components/Profile';
 
 const { Header } = Layout;
 
-export default function Navbar() {
+export default function Navbar({ collapsed, setCollapsed }: any) {
   const [isOpenProfileModal, setIsOpenProfileModal] = useState<boolean>(false);
   const {
     token: { colorBgContainer },
@@ -38,12 +43,19 @@ export default function Navbar() {
     <Header style={{ background: colorBgContainer, padding: '10px 40px' }}>
       <Spin spinning={isPending} size='large' fullscreen />
       <div className='flex items-center justify-between'>
-        <h1 className='text-2xl font-bold text-gray-800  font-sans'>
+        <Button
+          type='text'
+          icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+          onClick={() => setCollapsed(!collapsed)}
+          size='large'
+        />
+        <h1 className='text-2xl font-bold text-[#014158]  font-sans'>
           {t('Xavfni tahlil qilish tizimi')}
         </h1>
         <div className='flex items-center gap-4'>
-          <Segmented
-            shape='default'
+          <Select
+            // shape='round'
+            style={{ width: 120 }}
             defaultValue={i18n.language || 'uz'}
             onChange={(value: string) => changeLanguage(value)}
             options={[
@@ -85,7 +97,7 @@ export default function Navbar() {
             }}
           >
             <Avatar
-              shape='square'
+              shape='circle'
               className='cursor-pointer'
               size={'large'}
               icon={<UserOutlined />}
