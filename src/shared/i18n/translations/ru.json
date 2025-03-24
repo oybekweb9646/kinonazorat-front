@@ -1,0 +1,36 @@
+{
+  "Bosh sahifa": "Главная страница",
+  "Yaratish": "Создать",
+  "Jarayondagi baholashlar": "Текущие оценки",
+  "Baholash natijalari": "Результаты оценок",
+  "So'rovlar": "Запросы",
+  "Sozlamalar": "Настройки",
+  "Ko'rsatkich turlari": "Типы показателей",
+  "Ko'rsatkichlar": "Показатели",
+  "Foydalanuvchilar": "Пользователи",
+  "Tashkilotlar": "Организации",
+
+  "Nomi (lotin)": "Название (латиница)",
+  "Nomi (rus)": "Название (русский)",
+  "Nomi (kirill)": "Название (кириллица)",
+  "Turi": "Тип",
+  "Foydalanuvchi nomi": "Имя пользователя",
+  "F.I.SH": "Ф.И.О.",
+  "PINFL": "ПИНФЛ",
+  "Tug'ilgan sana": "Дата рождения",
+  "Qo'shish": "Добавить",
+  "O'chirish": "Удалить",
+  "Tahrirlash": "Редактировать",
+
+  "Ko'rsatkich qo'shish": "Добавить показатель",
+  "Ko'rsatkichga ball berish": "Оценить показатель",
+  "Profil": "Профиль",
+  "Chiqish": "Выход",
+  "Xavfni tahlil qilish tizimi": "Система анализа рисков",
+
+  "STIR": "ИНН",
+  "Tashkilot STIR raqamini kiriting": "Введите ИНН организации",
+  "Qidirish": "Поиск",
+  "Baholash": "Оценка",
+  "Baholashni boshlash": "Начать оценку"
+}

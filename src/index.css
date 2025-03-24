@@ -1,0 +1,23 @@
+@import 'tailwindcss';
+
+.ant-pagination-item-link {
+  background-color: #fff !important;
+}
+
+.page-title {
+  color: #002140;
+  font-weight: 600;
+  font-size: 22px;
+  line-height: 30px;
+  margin-bottom: 20px;
+}
+
+ol {
+  list-style-type: decimal;
+  margin-left: 20px;
+}
+
+ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}

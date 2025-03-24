@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Yanvar"
+  },
+  {
+    "id": 2,
+    "name": "Fevral"
+  },
+  {
+    "id": 3,
+    "name": "Mart"
+  },
+  {
+    "id": 4,
+    "name": "Aprel"
+  },
+  {
+    "id": 5,
+    "name": "May"
+  },
+  {
+    "id": 6,
+    "name": "Iyun"
+  },
+  {
+    "id": 7,
+    "name": "Iyul"
+  },
+  {
+    "id": 8,
+    "name": "Avgust"
+  },
+  {
+    "id": 9,
+    "name": "Sentabr"
+  },
+  {
+    "id": 10,
+    "name": "Oktabr"
+  },
+  {
+    "id": 11,
+    "name": "Noyabr"
+  },
+  {
+    "id": 12,
+    "name": "Dekabr"
+  }
+]

@@ -1,0 +1,37 @@
+[
+  {
+    "id": 1,
+    "indicator_name": "Dori vositalari va tibbiy buyumlarga nisbatan referent narxlarni belgilash qoidalarini buzilishi",
+    "score": 10
+  },
+  {
+    "id": 2,
+    "indicator_name": "Farmatsevtika mahsullarini harakatini nazorat qilish va hisobga olishning axborot tizimiga ulanish va ma'lumotlarni ular muomalaga kirgan vaqtdan boshlab kiritib borilmasligi (markirovka, agregatsiya)",
+    "score": 10
+  },
+  {
+    "id": 3,
+    "indicator_name": "Dori vositalarini tayyorlash faoliyati bilan shug'ullangan taqdirda, yuridik shaxs shtatida oliy farmatsevtik ma'lumotga ega bo'lganshuningdek, lavozim majburiyatlariga muvofiq malakasini oshirganligi to'g'risida sertifikatga va ish tajribasiga ega bo'gan mutaxassisning mavjud emasligi",
+    "score": 10
+  },
+  {
+    "id": 4,
+    "indicator_name": "Dori vositalari va tibbiy buyumlarning farmatsevtik ma'lumotga ega bo'lgan shaxs tomonidan chakana realizatsiya qilinishi, shuningdek, dorixona mudiri/filial mudiri va farmatsevtik ma'lumotga ega bo'gan xodimlarning belgilangan tartibda malaka oshirganligi",
+    "score": 10
+  },
+  {
+    "id": 5,
+    "indicator_name": "Dorixona mudiri/filial mudiri va dorixonada faoliyat yurituvchi farmatsevtlarning gonunchilik huquqlarini aniqlangan buzilishi, shu jumladan, dori vositalari va tibbiy buyumlarning narxini belgilash tartibi to'g'pol buzganligi oqibatda litsenziyasining amal qilishi bekor bo'lganshuningdek, dorixonalarning xodimlari reestriga kiritilgan xodimning mavjudligi",
+    "score": 10
+  },
+  {
+    "id": 6,
+    "indicator_name": "Dorixona mudiri o'zgarishi, dorixona filial mudiri o'zgarishi, dorixona yopilishi haqida mazkur holat yuz bergandansong o'n kun muddatda litsenziyalovchi organa xabar bermoq yuborilmasa",
+    "score": 10
+  },
+  {
+    "id": 7,
+    "indicator_name": "Ro'yxatdan o'tkazilgan, sifatsiz, qalbakilashirilgan dori vositalarini va tibbiy buyumlarni, shuningdek, O'zbekiston Respublikasida ro'yxatdan o'tkazilgan dori vositalarining g'ayriqonuniy nusxalarini ishlab chiqarish va (yoki) realizatsiya qilish holati aniqlanganda",
+    "score": 12
+  }
+]

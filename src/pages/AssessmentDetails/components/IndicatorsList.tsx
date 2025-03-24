@@ -1,0 +1,57 @@
+import { Button, Table } from 'antd';
+import { useTranslation } from 'react-i18next';
+import { JSX, useState } from 'react';
+import UpdateAssessments from './UpdateAssessments';
+import { EditOutlined } from '@ant-design/icons';
+import { useProfile } from '@/shared/hooks/use-profile/use-profile';
+import { hasPermission } from '@/service';
+import { _SUPER_ADMIN } from '@/service/const/roles';
+const { Column } = Table;
+
+export default function IndicatorsList({ request }: { request: any }): JSX.Element {
+  const { t } = useTranslation();
+  const { data: profile } = useProfile();
+  const userRole = profile?.data?.user?.role || 0;
+
+  const [updateAssessmentsModal, setUpdateAssessmentsModal] = useState<boolean>(false);
+
+  return (
+    <div className='flex flex-col gap-4'>
+      <Table
+        bordered
+        dataSource={request?.data?.score_request_indicators || []}
+        pagination={false}
+        footer={() => {
+          return (
+            <div className='flex items-end justify-end gap-2'>
+              {/* <Button icon={<DownloadOutlined />}>{t('Yuklash')}</Button> */}
+
+              {hasPermission(userRole, [_SUPER_ADMIN]) && (
+                <Button icon={<EditOutlined />} onClick={() => setUpdateAssessmentsModal(true)}>
+                  {t('Tahrirlash')}
+                </Button>
+              )}
+            </div>
+          );
+        }}
+      >
+        <Column align='center' dataIndex={'id'} />
+        <Column
+          title={t("Xavf darajasini baholash ko'rsatkichi")}
+          dataIndex='indicator'
+          render={(indicator) => indicator.name}
+        />
+        <Column align='center' title={t('Ball')} dataIndex='score' key='score' />
+      </Table>
+
+      {updateAssessmentsModal && (
+        <UpdateAssessments
+          open={updateAssessmentsModal}
+          onCancel={() => setUpdateAssessmentsModal(false)}
+          data={request?.data?.score_request_indicators || []}
+          id={request?.data?.id}
+        />
+      )}
+    </div>
+  );
+}

@@ -1,0 +1,13 @@
+stages:
+  - deploy_prod
+
+deploy-to-prod-server:
+  stage: deploy_prod
+  rules:
+    - if: $CI_COMMIT_BRANCH == 'main'
+  script:
+    - rsync -av --no-perms --no-owner --no-group --exclude "/.git" --filter=':- .gitignore' --delete $CI_PROJECT_DIR/ /var/www/prod/farm-front
+    - docker compose -f /var/www/prod/farm-front/docker-compose.yml up -d --build
+  tags:
+    - farm-front
+  when: manual

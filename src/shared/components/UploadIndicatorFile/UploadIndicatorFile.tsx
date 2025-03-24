@@ -1,0 +1,81 @@
+import { useMutation } from '@/shared/hooks';
+import { JSX, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { UploadOutlined } from '@ant-design/icons';
+
+export default function UploadIndicatorFile({ item }: any): JSX.Element {
+  const { t } = useTranslation();
+  const { mutate: uploadFile } = useMutation({ mutationKey: 'upload-file' });
+  const { mutate: setFile } = useMutation({ mutationKey: 'set-file' });
+  const [uploadedFile, setUploadedFile] = useState<any>(null);
+
+  const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files || files.length === 0) return;
+
+    const file = files[0];
+    const formData = new FormData();
+    formData.append('file', file);
+
+    uploadFile(
+      {
+        url: 'file/upload',
+        data: formData,
+        method: 'POST',
+      },
+      {
+        onSuccess: (data: any) => {
+          handleSetFile(data.data);
+          setUploadedFile(data.data);
+        },
+      },
+    );
+  };
+
+  const handleSetFile = (data: any) => {
+    setFile(
+      {
+        url: `score-indicator-request/set-file/${item.id}`,
+        data: {
+          file_id: data.id,
+        },
+        method: 'POST',
+      },
+      {
+        onSuccess: () => {
+          toast.success(t('File uploaded successfully'));
+        },
+      },
+    );
+  };
+
+  return (
+    <div className='border-gray-300 border rounded-md flex items-center px-4 py-1 border-dashed'>
+      <input
+        type='file'
+        onChange={handleUpload}
+        id={`file-upload-${item.id}`}
+        style={{ display: 'none' }}
+      />
+      <label
+        htmlFor={`file-upload-${item.id}`}
+        style={{
+          cursor: 'pointer',
+          opacity: 1,
+        }}
+        className='w-full h-full'
+      >
+        {!uploadedFile && (
+          <div className='flex gap-2 items-center justify-center'>
+            <UploadOutlined />
+            <span>{t('File biriktirish')}</span>
+          </div>
+        )}
+        {uploadedFile && (
+          <div className='flex gap-2 items-center justify-center'>{uploadedFile.name}</div>
+        )}
+      </label>
+    </div>
+  );
+}
