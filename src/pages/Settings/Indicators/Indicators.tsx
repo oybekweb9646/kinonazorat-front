@@ -101,13 +101,13 @@ const Indicators: React.FC = () => {
         pagination={false}
         loading={isFetching}
       >
-        <Column title={t('Nomi (lotin)')} dataIndex='name_uz' width={'20%'} />
-        <Column title={t('Nomi (kirill)')} dataIndex='name_uzc' width={'20%'} />
-        <Column title={t('Nomi (rus)')} dataIndex='name_ru' width={'20%'} />
-        <Column title={t('Max ball')} dataIndex='max_score' width={'20%'} />
+        <Column title={t('Nomi (lotin)')} dataIndex='name_uz' />
+        <Column title={t('Nomi (kirill)')} dataIndex='name_uzc' />
+        <Column title={t('Nomi (rus)')} dataIndex='name_ru' />
+        <Column title={t('Max ball')} dataIndex='max_score' align='center' />
         <Column
-          width={'20%'}
           title={t('Turi')}
+          align='center'
           render={(item) => {
             const indicatorType = indicatorTypes?.data?.find(
               (indicatorType: IIndicatorType) => indicatorType.id === item?.type_id,
@@ -116,7 +116,6 @@ const Indicators: React.FC = () => {
           }}
         />
         <Column
-          width={'20%'}
           align='center'
           title={
             <div>

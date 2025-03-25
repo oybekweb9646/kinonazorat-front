@@ -9,10 +9,10 @@ const generateOneIdUrl = () => {
   sessionStorage.setItem('oneIdState', String(oneIdState));
 
   const query = QueryString.stringify({
-    client_id: 'pharmtahlil_uz',
+    client_id: 'aokatahlil_uz',
     response_type: 'one_code',
-    scope: 'pharmtahlil_uz',
-    redirect_uri: `https://pharmtahlil.uz/auth`,
+    scope: 'aokatahlil_uz',
+    redirect_uri: `https://aokatahlil.uz/auth`,
     state: oneIdState,
   });
 

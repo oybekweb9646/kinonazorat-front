@@ -21,7 +21,13 @@ import Organizations from '@/pages/Organizations';
 import AssessmentDetails from '@/pages/AssessmentDetails';
 import Forbidden from '@/pages/403';
 import RoleGuard from '@/shared/components/RoleGuard';
-import { _RESPONSIBLE, _SUPER_ADMIN, _READ_ONLY, _AUTHORITY } from '@/service/const/roles';
+import {
+  _RESPONSIBLE,
+  _SUPER_ADMIN,
+  _READ_ONLY,
+  _AUTHORITY,
+  _TERRITORIAL_RESPONSIBLE,
+} from '@/service/const/roles';
 
 export const router = createBrowserRouter([
   {
@@ -33,7 +39,9 @@ export const router = createBrowserRouter([
           {
             path: '/',
             element: (
-              <RoleGuard allowedRoles={[_RESPONSIBLE, _SUPER_ADMIN, _READ_ONLY]}>
+              <RoleGuard
+                allowedRoles={[_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN, _READ_ONLY]}
+              >
                 <Home />
               </RoleGuard>
             ),
@@ -41,7 +49,7 @@ export const router = createBrowserRouter([
           {
             path: '/start-assessments',
             element: (
-              <RoleGuard allowedRoles={[_RESPONSIBLE, _SUPER_ADMIN]}>
+              <RoleGuard allowedRoles={[_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN]}>
                 <StartAssessment />
               </RoleGuard>
             ),
@@ -49,7 +57,7 @@ export const router = createBrowserRouter([
           {
             path: '/ongoing-assessments',
             element: (
-              <RoleGuard allowedRoles={[_RESPONSIBLE, _SUPER_ADMIN]}>
+              <RoleGuard allowedRoles={[_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN]}>
                 <OngoingAssessments />
               </RoleGuard>
             ),
@@ -57,7 +65,9 @@ export const router = createBrowserRouter([
           {
             path: '/assessment-results',
             element: (
-              <RoleGuard allowedRoles={[_RESPONSIBLE, _SUPER_ADMIN, _READ_ONLY]}>
+              <RoleGuard
+                allowedRoles={[_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN, _READ_ONLY]}
+              >
                 <AssessmentResults />
               </RoleGuard>
             ),
@@ -65,7 +75,9 @@ export const router = createBrowserRouter([
           {
             path: '/organizations',
             element: (
-              <RoleGuard allowedRoles={[_RESPONSIBLE, _SUPER_ADMIN, _READ_ONLY]}>
+              <RoleGuard
+                allowedRoles={[_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN, _READ_ONLY]}
+              >
                 <Organizations />
               </RoleGuard>
             ),
@@ -89,7 +101,9 @@ export const router = createBrowserRouter([
           {
             path: '/assessment-details/:id',
             element: (
-              <RoleGuard allowedRoles={[_RESPONSIBLE, _SUPER_ADMIN, _READ_ONLY]}>
+              <RoleGuard
+                allowedRoles={[_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN, _READ_ONLY]}
+              >
                 <AssessmentDetails />
               </RoleGuard>
             ),

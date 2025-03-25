@@ -20,7 +20,13 @@ import { TFunction } from 'i18next';
 import { pathToKeyMap, siderStyle } from './sidebar-config';
 import { useProfile } from '@/shared/hooks/use-profile/use-profile';
 import { hasPermission } from '@/service';
-import { _AUTHORITY, _READ_ONLY, _RESPONSIBLE, _SUPER_ADMIN } from '@/service/const/roles';
+import {
+  _AUTHORITY,
+  _READ_ONLY,
+  _RESPONSIBLE,
+  _SUPER_ADMIN,
+  _TERRITORIAL_RESPONSIBLE,
+} from '@/service/const/roles';
 
 const { Sider } = Layout;
 
@@ -31,7 +37,12 @@ function generateSidebarItems(t: TFunction, userRole: number) {
       label: <Link to={'/'}>{t('Bosh sahifa')}</Link>,
       icon: <HomeOutlined />,
       style: {
-        display: hasPermission(userRole, [_RESPONSIBLE, _SUPER_ADMIN, _READ_ONLY])
+        display: hasPermission(userRole, [
+          _RESPONSIBLE,
+          _TERRITORIAL_RESPONSIBLE,
+          _SUPER_ADMIN,
+          _READ_ONLY,
+        ])
           ? 'block'
           : 'none',
       },
@@ -41,7 +52,9 @@ function generateSidebarItems(t: TFunction, userRole: number) {
       label: <Link to={'/start-assessments'}>{t('Baholashni boshlash')}</Link>,
       icon: <PlusCircleOutlined />,
       style: {
-        display: hasPermission(userRole, [_RESPONSIBLE, _SUPER_ADMIN]) ? 'block' : 'none',
+        display: hasPermission(userRole, [_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN])
+          ? 'block'
+          : 'none',
       },
     },
     {
@@ -49,7 +62,9 @@ function generateSidebarItems(t: TFunction, userRole: number) {
       label: <Link to={'/ongoing-assessments'}>{t('Jarayondagi baholashlar')}</Link>,
       icon: <ReloadOutlined />,
       style: {
-        display: hasPermission(userRole, [_RESPONSIBLE, _SUPER_ADMIN]) ? 'block' : 'none',
+        display: hasPermission(userRole, [_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN])
+          ? 'block'
+          : 'none',
       },
     },
     {
@@ -57,7 +72,12 @@ function generateSidebarItems(t: TFunction, userRole: number) {
       label: <Link to={'/assessment-results'}>{t('Baholash natijalari')}</Link>,
       icon: <LineChartOutlined />,
       style: {
-        display: hasPermission(userRole, [_RESPONSIBLE, _SUPER_ADMIN, _READ_ONLY])
+        display: hasPermission(userRole, [
+          _RESPONSIBLE,
+          _TERRITORIAL_RESPONSIBLE,
+          _SUPER_ADMIN,
+          _READ_ONLY,
+        ])
           ? 'block'
           : 'none',
       },
@@ -67,7 +87,12 @@ function generateSidebarItems(t: TFunction, userRole: number) {
       label: <Link to={'/organizations'}>{t('Tashkilotlar')}</Link>,
       icon: <BankOutlined />,
       style: {
-        display: hasPermission(userRole, [_RESPONSIBLE, _SUPER_ADMIN, _READ_ONLY])
+        display: hasPermission(userRole, [
+          _RESPONSIBLE,
+          _TERRITORIAL_RESPONSIBLE,
+          _SUPER_ADMIN,
+          _READ_ONLY,
+        ])
           ? 'block'
           : 'none',
       },
