@@ -2,12 +2,12 @@ import { Card } from 'antd';
 import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 import Highcharts from 'highcharts';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 import HighchartsReact from 'highcharts-react-official';
 import { useFetch } from '@/shared/hooks';
 import { IUseFetchResponseList } from '@/shared/types';
+import { TFunction } from 'i18next';
 
-function generateOptions(data: { high: number; danger: number; normal: number }) {
+function generateOptions(data: { high: number; danger: number; normal: number }, t: TFunction) {
   return {
     chart: {
       type: 'pie',
@@ -42,21 +42,21 @@ function generateOptions(data: { high: number; danger: number; normal: number })
     },
     series: [
       {
-        name: 'Baholash natijasi',
+        name: t('Baholash natijasi'),
         colorByPoint: true,
         data: [
           {
-            name: 'Xavfli',
+            name: t('Xavfli'),
             y: data?.danger,
             color: '#F88379',
           },
           {
-            name: "O'rtacha",
+            name: t("O'rtacha"),
             y: data?.normal,
             color: '#E4D96F',
           },
           {
-            name: 'Yuqori',
+            name: t('Yuqori'),
             y: data?.high,
             color: '#00FF99',
           },
@@ -79,7 +79,7 @@ const AssessmentResultsChart = (): JSX.Element => {
 
   return (
     <Card title={t('Baholash natijalari')}>
-      <HighchartsReact highcharts={Highcharts} options={generateOptions(data?.data)} />
+      <HighchartsReact highcharts={Highcharts} options={generateOptions(data?.data, t)} />
     </Card>
   );
 };
