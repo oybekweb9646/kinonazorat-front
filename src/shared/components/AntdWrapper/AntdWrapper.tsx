@@ -61,6 +61,11 @@ export default function AntdWrapper({ children }: { children: React.ReactNode })
             colorPrimaryHover: '#00738A',
             borderRadius: 50,
           },
+          DatePicker: {
+            colorPrimary: '#00738A',
+            colorPrimaryHover: '#00738A',
+            borderRadius: 50,
+          },
           Select: {
             borderRadius: 50,
             colorPrimary: '#00738A',
