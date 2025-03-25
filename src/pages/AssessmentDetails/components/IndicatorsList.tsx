@@ -5,7 +5,7 @@ import UpdateAssessments from './UpdateAssessments';
 import { EditOutlined } from '@ant-design/icons';
 import { useProfile } from '@/shared/hooks/use-profile/use-profile';
 import { hasPermission } from '@/service';
-import { _SUPER_ADMIN } from '@/service/const/roles';
+import { _RESPONSIBLE, _SUPER_ADMIN, _TERRITORIAL_RESPONSIBLE } from '@/service/const/roles';
 const { Column } = Table;
 
 export default function IndicatorsList({ request }: { request: any }): JSX.Element {
@@ -36,7 +36,7 @@ export default function IndicatorsList({ request }: { request: any }): JSX.Eleme
             <div className='flex items-end justify-end gap-2'>
               {/* <Button icon={<DownloadOutlined />}>{t('Yuklash')}</Button> */}
 
-              {hasPermission(userRole, [_SUPER_ADMIN]) && (
+              {hasPermission(userRole, [_SUPER_ADMIN, _RESPONSIBLE, _TERRITORIAL_RESPONSIBLE]) && (
                 <Button icon={<EditOutlined />} onClick={() => setUpdateAssessmentsModal(true)}>
                   {t('Tahrirlash')}
                 </Button>
