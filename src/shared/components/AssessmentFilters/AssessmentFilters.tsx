@@ -72,7 +72,7 @@ export default function AssessmentFilters(): JSX.Element {
           {/* <Form.Item<FormFieldType> name='id'>
             <Input type='number' placeholder={t('ID')} allowClear />
           </Form.Item> */}
-          <Form.Item<FormFieldType> name='authority_id'>
+          <Form.Item<FormFieldType> name='authority_id' label={t('Tashkilot')}>
             <Select
               options={organizations?.data?.map((item) => ({ label: item.name, value: item.id }))}
               placeholder={t('Tashkilot')}
@@ -83,10 +83,10 @@ export default function AssessmentFilters(): JSX.Element {
               onSearch={onSearch}
             />
           </Form.Item>
-          <Form.Item<FormFieldType> name='stir'>
+          <Form.Item<FormFieldType> name='stir' label={t('Stir')}>
             <Input placeholder={t('Stir')} allowClear />
           </Form.Item>
-          <Form.Item<FormFieldType> name='created_by'>
+          <Form.Item<FormFieldType> name='created_by' label={t('Yaratuvchisi')}>
             <Input placeholder={t('Yaratuvchisi')} allowClear />
           </Form.Item>
 

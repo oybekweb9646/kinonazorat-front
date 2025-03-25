@@ -35,7 +35,7 @@ export default function AssessmentResults(): JSX.Element {
 
   return (
     <div className='flex flex-col gap-4'>
-      <h3 className='text-xl font-bold'>{t('Baholash natijalari')}</h3>
+      <h3 className='page-title'>{t('Baholash natijalari')}</h3>
       <AssessmentFilters />
 
       <Table

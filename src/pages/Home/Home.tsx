@@ -12,12 +12,7 @@ const Home = (): JSX.Element => {
         color='#B9D3E0'
         api='/authority/count-question'
       />
-      <OrganizationCountBy
-        title="Checklist bo'yicha"
-        prefix={<CheckOutlined />}
-        color='#C4EED9'
-        api='/authority/count-checked'
-      />
+
       <AssessmentResultsChart />
     </div>
   );

@@ -1,4 +1,15 @@
 @import 'tailwindcss';
+@font-face {
+  font-family: 'GolosText';
+  src: url('./shared/assets/fonts/GolosText-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+* {
+  font-family: 'GolosText', sans-serif !important;
+}
 
 .ant-pagination-item-link {
   background-color: #fff !important;
