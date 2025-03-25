@@ -15,9 +15,7 @@ import { _AUTHORITY } from '@/service/const/roles';
 export default function Questions() {
   const { t } = useTranslation();
   const { mutate } = useMutation({ mutationKey: 'read-question' });
-  const { mutate: confirm } = useMutation({
-    mutationKey: 'confirm-question',
-  });
+
   const queryClient = useQueryClient();
 
   const { data: questions, isFetching } = useFetch<IUseFetchResponseList<any[]>>({
@@ -40,32 +38,18 @@ export default function Questions() {
     );
   };
 
-  const handleConfirm = () => {
-    confirm(
-      { url: `/question-authority/confirm`, method: 'GET' },
-      {
-        onSuccess: () => {
-          toast.success(t('Muvaffaqiyatli saqlandi'));
-          queryClient.invalidateQueries({ queryKey: ['question'] });
-        },
-      },
-    );
-  };
-
-  const isAllRead = questions?.data.every((item: any) => item.read_authority?.[0]?.id);
-
   return (
     <div>
-      <h3 className='page-title'>{t('Savollar')}</h3>
+      <h3 className='page-title'>{t('Normativ hujjatlar')}</h3>
       <List
         bordered
         loading={isFetching}
         dataSource={questions?.data}
         footer={
           <div className='flex justify-end'>
-            {hasPermission(userRole, [_AUTHORITY]) && isAllRead && questions?.data?.length ? (
-              <Button type='primary' onClick={handleConfirm} disabled={!isAllRead}>
-                {t('Saqlash')}
+            {hasPermission(userRole, [_AUTHORITY]) && questions?.data?.length ? (
+              <Button type='primary' onClick={handleRead}>
+                {t('Tanishib chiqdim')}
               </Button>
             ) : (
               ''
@@ -73,20 +57,7 @@ export default function Questions() {
           </div>
         }
         renderItem={(item: any) => (
-          <List.Item
-            actions={[
-              <Button
-                type='primary'
-                onClick={handleRead}
-                disabled={item.read_authority?.[0]?.id}
-                style={{
-                  display: hasPermission(userRole, [_AUTHORITY]) ? '' : 'none',
-                }}
-              >
-                {!item.read_authority?.[0]?.id ? t('Tanishib chiqdim') : t('Tanishib chiqilgan')}
-              </Button>,
-            ]}
-          >
+          <List.Item>
             <List.Item.Meta
               title={<div style={{ fontWeight: 'bold' }}>{item.title}</div>}
               description={

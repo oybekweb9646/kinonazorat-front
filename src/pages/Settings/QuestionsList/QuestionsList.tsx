@@ -57,7 +57,7 @@ const QuestionsList: React.FC = () => {
 
   return (
     <div>
-      <h3 className='page-title'>{t('Savollar')}</h3>
+      <h3 className='page-title'>{t('Normativ hujjatlar')}</h3>
       <Table
         dataSource={questionsList?.data}
         pagination={false}
