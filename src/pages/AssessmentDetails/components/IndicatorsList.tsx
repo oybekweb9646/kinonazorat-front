@@ -21,6 +21,16 @@ export default function IndicatorsList({ request }: { request: any }): JSX.Eleme
         bordered
         dataSource={request?.data?.score_request_indicators || []}
         pagination={false}
+        summary={() => (
+          <Table.Summary.Row className='bg-gray-100'>
+            <Table.Summary.Cell index={0} colSpan={2} className='font-bold'>
+              {t('Umumiy ball')}
+            </Table.Summary.Cell>
+            <Table.Summary.Cell align='center' index={1} colSpan={1} className='font-bold'>
+              {request?.data?.score}
+            </Table.Summary.Cell>
+          </Table.Summary.Row>
+        )}
         footer={() => {
           return (
             <div className='flex items-end justify-end gap-2'>
