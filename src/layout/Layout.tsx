@@ -19,7 +19,6 @@ const AppLayout: React.FC = () => {
   }, []);
 
   const handleCollapse = (value: boolean) => {
-    console.log(value);
     setCollapsed(value);
     setSidebarCollapsed(value);
   };
