@@ -20,15 +20,6 @@ export default function MainInfo({ data }: { data: any }): JSX.Element {
             children: data?.authority?.stir,
           },
           {
-            key: '2',
-            label: t('Boshliq'),
-            children: `${
-              data?.authority?.director_lastName ? data?.authority?.director_lastName : ''
-            } ${data?.authority?.director_firstName ? data?.authority?.director_firstName : ''} ${
-              data?.authority?.director_middleName ? data?.authority?.director_middleName : ''
-            }`,
-          },
-          {
             key: '3',
             label: t('Manzil'),
             children: data?.authority?.address,
