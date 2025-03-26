@@ -14,7 +14,7 @@ import Profile from '@/shared/components/Profile';
 
 const { Header } = Layout;
 
-export default function Navbar({ collapsed, setCollapsed }: any) {
+export default function Navbar({ collapsed, handleCollapse }: any) {
   const [isOpenProfileModal, setIsOpenProfileModal] = useState<boolean>(false);
   const {
     token: { colorBgContainer },
@@ -46,7 +46,7 @@ export default function Navbar({ collapsed, setCollapsed }: any) {
         <Button
           type='text'
           icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-          onClick={() => setCollapsed(!collapsed)}
+          onClick={() => handleCollapse(!collapsed)}
           size='large'
         />
         <h1 className='text-2xl absolute left-1/2 transform -translate-x-1/2 font-bold text-[#014158]  font-sans'>

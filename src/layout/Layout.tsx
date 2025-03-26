@@ -19,6 +19,7 @@ const AppLayout: React.FC = () => {
   }, []);
 
   const handleCollapse = (value: boolean) => {
+    console.log(value);
     setCollapsed(value);
     setSidebarCollapsed(value);
   };
@@ -27,7 +28,7 @@ const AppLayout: React.FC = () => {
     <Layout>
       <Sidebar collapsed={collapsed} onCollapse={setCollapsed} handleCollapse={handleCollapse} />
       <Layout>
-        <Navbar collapsed={collapsed} setCollapsed={setCollapsed} />
+        <Navbar collapsed={collapsed} setCollapsed={setCollapsed} handleCollapse={handleCollapse} />
 
         <Content style={{ margin: '0 16px' }}>
           {/* <Breadcrumb style={{ margin: '16px 0' }}>
