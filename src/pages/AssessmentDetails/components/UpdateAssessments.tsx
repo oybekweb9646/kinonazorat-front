@@ -7,6 +7,7 @@ import { downloadFile } from '@/service';
 import UploadIndicatorFile from '@/shared/components/UploadIndicatorFile';
 import { useMutation } from '@/shared/hooks';
 import { toast } from 'react-toastify';
+import { useQueryClient } from '@tanstack/react-query';
 const { Column } = Table;
 
 export default function UpdateAssessments({
@@ -21,7 +22,8 @@ export default function UpdateAssessments({
   id: number;
 }): JSX.Element {
   const { t } = useTranslation();
-  const { mutate } = useMutation({ mutationKey: 'confirm-finishing' });
+  const { mutate, isPending } = useMutation({ mutationKey: 'confirm-finishing' });
+  const queryClient = useQueryClient();
 
   function onOk() {
     mutate(
@@ -33,6 +35,7 @@ export default function UpdateAssessments({
         onSuccess: () => {
           onCancel();
           toast.success(t('Muvaffaqiyatli saqlandi'));
+          queryClient.invalidateQueries({ queryKey: ['request'] });
         },
       },
     );
@@ -47,6 +50,7 @@ export default function UpdateAssessments({
       okText={t('Saqlash')}
       cancelText={t('Bekor qilish')}
       onCancel={onCancel}
+      confirmLoading={isPending}
     >
       <Table bordered dataSource={data || []} pagination={false}>
         <Column align='center' dataIndex={'id'} />

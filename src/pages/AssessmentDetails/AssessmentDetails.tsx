@@ -1,4 +1,4 @@
-import { JSX } from 'react';
+import { JSX, useEffect } from 'react';
 import MainInfo from './components/MainInfo';
 import IndicatorsList from './components/IndicatorsList';
 import { useTranslation } from 'react-i18next';
@@ -10,14 +10,25 @@ import { Spin } from 'antd';
 export default function AssessmentDetails(): JSX.Element {
   const { t } = useTranslation();
   const { id } = useParams();
-  const { data: request, isFetching } = useFetch<IUseFetchResponseList<any>>({
+  const {
+    data: request,
+    isFetching,
+    refetch,
+  } = useFetch<IUseFetchResponseList<any>>({
     url: `/request/get/${id}`,
     method: 'GET',
-    queryKey: ['request', String(id)],
+    queryKey: 'request',
     queryOptions: {
       enabled: !!id,
     },
   });
+
+  useEffect(() => {
+    if (id) {
+      refetch();
+    }
+  }, [id]);
+
   return (
     <div>
       <h3 className='page-title'>{t("Baholash ma'lumotlari")}</h3>
