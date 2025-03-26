@@ -22,7 +22,7 @@ export default function MainInfo({ data }: { data: any }): JSX.Element {
           {
             key: '3',
             label: t('Manzil'),
-            children: data?.authority?.address,
+            children: data?.authority?.address || data?.authority?.billing_address,
           },
         ]}
       />
