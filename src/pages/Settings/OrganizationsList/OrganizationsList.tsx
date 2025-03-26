@@ -1,12 +1,4 @@
-import { Button, Dropdown, Table, Tag } from 'antd';
-import {
-  DeleteOutlined,
-  EditOutlined,
-  LockOutlined,
-  MoreOutlined,
-  PlusOutlined,
-  UnlockOutlined,
-} from '@ant-design/icons';
+import { Spin, Table } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFetch, useMutation } from '@/shared/hooks';
@@ -16,8 +8,9 @@ import OrganizationForm from './components/OrganizationForm';
 import { FormStateTypes, IUseFetchResponse } from '@/shared/types';
 import useQuery from '@/shared/hooks/use-query/use-query';
 import Pagination from '@/shared/components/core/Pagination/Pagination';
-import { _BANNED, USER_STATUS_LIST } from '@/service/const/user-statuses';
 import DeleteOrganizationConfirmation from './components/DeleteOrganizationConfirmation';
+import * as XLSX from 'xlsx';
+import { PlusOutlined } from '@ant-design/icons';
 
 const { Column } = Table;
 
@@ -51,15 +44,18 @@ const OrganizationsList: React.FC = () => {
 
   const [deleteModal, setDeleteModal] = useState<FormStateTypes>({
     open: false,
-
     item: null,
   });
 
-  const { mutate: block } = useMutation({ mutationKey: 'block-organization' });
+  const { mutate, isPending } = useMutation({ mutationKey: 'add-organization' });
   const queryClient = useQueryClient();
 
+  const [jsonData, setJsonData] = useState<any>([]);
+
+  // Expected headers
+
   const { data: organizations, isFetching } = useFetch<IUseFetchResponse<IOrganization[]>>({
-    url: '/user/filter',
+    url: '/authority/filter',
     method: 'POST',
     queryKey: 'organizations',
     params: {
@@ -71,31 +67,73 @@ const OrganizationsList: React.FC = () => {
     },
   });
 
-  function blockUser(id: number) {
-    block(
-      {
-        url: `/user/ban/${id}`,
-        method: 'GET',
-      },
-      {
-        onSuccess: () => {
-          queryClient.invalidateQueries({ queryKey: ['organizations'] });
-          toast.success(t('Tashkilot bloklandi'));
-        },
-      },
-    );
-  }
+  const expectedHeaders = ['Tashkilot nomi', 'Tashkilot inn', 'Tashkilot manzili'];
 
-  function unBlockUser(id: number) {
-    block(
+  const headerMapping: { [key: string]: string } = {
+    'Tashkilot nomi': 'authority_name',
+    'Tashkilot inn': 'authority_inn',
+    'Tashkilot manzili': 'authority_address',
+  };
+
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.readAsBinaryString(file);
+
+    reader.onload = (e) => {
+      const binaryStr = e.target?.result as string;
+      const workbook = XLSX.read(binaryStr, { type: 'binary' });
+
+      const sheet = workbook.Sheets[workbook.SheetNames[0]];
+      const rows: any = XLSX.utils.sheet_to_json(sheet, { header: 1 });
+
+      if (rows.length < 3) {
+        toast.error("Xatolik: Faylda yetarlicha ma'lumot yo‘q!");
+        return;
+      }
+
+      const title = rows[0][1] as string;
+      const headers = rows[1];
+
+      // Validate headers
+      if (!expectedHeaders.every((header, index) => headers[index] === header)) {
+        toast.error('Xatolik: Ustun nomlari noto‘g‘ri yoki tartib buzilgan!');
+        return;
+      }
+
+      const formattedHeaders = headers.map(
+        (header: string) => headerMapping[header.trim()] || header.trim(),
+      );
+
+      const data = rows.slice(2).map((row: any[]) => {
+        const obj: { [key: string]: any } = {};
+        formattedHeaders.forEach((newHeader: string, index: number) => {
+          obj[newHeader] = row[index] || null;
+        });
+        return obj;
+      });
+
+      setJsonData({ title, data });
+
+      event.target.value = '';
+
+      handleSend();
+    };
+  };
+
+  function handleSend() {
+    mutate(
       {
-        url: `/user/unban/${id}`,
-        method: 'GET',
+        url: '/authority/excel-upload',
+        method: 'POST',
+        data: jsonData,
       },
       {
         onSuccess: () => {
           queryClient.invalidateQueries({ queryKey: ['organizations'] });
-          toast.success(t('Tashkilot bloklandi'));
+          toast.success(t("Tashkilotlar qo'shildi"));
         },
       },
     );
@@ -103,7 +141,26 @@ const OrganizationsList: React.FC = () => {
 
   return (
     <div>
-      <h3 className='page-title'>{t('Tashkilotlar')}</h3>
+      {isPending && <Spin size='large' fullscreen />}
+      <div className='flex justify-between gap-4'>
+        <h3 className='page-title'>{t('Tashkilotlar')}</h3>
+        <div>
+          <input
+            type='file'
+            accept='.xlsx, .xls'
+            id='xlsx_file'
+            onChange={handleFileUpload}
+            hidden
+          />
+          <label
+            className='border border-gray-400 px-3 py-2 cursor-pointer rounded-[50px]'
+            htmlFor='xlsx_file'
+          >
+            <PlusOutlined /> {t("Qo'shish")}
+          </label>
+        </div>
+      </div>
+
       <Table
         dataSource={organizations?.data}
         pagination={false}
@@ -120,101 +177,8 @@ const OrganizationsList: React.FC = () => {
         }}
       >
         <Column align='center' title={t('ID')} dataIndex='id' />
-        <Column align='center' title={t('Username')} dataIndex='username' />
+        <Column align='center' title={t('Tashkilot nomi')} dataIndex='name' />
         <Column align='center' title={t('Stir')} dataIndex={'stir'} />
-        <Column
-          align='center'
-          title={t('Status')}
-          render={(item) => {
-            const status = USER_STATUS_LIST.find((s) => s.id === item?.status);
-            return (
-              <Tag color={USER_STATUS_LIST.find((s) => s.id === item?.status)?.color}>
-                {status?.name}
-              </Tag>
-            );
-          }}
-        />
-        <Column
-          align='center'
-          title={
-            <Button
-              title={t("Qo'shish")}
-              type='primary'
-              icon={<PlusOutlined />}
-              onClick={() => {
-                setFormModal({
-                  open: true,
-                  type: 'create',
-                  item: null,
-                });
-              }}
-            >
-              {t("Qo'shish")}
-            </Button>
-          }
-          render={(item) => {
-            return (
-              <Dropdown
-                trigger={['click']}
-                menu={{
-                  items: [
-                    {
-                      key: '1',
-                      label: t('Tahrirlash'),
-                      onClick: () => {
-                        setFormModal({
-                          open: true,
-                          type: 'update',
-                          item: item,
-                        });
-                      },
-                      icon: <EditOutlined />,
-                    },
-
-                    {
-                      key: '2',
-                      label: t('Bloklash'),
-                      onClick: () => {
-                        blockUser(item.id);
-                      },
-                      style: {
-                        display: item.status !== _BANNED ? 'block' : 'none',
-                      },
-                      icon: <LockOutlined />,
-                    },
-                    {
-                      key: '3',
-                      label: t('Blokdan chiqarish'),
-                      onClick: () => {
-                        unBlockUser(item.id);
-                      },
-                      style: {
-                        display: item.status === _BANNED ? 'block' : 'none',
-                      },
-                      icon: <UnlockOutlined />,
-                    },
-                    {
-                      key: '4',
-                      label: t("O'chirish"),
-                      onClick: () => {
-                        setDeleteModal({
-                          open: true,
-                          item: item,
-                        });
-                      },
-                      icon: <DeleteOutlined />,
-                      danger: true,
-                    },
-                  ],
-                }}
-              >
-                <Button>
-                  <MoreOutlined />
-                </Button>
-              </Dropdown>
-            );
-          }}
-        />
       </Table>
 
       {formModal.open && (
