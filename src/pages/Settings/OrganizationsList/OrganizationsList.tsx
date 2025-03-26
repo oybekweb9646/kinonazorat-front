@@ -179,7 +179,7 @@ const OrganizationsList: React.FC = () => {
         }}
       >
         <Column align='center' title={t('ID')} dataIndex='id' />
-        <Column align='center' title={t('Tashkilot nomi')} dataIndex='name' />
+        <Column title={t('Tashkilot nomi')} dataIndex='name' />
         <Column align='center' title={t('Stir')} dataIndex={'stir'} />
       </Table>
 
