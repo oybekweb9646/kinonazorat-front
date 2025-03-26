@@ -2,10 +2,11 @@ import { JSX, useEffect } from 'react';
 import MainInfo from './components/MainInfo';
 import IndicatorsList from './components/IndicatorsList';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useFetch } from '@/shared/hooks';
 import { IUseFetchResponseList } from '@/shared/types';
-import { Spin } from 'antd';
+import { Button, Spin } from 'antd';
+import { LeftOutlined } from '@ant-design/icons';
 
 export default function AssessmentDetails(): JSX.Element {
   const { t } = useTranslation();
@@ -31,7 +32,12 @@ export default function AssessmentDetails(): JSX.Element {
 
   return (
     <div>
-      <h3 className='page-title'>{t("Baholash ma'lumotlari")}</h3>
+      <div className='flex gap-4'>
+        <Link to={'/assessment-results'}>
+          <Button icon={<LeftOutlined />} />
+        </Link>
+        <h3 className='page-title'>{t("Baholash ma'lumotlari")}</h3>
+      </div>
       <Spin spinning={isFetching}>
         <div className='flex flex-col gap-4'>
           <MainInfo data={request?.data} />
