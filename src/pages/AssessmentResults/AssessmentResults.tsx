@@ -19,7 +19,7 @@ export default function AssessmentResults(): JSX.Element {
   const { data, isFetching } = useFetch<IUseFetchResponse<any>>({
     url: '/request/filter',
     method: 'POST',
-    queryKey: ['ongoing-assessments'],
+    queryKey: 'ongoing-assessments',
     body: {
       status: SCORED,
       stir: query.stir,
