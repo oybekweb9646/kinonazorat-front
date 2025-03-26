@@ -1,4 +1,4 @@
-import { Spin, Table } from 'antd';
+import { Spin, Table, Tooltip } from 'antd';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useFetch, useMutation } from '@/shared/hooks';
@@ -152,12 +152,14 @@ const OrganizationsList: React.FC = () => {
             onChange={handleFileUpload}
             hidden
           />
-          <label
-            className='border border-gray-400 px-3 py-2 cursor-pointer rounded-[50px]'
-            htmlFor='xlsx_file'
-          >
-            <PlusOutlined /> {t("Qo'shish")}
-          </label>
+          <Tooltip title={t("Tashkilot qo'shish uchun excel faylni yuklang")}>
+            <label
+              className='border border-gray-400 px-3 py-2 cursor-pointer rounded-[50px]'
+              htmlFor='xlsx_file'
+            >
+              <PlusOutlined /> {t("Qo'shish")}
+            </label>
+          </Tooltip>
         </div>
       </div>
 
