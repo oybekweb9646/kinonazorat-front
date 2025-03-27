@@ -67,5 +67,17 @@
   "Profilaktikadan o'tkazilgan": "Профилактикадан ўтказилган",
   "Tozalash": "Тозалаш",
   "Baholash ma'lumotlari": "Баҳолаш маълумотлари",
-  "Tashkilot qo'shish uchun excel faylni yuklang": "Ташкилот кўшиш учун эксел файлни юкланг"
+  "Tashkilot qo'shish uchun excel faylni yuklang": "Ташкилот кўшиш учун эксел файлни юкланг",
+
+  "Request created": "Сўров яратилди",
+  "Request deleted": "Сўров ўчирилди",
+  "Request scored": "Сўров баҳоланди",
+  "Request confirmed": "Сўров тасдиқланди",
+  "Request score changed": "Сўров бали ўзгартирилди",
+  "Jarayonlar tarixi": "Жараёнлар тарихи",
+  "Harakat": "Ҳаракат",
+  "Vaqt": "Вақт",
+  "Foydalanuvchi": "Фойдаланувчи",
+  "Eski qiymat": "Эски қиймат",
+  "Yangi qiymat": "Янги қиймат"
 }

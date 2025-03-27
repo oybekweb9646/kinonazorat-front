@@ -5,8 +5,9 @@ import { useTranslation } from 'react-i18next';
 import { Link, useParams } from 'react-router-dom';
 import { useFetch } from '@/shared/hooks';
 import { IUseFetchResponseList } from '@/shared/types';
-import { Button, Spin } from 'antd';
+import { Button, Collapse, Spin } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
+import Logs from './components/Logs';
 
 export default function AssessmentDetails(): JSX.Element {
   const { t } = useTranslation();
@@ -42,6 +43,17 @@ export default function AssessmentDetails(): JSX.Element {
         <div className='flex flex-col gap-4'>
           <MainInfo data={request?.data} />
           <IndicatorsList request={request} />
+          <Collapse
+            bordered={false}
+            items={[
+              {
+                key: '1',
+                label: <div className='font-bold text-lg'>{t('Jarayonlar tarixi')}</div>,
+                children: <Logs />,
+              },
+            ]}
+            // defaultActiveKey={['1']}
+          />
         </div>
       </Spin>
     </div>

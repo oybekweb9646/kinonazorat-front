@@ -2,9 +2,9 @@ import { Button, Table } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { JSX, useState } from 'react';
 import UpdateAssessments from './UpdateAssessments';
-import { EditOutlined } from '@ant-design/icons';
+import { DownloadOutlined, EditOutlined } from '@ant-design/icons';
 import { useProfile } from '@/shared/hooks/use-profile/use-profile';
-import { hasPermission } from '@/service';
+import { api, hasPermission } from '@/service';
 import { _RESPONSIBLE, _SUPER_ADMIN, _TERRITORIAL_RESPONSIBLE } from '@/service/const/roles';
 const { Column } = Table;
 
@@ -14,6 +14,29 @@ export default function IndicatorsList({ request }: { request: any }): JSX.Eleme
   const userRole = profile?.data?.user?.role || 0;
 
   const [updateAssessmentsModal, setUpdateAssessmentsModal] = useState<boolean>(false);
+
+  const handleDownload = async () => {
+    try {
+      const response = await api.get(`/request/generate-pdf/${request.data.id}`, {
+        responseType: 'blob',
+      });
+
+      const blob = new Blob([response.data], { type: 'application/pdf' });
+
+      const url = window.URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'document.pdf';
+      document.body.appendChild(a);
+      a.click();
+
+      document.body.removeChild(a);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Faylni yuklab olishda xatolik:', error);
+    }
+  };
 
   return (
     <div className='flex flex-col gap-4'>
@@ -34,7 +57,9 @@ export default function IndicatorsList({ request }: { request: any }): JSX.Eleme
         footer={() => {
           return (
             <div className='flex items-end justify-end gap-2'>
-              {/* <Button icon={<DownloadOutlined />}>{t('Yuklash')}</Button> */}
+              <Button icon={<DownloadOutlined />} onClick={handleDownload}>
+                {t('Yuklash')}
+              </Button>
 
               {hasPermission(userRole, [_SUPER_ADMIN, _RESPONSIBLE, _TERRITORIAL_RESPONSIBLE]) && (
                 <Button icon={<EditOutlined />} onClick={() => setUpdateAssessmentsModal(true)}>

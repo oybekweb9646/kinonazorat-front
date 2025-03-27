@@ -36,6 +36,7 @@ export default function UpdateAssessments({
           onCancel();
           toast.success(t('Muvaffaqiyatli saqlandi'));
           queryClient.invalidateQueries({ queryKey: ['request'] });
+          queryClient.invalidateQueries({ queryKey: ['action-logs'] });
         },
       },
     );

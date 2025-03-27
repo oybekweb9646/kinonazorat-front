@@ -62,6 +62,14 @@ export default function AssessmentResults(): JSX.Element {
         <Column title={t('ID')} dataIndex={'id'} align='center' />
         <Column title={t('Tashkilot nomi')} render={(item) => item.authority?.name} />
         <Column
+          title={t('Manzil')}
+          render={(item) =>
+            item?.authority?.address ||
+            item?.authority?.billing_address ||
+            item?.authority?.director_address
+          }
+        />
+        <Column
           title={t('Yaratuvchisi')}
           dataIndex='created_by'
           align='center'

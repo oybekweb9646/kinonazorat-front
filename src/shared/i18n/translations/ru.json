@@ -67,5 +67,17 @@
   "Profilaktikadan o'tkazilgan": "Профилактика проведена",
   "Tozalash": "Очистить",
   "Baholash ma'lumotlari": "Информация о оценке",
-  "Tashkilot qo'shish uchun excel faylni yuklang": "Загрузите Excel-файл для добавления организации"
+  "Tashkilot qo'shish uchun excel faylni yuklang": "Загрузите Excel-файл для добавления организации",
+
+  "Request created": "Запрос создан",
+  "Request deleted": "Запрос удален",
+  "Request scored": "Запрос оценен",
+  "Request confirmed": "Запрос подтвержден",
+  "Request score changed": "Оценка запроса изменена",
+  "Jarayonlar tarixi": "История процессов",
+  "Harakat": "Действие",
+  "Vaqt": "Время",
+  "Foydalanuvchi": "Пользователь",
+  "Eski qiymat": "Старое значение",
+  "Yangi qiymat": "Новое значение"
 }
