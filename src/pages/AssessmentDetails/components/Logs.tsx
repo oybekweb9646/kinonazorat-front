@@ -1,12 +1,12 @@
 import { JSX } from 'react';
-import { Table } from 'antd';
+import { Popover, Table } from 'antd';
 import { useTranslation } from 'react-i18next';
-
+import { InfoCircleOutlined } from '@ant-design/icons';
 import { useFetch } from '@/shared/hooks';
 import { IUseFetchResponse } from '@/shared/types';
 import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
-import { ACTIONS_LIST } from '@/service';
+import { ACTIONS_LIST, ASSESSMENT_STATUSES_LIST } from '@/service';
 const { Column } = Table;
 
 export default function Logs(): JSX.Element {
@@ -18,10 +18,21 @@ export default function Logs(): JSX.Element {
     queryKey: 'action-logs',
   });
 
-  const formatValue = (value: string | number) => {
-    if (typeof value === 'string' && value.includes('T') && value.includes('Z')) {
+  const isDateString = (value: string) => {
+    const date: any = new Date(value);
+    return !isNaN(date) && date.toString() !== 'Invalid Date';
+  };
+
+  const formatValue = (value: string | number, fieldName: string) => {
+    if (typeof value === 'string' && isDateString(value)) {
       return dayjs(value).format('DD.MM.YYYY HH:mm:ss');
     }
+
+    if (fieldName === 'status') {
+      const currentStatus = ASSESSMENT_STATUSES_LIST.find((item) => item.id === value);
+      return t(currentStatus?.name || '') || value;
+    }
+
     return value;
   };
 
@@ -36,11 +47,25 @@ export default function Logs(): JSX.Element {
       <Column align='center' title={t('ID')} dataIndex={'id'} />
       <Column
         title={t('Harakat')}
-        dataIndex='action'
-        render={(action) => {
-          const currentAction = ACTIONS_LIST.find((item) => item.id === action);
-          const actionName = t(currentAction?.name || '') || action;
-          return actionName.toUpperCase();
+        render={(log) => {
+          const currentAction = ACTIONS_LIST.find((item) => item.id === log.action);
+          const actionName = t(currentAction?.name || '') || log.action;
+
+          return (
+            <div>
+              {actionName.toUpperCase()}
+              {log?.score_request_indicator?.indicator?.name && (
+                <Popover
+                  title={t("Ko'rsatkich nomi")}
+                  content={log?.score_request_indicator?.indicator?.name}
+                  trigger='click'
+                  overlayStyle={{ width: 300 }}
+                >
+                  <InfoCircleOutlined style={{ marginLeft: '5px', color: '#1890ff' }} />
+                </Popover>
+              )}
+            </div>
+          );
         }}
       />
       <Column
@@ -64,8 +89,8 @@ export default function Logs(): JSX.Element {
 
           return Object.entries(parsedData).map(([fieldName, value]: any) => (
             <div>
-              <div className='!font-mono italic'>{fieldName}</div>
-              <div className='font-bold'>{formatValue(value.old) || '-'}</div>
+              <div className='!font-mono italic'>{t(fieldName)}</div>
+              <div className='font-bold'>{formatValue(value.old, fieldName) || '-'}</div>
             </div>
           ));
         }}
@@ -79,8 +104,8 @@ export default function Logs(): JSX.Element {
 
           return Object.entries(parsedData).map(([fieldName, value]: any) => (
             <div>
-              <div className='!font-mono italic'>{fieldName}</div>
-              <div className='font-bold'>{formatValue(value?.new) || '-'}</div>
+              <div className='!font-mono italic'>{t(fieldName)}</div>
+              <div className='font-bold'>{formatValue(value?.new, fieldName) || '-'}</div>
             </div>
           ));
         }}

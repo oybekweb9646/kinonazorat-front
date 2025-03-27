@@ -4,3 +4,10 @@ export const SCORED = 3;
 export const CONFIRMED = 4;
 
 export const STATUS_LIST = [CREATED, PARTLY_SCORED, SCORED, CONFIRMED];
+
+export const ASSESSMENT_STATUSES_LIST = [
+  { id: CREATED, name: 'Created' },
+  { id: PARTLY_SCORED, name: 'Partly scored' },
+  { id: SCORED, name: 'Scored' },
+  { id: CONFIRMED, name: 'Confirmed' },
+];

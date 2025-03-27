@@ -69,15 +69,24 @@
   "Baholash ma'lumotlari": "Баҳолаш маълумотлари",
   "Tashkilot qo'shish uchun excel faylni yuklang": "Ташкилот кўшиш учун эксел файлни юкланг",
 
-  "Request created": "Сўров яратилди",
-  "Request deleted": "Сўров ўчирилди",
-  "Request scored": "Сўров баҳоланди",
-  "Request confirmed": "Сўров тасдиқланди",
-  "Request score changed": "Сўров бали ўзгартирилди",
+  "Request created": "Кўрсаткич яратилди",
+  "Request deleted": "Кўрсаткич ўчирилди",
+  "Request scored": "Кўрсаткич баҳоланди",
+  "Request confirmed": "Кўрсаткич тасдиқланди",
+  "Request score changed": "Кўрсаткич бали ўзгартирилди",
   "Jarayonlar tarixi": "Жараёнлар тарихи",
   "Harakat": "Ҳаракат",
   "Vaqt": "Вақт",
   "Foydalanuvchi": "Фойдаланувчи",
   "Eski qiymat": "Эски қиймат",
-  "Yangi qiymat": "Янги қиймат"
+  "Yangi qiymat": "Янги қиймат",
+
+  "score": "Балл",
+  "closed_at": "Якунланган сана",
+  "created_at": "Яратилган сана",
+  "status": "Статус",
+  "Created": "Яратилди",
+  "Partly scored": "Қисман баҳоланди",
+  "Scored": "Баҳоланди",
+  "Confirmed": "Тасдиқланди"
 }

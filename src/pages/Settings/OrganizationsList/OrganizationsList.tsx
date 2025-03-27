@@ -107,7 +107,7 @@ const OrganizationsList: React.FC = () => {
         (header: string) => headerMapping[header.trim()] || header.trim(),
       );
 
-      const data = rows.slice(2).map((row: any[]) => {
+      const data = rows.slice(1).map((row: any[]) => {
         const obj: { [key: string]: any } = {};
         formattedHeaders.forEach((newHeader: string, index: number) => {
           obj[newHeader] = row[index] || null;

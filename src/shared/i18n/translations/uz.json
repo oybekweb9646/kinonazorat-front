@@ -69,15 +69,24 @@
   "Baholash ma'lumotlari": "Baholash ma'lumotlari",
   "Tashkilot qo'shish uchun excel faylni yuklang": "Tashkilot qo'shish uchun excel faylni yuklang",
 
-  "Request created": "So'rov yaratildi",
-  "Request deleted": "So'rov o'chirildi",
-  "Request scored": "So'rov baholandi",
-  "Request confirmed": "So'rov tasdiqlandi",
-  "Request score changed": "So'rov bali o'zgartirildi",
+  "Request created": "Ko'rsatkich yaratildi",
+  "Request deleted": "Ko'rsatkich o'chirildi",
+  "Request scored": "Ko'rsatkich baholandi",
+  "Request confirmed": "Ko'rsatkich tasdiqlandi",
+  "Request score changed": "Ko'rsatkich bali o'zgartirildi",
   "Jarayonlar tarixi": "Jarayonlar tarixi",
   "Harakat": "Harakat",
   "Vaqt": "Vaqt",
   "Foydalanuvchi": "Foydalanuvchi",
   "Eski qiymat": "Eski qiymat",
-  "Yangi qiymat": "Yangi qiymat"
+  "Yangi qiymat": "Yangi qiymat",
+
+  "score": "Ball",
+  "closed_at": "Yakunlangan sana",
+  "created_at": "Yaratilgan sana",
+  "status": "Status",
+  "Created": "Yaratildi",
+  "Partly scored": "Qisman baholandi",
+  "Scored": "Baholandi",
+  "Confirmed": "Tasdiqlandi"
 }

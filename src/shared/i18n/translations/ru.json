@@ -69,15 +69,24 @@
   "Baholash ma'lumotlari": "Информация о оценке",
   "Tashkilot qo'shish uchun excel faylni yuklang": "Загрузите Excel-файл для добавления организации",
 
-  "Request created": "Запрос создан",
-  "Request deleted": "Запрос удален",
-  "Request scored": "Запрос оценен",
-  "Request confirmed": "Запрос подтвержден",
-  "Request score changed": "Оценка запроса изменена",
+  "Request created": "Показатель создан",
+  "Request deleted": "Показатель удален",
+  "Request scored": "Показатель оценен",
+  "Request confirmed": "Показатель подтвержден",
+  "Request score changed": "Оценка показателя изменена",
   "Jarayonlar tarixi": "История процессов",
   "Harakat": "Действие",
   "Vaqt": "Время",
   "Foydalanuvchi": "Пользователь",
   "Eski qiymat": "Старое значение",
-  "Yangi qiymat": "Новое значение"
+  "Yangi qiymat": "Новое значение",
+
+  "score": "Баллы",
+  "closed_at": "Дата закрытия",
+  "created_at": "Дата создания",
+  "status": "Статус",
+  "Created": "Создано",
+  "Partly scored": "Частично оценено",
+  "Scored": "Оценено",
+  "Confirmed": "Подтверждено"
 }
