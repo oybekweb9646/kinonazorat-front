@@ -15,6 +15,7 @@ export interface IProfileData {
   status: number;
   created_at: string;
   updated_at: string;
+  authority: any;
 }
 
 export interface IProfile {

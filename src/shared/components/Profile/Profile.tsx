@@ -49,6 +49,23 @@ export default function Profile({ open, onCancel }: Props): JSX.Element {
             label: t('Status'),
             children: USER_STATUS_LIST.find((status) => status.id === profile?.status)?.name,
           },
+          {
+            key: '5',
+            label: t('Tashkilot nomi'),
+            children: profile?.authority?.name,
+            style: { display: profile?.authority?.name ? 'block' : 'none' },
+          },
+          {
+            key: '5',
+            label: t('Manzil'),
+            children: profile?.authority?.address || profile?.authority?.billing_address,
+            style: {
+              display:
+                profile?.authority?.address || profile?.authority?.billing_address
+                  ? 'block'
+                  : 'none',
+            },
+          },
         ]}
       />
     </Modal>

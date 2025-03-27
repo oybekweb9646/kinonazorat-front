@@ -88,5 +88,9 @@
   "Created": "Создано",
   "Partly scored": "Частично оценено",
   "Scored": "Оценено",
-  "Confirmed": "Подтверждено"
+  "Confirmed": "Подтверждено",
+
+  "Xavfi past": "Низкий риск",
+  "Xavfi o'rta": "Средний риск",
+  "Xavfi yuqori": "Высокий риск"
 }
