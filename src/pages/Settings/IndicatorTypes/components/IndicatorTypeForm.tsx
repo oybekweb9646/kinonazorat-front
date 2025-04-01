@@ -81,21 +81,21 @@ export default function IndicatorTypeForm({
           label={t('Nomi (lotin)')}
           rules={[{ required: true, message: t('Nomi (lotin) majburiy') }]}
         >
-          <Input type='text' />
+          <Input type='text' style={{ borderRadius: 5 }} />
         </Form.Item>
         <Form.Item<FieldType>
           name='name_uzc'
           label={t('Nomi (kirill)')}
           rules={[{ required: true, message: t('Nomi (kirill) majburiy') }]}
         >
-          <Input type='text' />
+          <Input type='text' style={{ borderRadius: 5 }} />
         </Form.Item>
         <Form.Item<FieldType>
           name='name_ru'
           label={t('Nomi (rus)')}
           rules={[{ required: true, message: t('Nomi (rus) majburiy') }]}
         >
-          <Input type='text' />
+          <Input type='text' style={{ borderRadius: 5 }} />
         </Form.Item>
       </Form>
     </Modal>
