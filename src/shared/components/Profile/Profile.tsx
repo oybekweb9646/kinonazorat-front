@@ -1,6 +1,8 @@
 import { ROLE_LIST } from '@/service/const/roles';
 import { USER_STATUS_LIST } from '@/service/const/user-statuses';
+import { useFetch } from '@/shared/hooks';
 import { useProfile } from '@/shared/hooks/use-profile/use-profile';
+import { IUseFetchResponseList } from '@/shared/types';
 import { Descriptions, Modal } from 'antd';
 import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -14,6 +16,12 @@ export default function Profile({ open, onCancel }: Props): JSX.Element {
   const { t } = useTranslation();
   const { data, isFetching } = useProfile();
   const profile = data?.data?.user;
+
+  const { data: regions } = useFetch<IUseFetchResponseList<any>>({
+    url: '/soato-region/list',
+    method: 'GET',
+    queryKey: 'regions',
+  });
 
   return (
     <Modal
@@ -43,6 +51,12 @@ export default function Profile({ open, onCancel }: Props): JSX.Element {
             key: '4',
             label: t('Rol'),
             children: ROLE_LIST.find((role) => role.id === profile?.role)?.name,
+          },
+          {
+            key: '4',
+            label: t('Hudud'),
+            children: regions?.data.find((r: any) => r.id === profile?.region_id)?.name,
+            style: { display: profile?.region_id ? 'block' : 'none' },
           },
           {
             key: '5',

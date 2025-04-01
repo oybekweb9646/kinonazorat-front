@@ -16,6 +16,7 @@ export interface IProfileData {
   created_at: string;
   updated_at: string;
   authority: any;
+  region_id: number;
 }
 
 export interface IProfile {
