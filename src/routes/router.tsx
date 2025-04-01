@@ -13,7 +13,7 @@ import OrganizationsList from '@/pages/Settings/OrganizationsList';
 import Home from '@/pages/Home';
 import OngoingAssessments from '@/pages/OngoingAssessments';
 // import Checklist from '@/pages/Checklist';
-import Checklists from '@/pages/Settings/Checklists';
+// import Checklists from '@/pages/Settings/Checklists';
 import QuestionsList from '@/pages/Settings/QuestionsList';
 import Questions from '@/pages/Questions';
 import Auth from '@/pages/Login/Auth';
@@ -140,14 +140,14 @@ export const router = createBrowserRouter([
               </RoleGuard>
             ),
           },
-          {
-            path: '/settings/checklists',
-            element: (
-              <RoleGuard allowedRoles={[_SUPER_ADMIN]}>
-                <Checklists />
-              </RoleGuard>
-            ),
-          },
+          // {
+          //   path: '/settings/checklists',
+          //   element: (
+          //     <RoleGuard allowedRoles={[_SUPER_ADMIN]}>
+          //       <Checklists />
+          //     </RoleGuard>
+          //   ),
+          // },
           {
             path: '/settings/normative-documents',
             element: (
