@@ -81,7 +81,7 @@ export default function Organizations(): JSX.Element {
         <Column align='center' title={t('ID')} dataIndex={'id'} />
         <Column title={t('Tashkilot nomi')} dataIndex='name' key='name' />
         <Column align='center' title={t('Stir')} dataIndex='stir' key='stir' />
-        <Column
+        {/* <Column
           align='center'
           title={t("Checklist dan o'tkazilganligi")}
           onCell={(record) => {
@@ -97,7 +97,7 @@ export default function Organizations(): JSX.Element {
               ? t("Checklist dan o'tkazilgan")
               : t("Checklist dan o'tkazilmagan");
           }}
-        />
+        /> */}
         <Column
           align='center'
           title={t("Profilaktikadan o'tkazilganligi")}

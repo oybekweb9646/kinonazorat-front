@@ -5,13 +5,13 @@ export const pathToKeyMap: { [key: string]: string[] } = {
   '/assessment-results': ['4'],
   '/organizations': ['5'],
   '/normative-documents': ['6'],
-  '/checklist': ['7'],
-  '/settings/indicator-types': ['8', '8.1'],
-  '/settings/indicators': ['8', '8.2'],
-  '/settings/users': ['8', '8.3'],
-  '/settings/organizations': ['8', '8.4'],
-  '/settings/checklists': ['8', '8.5'],
-  '/settings/normative-documents': ['8', '8.6'],
+  // '/checklist': ['7'],
+  '/settings/indicator-types': ['7', '7.1'],
+  '/settings/indicators': ['7', '7.2'],
+  '/settings/users': ['7', '7.3'],
+  '/settings/organizations': ['7', '7.4'],
+  '/settings/checklists': ['7', '7.5'],
+  '/settings/normative-documents': ['7', '7.6'],
 };
 
 export const siderStyle: React.CSSProperties = {

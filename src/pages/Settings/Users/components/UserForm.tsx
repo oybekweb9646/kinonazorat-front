@@ -1,10 +1,10 @@
-import { _AUTHORITY, ROLE_LIST } from '@/service/const/roles';
-import { useMutation } from '@/shared/hooks';
-import { FormModalProps } from '@/shared/types';
+import { _AUTHORITY, _TERRITORIAL_RESPONSIBLE, ROLE_LIST } from '@/service/const/roles';
+import { useFetch, useMutation } from '@/shared/hooks';
+import { FormModalProps, IUseFetchResponseList } from '@/shared/types';
 import { useQueryClient } from '@tanstack/react-query';
 import { DatePicker, Form, Input, Modal, Select } from 'antd';
 import dayjs from 'dayjs';
-import { JSX } from 'react';
+import { JSX, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 
@@ -16,14 +16,22 @@ type FieldType = {
   pin_fl: number;
   status: number;
   date_of_birth: string;
+  region_id: number;
 };
 
 export default function UserForm({ open, onCancel, type, item }: FormModalProps): JSX.Element {
   const { t } = useTranslation();
   const { mutate, isPending } = useMutation({ mutationKey: `user-${type}` });
   const queryClient = useQueryClient();
+  const [selectedRole, setSelectedRole] = useState('');
 
   const [form] = Form.useForm();
+
+  const { data: regions } = useFetch<IUseFetchResponseList<any>>({
+    url: '/soato-region/list',
+    method: 'GET',
+    queryKey: 'regions',
+  });
 
   function onFinish(values: FieldType) {
     const customData = {
@@ -62,6 +70,17 @@ export default function UserForm({ open, onCancel, type, item }: FormModalProps)
 
   const userRoles = ROLE_LIST.filter((role) => role.id !== _AUTHORITY);
 
+  function handleValuesChange(_: any, allValues: FieldType) {
+    const role = allValues.role;
+    setSelectedRole(role);
+  }
+
+  useEffect(() => {
+    if (item?.role) {
+      setSelectedRole(item.role);
+    }
+  }, [item]);
+
   return (
     <Modal
       open={open}
@@ -83,7 +102,9 @@ export default function UserForm({ open, onCancel, type, item }: FormModalProps)
           pin_fl: item?.pin_fl,
           status: item?.status,
           date_of_birth: item?.date_of_birth && dayjs(item?.date_of_birth),
+          region_id: item?.region_id,
         }}
+        onValuesChange={handleValuesChange}
       >
         <Form.Item<FieldType>
           name='username'
@@ -127,6 +148,21 @@ export default function UserForm({ open, onCancel, type, item }: FormModalProps)
         >
           <Select options={userRoles?.map((role) => ({ label: role.name, value: role.id }))} />
         </Form.Item>
+
+        {Number(selectedRole) === _TERRITORIAL_RESPONSIBLE && (
+          <Form.Item<FieldType>
+            name='region_id'
+            label={t('Hudud')}
+            rules={[{ required: true, message: t('Hudud majburiy') }]}
+          >
+            <Select
+              options={regions?.data?.map((region: any) => ({
+                label: region.name,
+                value: region.id,
+              }))}
+            />
+          </Form.Item>
+        )}
       </Form>
     </Modal>
   );

@@ -12,7 +12,7 @@ import Users from '@/pages/Settings/Users';
 import OrganizationsList from '@/pages/Settings/OrganizationsList';
 import Home from '@/pages/Home';
 import OngoingAssessments from '@/pages/OngoingAssessments';
-import Checklist from '@/pages/Checklist';
+// import Checklist from '@/pages/Checklist';
 import Checklists from '@/pages/Settings/Checklists';
 import QuestionsList from '@/pages/Settings/QuestionsList';
 import Questions from '@/pages/Questions';
@@ -82,14 +82,14 @@ export const router = createBrowserRouter([
               </RoleGuard>
             ),
           },
-          {
-            path: '/checklist',
-            element: (
-              <RoleGuard allowedRoles={[_SUPER_ADMIN, _AUTHORITY]}>
-                <Checklist />
-              </RoleGuard>
-            ),
-          },
+          // {
+          //   path: '/checklist',
+          //   element: (
+          //     <RoleGuard allowedRoles={[_SUPER_ADMIN, _AUTHORITY]}>
+          //       <Checklist />
+          //     </RoleGuard>
+          //   ),
+          // },
           {
             path: '/normative-documents',
             element: (

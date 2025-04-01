@@ -105,17 +105,17 @@ function generateSidebarItems(t: TFunction, userRole: number) {
         display: hasPermission(userRole, [_AUTHORITY, _SUPER_ADMIN]) ? 'block' : 'none',
       },
     },
-    {
-      key: '7',
-      label: <Link to={'/checklist'}>{t('Checklist')}</Link>,
-      icon: <CheckOutlined />,
-      style: {
-        display: hasPermission(userRole, [_AUTHORITY, _SUPER_ADMIN]) ? 'block' : 'none',
-      },
-    },
+    // {
+    //   key: '7',
+    //   label: <Link to={'/checklist'}>{t('Checklist')}</Link>,
+    //   icon: <CheckOutlined />,
+    //   style: {
+    //     display: hasPermission(userRole, [_AUTHORITY, _SUPER_ADMIN]) ? 'block' : 'none',
+    //   },
+    // },
 
     {
-      key: '8',
+      key: '7',
       label: t('Sozlamalar'),
       icon: <SettingOutlined />,
       style: {
@@ -123,32 +123,32 @@ function generateSidebarItems(t: TFunction, userRole: number) {
       },
       children: [
         {
-          key: '8.1',
+          key: '7.1',
           label: <Link to={'/settings/indicator-types'}>{t("Ko'rsatkich turlari")}</Link>,
           icon: <SlidersOutlined />,
         },
         {
-          key: '8.2',
+          key: '7.2',
           label: <Link to={'/settings/indicators'}>{t("Ko'rsatkichlar")}</Link>,
           icon: <GroupOutlined />,
         },
         {
-          key: '8.3',
+          key: '7.3',
           label: <Link to={'/settings/users'}>{t('Foydalanuvchilar')}</Link>,
           icon: <TeamOutlined />,
         },
         {
-          key: '8.4',
+          key: '7.4',
           label: <Link to={'/settings/organizations'}>{t('Tashkilotlar')}</Link>,
           icon: <BankOutlined />,
         },
         {
-          key: '8.5',
+          key: '7.5',
           label: <Link to={'/settings/checklists'}>{t('Checklist')}</Link>,
           icon: <CheckOutlined />,
         },
         {
-          key: '8.6',
+          key: '7.6',
           label: <Link to={'/settings/normative-documents'}>{t('Normativ hujjatlar')}</Link>,
           icon: <FileOutlined />,
         },
