@@ -189,8 +189,9 @@ export default function Sidebar({ collapsed, handleCollapse }: any) {
               <img src={GerbIcon} alt='' className='w-20 h-20' />
             </Link>
             <div className='p-4 text-center text-white font-bold'>
-              Oʻzbekiston Respublikasi Prezidenti Administratsiyasi huzuridagi Axborot va ommaviy
-              kommunikatsiyalar agentligi
+              {t(
+                'Oʻzbekiston Respublikasi Prezidenti Administratsiyasi huzuridagi Axborot va ommaviy kommunikatsiyalar agentligi',
+              )}
             </div>
           </div>
         )}

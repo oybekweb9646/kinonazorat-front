@@ -2,6 +2,7 @@ import React from 'react';
 import GerbIcon from '@/shared/assets/icons/gerb.svg';
 import QueryString from 'qs';
 import { Button } from 'antd';
+import { useTranslation } from 'react-i18next';
 
 const generateOneIdUrl = () => {
   const oneIdState = Date.now() + Math.random();
@@ -22,6 +23,7 @@ const generateOneIdUrl = () => {
 };
 
 const LoginWithOneId: React.FC = () => {
+  const { t } = useTranslation();
   const oneIdUrl = generateOneIdUrl();
   const handleClickOneId = () => {
     window.location.href = oneIdUrl;
@@ -32,14 +34,15 @@ const LoginWithOneId: React.FC = () => {
         <div className='flex flex-col items-center'>
           <img src={GerbIcon} alt='' className='w-30 h-30' />
           <div className='p-4 pb-6 text-center font-bold'>
-            Oʻzbekiston Respublikasi Prezidenti Administratsiyasi huzuridagi Axborot va ommaviy
-            kommunikatsiyalar agentligi
+            {t(
+              'Oʻzbekiston Respublikasi Prezidenti Administratsiyasi huzuridagi Axborot va ommaviy kommunikatsiyalar agentligi',
+            )}
           </div>
         </div>
-        <h1 className='page-title'>Xavfni tahlil qilish</h1>
+        <h1 className='page-title'>{t('Xavfni tahlil qilish tizimi')}</h1>
 
         <Button onClick={handleClickOneId} className='w-full' type='primary' size='large'>
-          One ID orqali kirish
+          {t('One ID orqali kirish')}
         </Button>
       </div>
     </div>

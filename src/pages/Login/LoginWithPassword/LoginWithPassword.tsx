@@ -68,11 +68,12 @@ const LoginWithPassword: React.FC = () => {
         <div className='flex flex-col items-center mt-4'>
           <img src={GerbIcon} alt='' className='w-30 h-30' />
           <div className='p-4 text-center font-bold'>
-            Oʻzbekiston Respublikasi Prezidenti Administratsiyasi huzuridagi Axborot va ommaviy
-            kommunikatsiyalar agentligi
+            {t(
+              'Oʻzbekiston Respublikasi Prezidenti Administratsiyasi huzuridagi Axborot va ommaviy kommunikatsiyalar agentligi',
+            )}
           </div>
         </div>
-        <h1 className='page-title text-center'>Xavfni tahlil qilish</h1>
+        <h1 className='page-title text-center'>{t('Xavfni tahlil qilish tizimi')}</h1>
         <Form layout='vertical' name='login-with-password' onFinish={(values) => onSubmit(values)}>
           <Form.Item<FieldType>
             name='username'
