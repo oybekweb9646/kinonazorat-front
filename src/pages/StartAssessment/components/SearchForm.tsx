@@ -30,7 +30,12 @@ const SearchForm: React.FC = () => {
           label={t('STIR')}
           rules={[{ required: true, message: t('Stir majburiy') }]}
         >
-          <Input type='number' allowClear placeholder={t('Tashkilot STIR raqamini kiriting')} />
+          <Input
+            type='number'
+            allowClear
+            placeholder={t('Tashkilot STIR raqamini kiriting')}
+            onClear={() => setQuery({ stir: '' })}
+          />
         </Form.Item>
         <Form.Item label={null}>
           <Button icon={<SearchOutlined />} type='primary' htmlType='submit'>

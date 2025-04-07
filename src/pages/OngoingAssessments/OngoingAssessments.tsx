@@ -63,17 +63,17 @@ export default function OngoingAssessments(): JSX.Element {
         }}
       >
         <Column title={t('ID')} dataIndex={'id'} align='center' />
-        <Column title={t('Tashkilot nomi')} render={(item) => item.authority?.name} />
+        <Column title={t('Tashkilot nomi')} render={(item) => item?.authority?.name} />
         <Column
           title={t('Yaratuvchisi')}
           align='center'
           dataIndex='created_by'
-          render={(item) => item.username}
+          render={(item) => item?.username}
         />
         <Column title={t('Stir')} dataIndex='stir' key='stir' align='center' />
         <Column
           title={t("Ko'rsatkich turi")}
-          render={(item) => item.indicator_type.name}
+          render={(item) => item.indicator_type?.name}
           align='center'
         />
       </Table>

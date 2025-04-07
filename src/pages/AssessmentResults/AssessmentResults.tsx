@@ -60,7 +60,7 @@ export default function AssessmentResults(): JSX.Element {
         }}
       >
         <Column title={t('ID')} dataIndex={'id'} align='center' />
-        <Column title={t('Tashkilot nomi')} render={(item) => item.authority?.name} />
+        <Column title={t('Tashkilot nomi')} render={(item) => item?.authority?.name} />
         <Column
           title={t('Manzil')}
           render={(item) =>
@@ -73,12 +73,12 @@ export default function AssessmentResults(): JSX.Element {
           title={t('Yaratuvchisi')}
           dataIndex='created_by'
           align='center'
-          render={(createdBy) => createdBy.username}
+          render={(createdBy) => createdBy?.username}
         />
         <Column title={t('Stir')} dataIndex='stir' key='stir' align='center' />
         <Column
           title={t("Ko'rsatkich turi")}
-          render={(item) => item.indicator_type.name}
+          render={(item) => item?.indicator_type?.name}
           align='center'
         />
         <Column

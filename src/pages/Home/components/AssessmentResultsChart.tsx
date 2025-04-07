@@ -9,7 +9,7 @@ import { IUseFetchResponseList } from '@/shared/types';
 import { TFunction } from 'i18next';
 import { HIGH_RISK_COLOR, LOW_RISK_COLOR, MEDIUM_RISK_COLOR } from '@/service';
 
-function generateOptions(data: { high: number; danger: number; normal: number }, t: TFunction) {
+function generateOptions(data: { high: number; low: number; normal: number }, t: TFunction) {
   return {
     chart: {
       type: 'pie',
@@ -49,7 +49,7 @@ function generateOptions(data: { high: number; danger: number; normal: number },
         data: [
           {
             name: t('Xavfi past'),
-            y: data?.danger,
+            y: data?.low,
             color: LOW_RISK_COLOR,
           },
           {
