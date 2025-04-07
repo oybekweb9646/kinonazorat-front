@@ -10,7 +10,7 @@ const Home = (): JSX.Element => {
         title="Profilaktikadan o'tkazilganligi bo'yicha"
         prefix={<CheckOutlined />}
         color='#B9D3E0'
-        api='/authority/count-question'
+        api='/authority/count-checked'
       />
 
       <AssessmentResultsChart />
