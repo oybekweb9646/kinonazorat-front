@@ -55,7 +55,7 @@ export default function Profile({ open, onCancel }: Props): JSX.Element {
           {
             key: '4',
             label: t('Hudud'),
-            children: regions?.data.find((r: any) => r.id === profile?.region_id)?.name,
+            children: regions?.data?.find((r: any) => r.id === profile?.region_id)?.name,
             style: { display: profile?.region_id ? 'block' : 'none' },
           },
           {

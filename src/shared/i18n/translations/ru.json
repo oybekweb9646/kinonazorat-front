@@ -84,6 +84,7 @@
   "score": "Баллы",
   "closed_at": "Дата закрытия",
   "created_at": "Дата создания",
+  "updated_by": "Обновлено",
   "status": "Статус",
   "Created": "Создано",
   "Partly scored": "Частично оценено",

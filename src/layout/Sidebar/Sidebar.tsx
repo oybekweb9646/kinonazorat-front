@@ -181,7 +181,7 @@ export default function Sidebar({ collapsed, handleCollapse }: any) {
     queryKey: 'regions',
   });
 
-  const userRegion = regions?.data.find((r: any) => r.id === profile?.data?.user?.region_id)?.name;
+  const userRegion = regions?.data?.find((r: any) => r.id === profile?.data?.user?.region_id)?.name;
 
   return (
     <Sider
