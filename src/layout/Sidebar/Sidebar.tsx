@@ -27,6 +27,8 @@ import {
   _SUPER_ADMIN,
   _TERRITORIAL_RESPONSIBLE,
 } from '@/service/const/roles';
+import { useFetch } from '@/shared/hooks';
+import { IUseFetchResponseList } from '@/shared/types';
 
 const { Sider } = Layout;
 
@@ -173,6 +175,14 @@ export default function Sidebar({ collapsed, handleCollapse }: any) {
     setSelectedKeys(keys);
   }, [currentPath]);
 
+  const { data: regions } = useFetch<IUseFetchResponseList<any>>({
+    url: '/soato-region/list',
+    method: 'GET',
+    queryKey: 'regions',
+  });
+
+  const userRegion = regions?.data.find((r: any) => r.id === profile?.data?.user?.region_id)?.name;
+
   return (
     <Sider
       style={siderStyle}
@@ -189,9 +199,11 @@ export default function Sidebar({ collapsed, handleCollapse }: any) {
               <img src={GerbIcon} alt='' className='w-20 h-20' />
             </Link>
             <div className='p-4 text-center text-white font-bold'>
-              {t(
-                'Oʻzbekiston Respublikasi Prezidenti Administratsiyasi huzuridagi Axborot va ommaviy kommunikatsiyalar agentligi',
-              )}
+              {userRegion
+                ? `${t('Axborot va ommaviy kommunikatsiyalar boshqarmasi')} "${userRegion}"`
+                : t(
+                    'Oʻzbekiston Respublikasi Prezidenti Administratsiyasi huzuridagi Axborot va ommaviy kommunikatsiyalar agentligi',
+                  )}
             </div>
           </div>
         )}
