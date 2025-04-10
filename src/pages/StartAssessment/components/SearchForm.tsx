@@ -34,7 +34,7 @@ const SearchForm: React.FC = () => {
             type='number'
             allowClear
             placeholder={t('Tashkilot STIR raqamini kiriting')}
-            onClear={() => setQuery({ stir: '' })}
+            onClear={() => setQuery({ stir: '', indicator_type_id: '', request_id: '' })}
           />
         </Form.Item>
         <Form.Item label={null}>

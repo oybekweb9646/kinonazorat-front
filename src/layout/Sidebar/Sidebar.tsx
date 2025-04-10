@@ -6,7 +6,7 @@ import {
   HomeOutlined,
   LineChartOutlined,
   PlusCircleOutlined,
-  ReloadOutlined,
+  // ReloadOutlined,
   SettingOutlined,
   SlidersOutlined,
   TeamOutlined,
@@ -59,16 +59,16 @@ function generateSidebarItems(t: TFunction, userRole: number) {
           : 'none',
       },
     },
-    {
-      key: '3',
-      label: <Link to={'/ongoing-assessments'}>{t('Jarayondagi baholashlar')}</Link>,
-      icon: <ReloadOutlined />,
-      style: {
-        display: hasPermission(userRole, [_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN])
-          ? 'block'
-          : 'none',
-      },
-    },
+    // {
+    //   key: '3',
+    //   label: <Link to={'/ongoing-assessments'}>{t('Jarayondagi baholashlar')}</Link>,
+    //   icon: <ReloadOutlined />,
+    //   style: {
+    //     display: hasPermission(userRole, [_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN])
+    //       ? 'block'
+    //       : 'none',
+    //   },
+    // },
     {
       key: '4',
       label: <Link to={'/assessment-results'}>{t('Baholash natijalari')}</Link>,

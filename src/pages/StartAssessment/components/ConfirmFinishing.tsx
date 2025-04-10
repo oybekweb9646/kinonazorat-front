@@ -32,7 +32,7 @@ const ConfirmFinishing = ({
         onSuccess: () => {
           handleCancel();
           toast.success(t('Muvaffaqiyatli saqlandi'));
-          setQuery({ ...query, request_id: '', indicator_type_id: '' });
+          setQuery({ ...query, request_id: '', indicator_type_id: '', stir: '' });
         },
       },
     );

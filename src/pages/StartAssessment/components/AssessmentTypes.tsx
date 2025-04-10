@@ -49,9 +49,10 @@ const AssessmentTypes = ({ organizationData }: any) => {
 
   return (
     <Spin spinning={isFetching}>
-      <Card title={organizationData.name_uz}>
+      <Card title={organizationData?.name}>
         <Form
           layout='horizontal'
+          form={form}
           onFinish={onFinish}
           initialValues={{
             indicator_type_id: query.indicator_type_id && Number(query.indicator_type_id),

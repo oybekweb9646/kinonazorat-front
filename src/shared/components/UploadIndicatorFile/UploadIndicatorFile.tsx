@@ -3,12 +3,18 @@ import { JSX, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { UploadOutlined } from '@ant-design/icons';
+import { useProfile } from '@/shared/hooks/use-profile/use-profile';
 
 export default function UploadIndicatorFile({ item }: any): JSX.Element {
   const { t } = useTranslation();
   const { mutate: uploadFile } = useMutation({ mutationKey: 'upload-file' });
   const { mutate: setFile } = useMutation({ mutationKey: 'set-file' });
   const [uploadedFile, setUploadedFile] = useState<any>(null);
+
+  const { data } = useProfile();
+  const profile = data?.data?.user;
+
+  const isDisabled = item?.updated_by?.id && item?.updated_by?.id !== profile?.id && uploadedFile;
 
   const handleUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -57,11 +63,12 @@ export default function UploadIndicatorFile({ item }: any): JSX.Element {
         onChange={handleUpload}
         id={`file-upload-${item.id}`}
         style={{ display: 'none' }}
+        disabled={isDisabled}
       />
       <label
         htmlFor={`file-upload-${item.id}`}
         style={{
-          cursor: 'pointer',
+          cursor: isDisabled ? 'not-allowed' : 'pointer',
           opacity: 1,
         }}
         className='w-full h-full'

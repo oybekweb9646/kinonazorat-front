@@ -11,7 +11,7 @@ import IndicatorTypes from '@/pages/Settings/IndicatorTypes';
 import Users from '@/pages/Settings/Users';
 import OrganizationsList from '@/pages/Settings/OrganizationsList';
 import Home from '@/pages/Home';
-import OngoingAssessments from '@/pages/OngoingAssessments';
+// import OngoingAssessments from '@/pages/OngoingAssessments';
 // import Checklist from '@/pages/Checklist';
 // import Checklists from '@/pages/Settings/Checklists';
 import QuestionsList from '@/pages/Settings/QuestionsList';
@@ -54,14 +54,14 @@ export const router = createBrowserRouter([
               </RoleGuard>
             ),
           },
-          {
-            path: '/ongoing-assessments',
-            element: (
-              <RoleGuard allowedRoles={[_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN]}>
-                <OngoingAssessments />
-              </RoleGuard>
-            ),
-          },
+          // {
+          //   path: '/ongoing-assessments',
+          //   element: (
+          //     <RoleGuard allowedRoles={[_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN]}>
+          //       <OngoingAssessments />
+          //     </RoleGuard>
+          //   ),
+          // },
           {
             path: '/assessment-results',
             element: (
