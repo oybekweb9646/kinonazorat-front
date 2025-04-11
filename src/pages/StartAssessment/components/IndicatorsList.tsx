@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Button, Table } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { DownloadOutlined, SaveOutlined } from '@ant-design/icons';
@@ -18,24 +18,14 @@ const IndicatorsList: React.FC = () => {
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const {
-    data: indicatorsList,
-    isFetching,
-    refetch,
-  } = useFetch<IUseFetchResponseList<any>>({
+  const { data: indicatorsList, isFetching } = useFetch<IUseFetchResponseList<any>>({
     url: `/request/get/${query.request_id}`,
     method: 'GET',
-    queryKey: ['request-indicators', query.request_id ? String(query.request_id) : ''],
+    queryKey: 'request-indicators',
     queryOptions: {
       enabled: !!query.request_id,
     },
   });
-
-  useEffect(() => {
-    if (query.request_id) {
-      refetch();
-    }
-  }, [query.request_id, refetch]);
 
   return (
     <div>
@@ -93,7 +83,7 @@ const IndicatorsList: React.FC = () => {
         />
         <Column
           render={(item) => {
-            return <AssessmentSwitch item={item} />;
+            return item.id && <AssessmentSwitch item={item} />;
           }}
         />
       </Table>

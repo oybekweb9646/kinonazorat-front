@@ -4,6 +4,7 @@ import { CloseOutlined, SaveOutlined } from '@ant-design/icons';
 import { useMutation } from '@/shared/hooks';
 import { toast } from 'react-toastify';
 import useQuery from '@/shared/hooks/use-query/use-query';
+import { useQueryClient } from '@tanstack/react-query';
 
 const ConfirmFinishing = ({
   isModalOpen,
@@ -16,6 +17,7 @@ const ConfirmFinishing = ({
 }) => {
   const { t } = useTranslation();
   const { query, setQuery } = useQuery();
+  const queryClient = useQueryClient();
 
   const {
     token: { colorSuccess },
@@ -33,6 +35,7 @@ const ConfirmFinishing = ({
           handleCancel();
           toast.success(t('Muvaffaqiyatli saqlandi'));
           setQuery({ ...query, request_id: '', indicator_type_id: '', stir: '' });
+          queryClient.invalidateQueries({ queryKey: ['request-indicators'] });
         },
       },
     );

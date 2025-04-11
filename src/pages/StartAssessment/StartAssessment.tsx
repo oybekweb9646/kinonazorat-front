@@ -14,7 +14,7 @@ export default function StartAssessment() {
   const { data = {}, isFetching } = useFetch<any>({
     url: '/mib-integration/get',
     method: 'POST',
-    queryKey: ['organization'],
+    queryKey: 'organization',
     body: {
       stir: query.stir,
     },
