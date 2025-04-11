@@ -26,13 +26,12 @@ export default function StartAssessment() {
   const organizationData = data?.data;
 
   useEffect(() => {
-    if (organizationData?.indicator_type_id && organizationData?.request_id) {
-      setQuery({
-        ...query,
-        indicator_type_id: organizationData?.indicator_type_id,
-        request_id: organizationData?.request_id,
-      });
-    }
+    setQuery({
+      ...query,
+      authority_id: organizationData?.id,
+      indicator_type_id: organizationData?.indicator_type_id,
+      request_id: organizationData?.request_id,
+    });
   }, [data]);
 
   return (

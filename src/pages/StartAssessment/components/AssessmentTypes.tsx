@@ -1,8 +1,7 @@
 import { useFetch, useMutation } from '@/shared/hooks';
 import useQuery from '@/shared/hooks/use-query/use-query';
 import { IIndicatorType, IUseFetchResponseList } from '@/shared/types';
-import { Button, Card, Form, Radio, Spin } from 'antd';
-import { PlaySquareOutlined } from '@ant-design/icons';
+import { Card, Form, Radio, Spin } from 'antd';
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -53,10 +52,10 @@ const AssessmentTypes = ({ organizationData }: any) => {
         <Form
           layout='horizontal'
           form={form}
-          onFinish={onFinish}
           initialValues={{
             indicator_type_id: query.indicator_type_id && Number(query.indicator_type_id),
           }}
+          onValuesChange={onFinish}
         >
           <Form.Item
             name={'indicator_type_id'}
@@ -73,11 +72,6 @@ const AssessmentTypes = ({ organizationData }: any) => {
               optionType='button'
               buttonStyle='outline'
             />
-          </Form.Item>
-          <Form.Item name={null} className='w-full flex justify-end'>
-            <Button type='primary' htmlType='submit' icon={<PlaySquareOutlined />}>
-              {t('Baholash')}
-            </Button>
           </Form.Item>
         </Form>
       </Card>
