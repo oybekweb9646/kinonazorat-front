@@ -21,7 +21,7 @@ const IndicatorsList: React.FC = () => {
   const { data: indicatorsList, isFetching } = useFetch<IUseFetchResponseList<any>>({
     url: `/request/get/${query.request_id}`,
     method: 'GET',
-    queryKey: 'request-indicators',
+    queryKey: ['request-indicators', String(query.request_id)],
     queryOptions: {
       enabled: !!query.request_id,
     },
