@@ -40,7 +40,9 @@ export default function StartAssessment() {
       <h3 className='page-title !mb-2'>{t('Yaratish')}</h3>
       <SearchForm />
       <Spin spinning={isFetching}>
-        {query.stir && <AssessmentType organizationData={organizationData} />}
+        {query.stir && organizationData?.id && (
+          <AssessmentType organizationData={organizationData} />
+        )}
         {query.indicator_type_id && <RatingList />}
       </Spin>
     </div>
