@@ -42,7 +42,7 @@ export default function StartAssessment() {
         {query.stir && organizationData?.id && (
           <AssessmentType organizationData={organizationData} />
         )}
-        {query.indicator_type_id && <RatingList />}
+        {query.indicator_type_id && query.request_id && query.authority_id && <RatingList />}
       </Spin>
     </div>
   );
