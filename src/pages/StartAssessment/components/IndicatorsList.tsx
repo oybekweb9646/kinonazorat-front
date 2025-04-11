@@ -19,15 +19,11 @@ const IndicatorsList: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
   const { data: indicatorsList, isFetching } = useFetch<IUseFetchResponseList<any>>({
-    url: `/request/get`,
+    url: `/request/get/${query.request_id}`,
     method: 'GET',
     queryKey: 'request-indicators',
-    body: {
-      authority_id: query.authority_id,
-      indicator_type_id: query.indicator_type_id,
-    },
     queryOptions: {
-      enabled: !!query.indicator_type_id && !!query.authority_id,
+      enabled: !!query.request_id,
     },
   });
 
