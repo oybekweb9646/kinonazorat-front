@@ -19,7 +19,11 @@ const SearchForm: React.FC = () => {
   };
 
   const handleClear = () => {
-    form.resetFields(['stir']);
+    form.resetFields([
+      {
+        stir: '',
+      },
+    ]);
     setQuery({
       stir: '',
       indicator_type_id: '',
