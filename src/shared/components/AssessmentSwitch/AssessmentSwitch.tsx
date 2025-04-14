@@ -1,5 +1,4 @@
 import { useMutation } from '@/shared/hooks';
-import { useProfile } from '@/shared/hooks/use-profile/use-profile';
 import { useQueryClient } from '@tanstack/react-query';
 import { Switch } from 'antd';
 import { JSX, useState } from 'react';
@@ -7,8 +6,6 @@ import { toast } from 'react-toastify';
 
 export default function AssessmentSwitch({ item }: any): JSX.Element {
   const [checked, setChecked] = useState<boolean>(item.max_score === item.score);
-  const { data, isFetching } = useProfile();
-  const profile = data?.data?.user;
 
   const queryClient = useQueryClient();
 
@@ -34,14 +31,5 @@ export default function AssessmentSwitch({ item }: any): JSX.Element {
     );
   }
 
-  const isDisabled = item?.updated_by?.id && item?.updated_by?.id !== profile?.id && checked;
-
-  return (
-    <Switch
-      checked={checked}
-      onChange={onChange}
-      loading={isPending || isFetching}
-      disabled={isDisabled}
-    />
-  );
+  return <Switch checked={checked} onChange={onChange} loading={isPending} />;
 }

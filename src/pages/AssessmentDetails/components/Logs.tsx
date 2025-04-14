@@ -7,15 +7,22 @@ import { IUseFetchResponse } from '@/shared/types';
 import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
 import { ACTIONS_LIST, ASSESSMENT_STATUSES_LIST } from '@/service';
+import Pagination from '@/shared/components/core/Pagination/Pagination';
+import useQuery from '@/shared/hooks/use-query/use-query';
 const { Column } = Table;
 
 export default function Logs(): JSX.Element {
   const { t } = useTranslation();
+  const { query } = useQuery();
   const { id } = useParams();
   const { data, isFetching } = useFetch<IUseFetchResponse<any>>({
     url: `/request/log/${id}`,
     method: 'GET',
     queryKey: 'action-logs',
+    params: {
+      page: query.page || 1,
+      size: query.page_size || 20,
+    },
   });
 
   const isDateString = (value: string) => {
@@ -43,8 +50,11 @@ export default function Logs(): JSX.Element {
       pagination={false}
       rowHoverable={false}
       loading={isFetching}
+      footer={() => {
+        return <Pagination total={data?.total} currentPage={data?.current_page} align='end' />;
+      }}
     >
-      <Column align='center' title={t('ID')} dataIndex={'id'} />
+      {/* <Column align='center' title={t('ID')} dataIndex={'id'} /> */}
       <Column
         title={t('Harakat')}
         render={(log) => {
