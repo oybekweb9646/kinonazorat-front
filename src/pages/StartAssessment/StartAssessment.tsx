@@ -26,12 +26,20 @@ export default function StartAssessment() {
   const organizationData = data?.data;
 
   useEffect(() => {
-    setQuery({
-      ...query,
-      authority_id: organizationData?.id,
-      indicator_type_id: organizationData?.indicator_type_id,
-      request_id: organizationData?.request_id,
-    });
+    if (organizationData?.id) {
+      setQuery({
+        ...query,
+        authority_id: organizationData?.id,
+      });
+    }
+
+    if (organizationData?.indicator_type_id && organizationData?.request_id) {
+      setQuery({
+        ...query,
+        indicator_type_id: organizationData?.indicator_type_id,
+        request_id: organizationData?.request_id,
+      });
+    }
   }, [data]);
 
   return (
@@ -42,7 +50,7 @@ export default function StartAssessment() {
         {query.stir && organizationData?.id && (
           <AssessmentType organizationData={organizationData} />
         )}
-        {query.indicator_type_id && query.request_id && query.authority_id && <RatingList />}
+        {query.indicator_type_id && query.request_id && <RatingList />}
       </Spin>
     </div>
   );

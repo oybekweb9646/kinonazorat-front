@@ -1,7 +1,6 @@
-import { Button, Card, Form, Input } from 'antd';
+import { Card, Form, Input } from 'antd';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { SearchOutlined } from '@ant-design/icons';
 import useQuery from '@/shared/hooks/use-query/use-query';
 
 type FieldType = {
@@ -11,8 +10,21 @@ type FieldType = {
 const SearchForm: React.FC = () => {
   const { t } = useTranslation();
   const { setQuery, query } = useQuery();
+  const [form] = Form.useForm();
+
   const onSubmit = (values: FieldType) => {
-    setQuery({ stir: values.stir });
+    setQuery({
+      stir: values.stir,
+    });
+  };
+
+  const handleClear = () => {
+    form.resetFields(['stir']);
+    setQuery({
+      stir: '',
+      indicator_type_id: '',
+      request_id: '',
+    });
   };
   return (
     <Card title={t('Baholashni boshlash')}>
@@ -22,6 +34,7 @@ const SearchForm: React.FC = () => {
         }}
         onFinish={onSubmit}
         className='w-full flex gap-4'
+        form={form}
       >
         <Form.Item
           colon={false}
@@ -30,17 +43,14 @@ const SearchForm: React.FC = () => {
           label={t('STIR')}
           rules={[{ required: true, message: t('Stir majburiy') }]}
         >
-          <Input
+          <Input.Search
             type='number'
             allowClear
             placeholder={t('Tashkilot STIR raqamini kiriting')}
-            onClear={() => setQuery({ stir: '', indicator_type_id: '', request_id: '' })}
+            onSearch={() => form.submit()}
+            onClear={handleClear}
+            enterButton={t('Qidirish')}
           />
-        </Form.Item>
-        <Form.Item label={null}>
-          <Button icon={<SearchOutlined />} type='primary' htmlType='submit'>
-            {t('Qidirish')}
-          </Button>
         </Form.Item>
       </Form>
     </Card>
