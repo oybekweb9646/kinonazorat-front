@@ -65,7 +65,7 @@ export default function UploadIndicatorFile({ item }: any): JSX.Element {
           {!uploadedFile ? (
             <span>{t('Fayl biriktirish')}</span>
           ) : (
-            <span className='text-green-500'>{t('Fayl yuklandi')}</span>
+            <span className='max-w-[150px] line-clamp-1'>{uploadedFile?.name}</span>
           )}
         </div>
       </label>

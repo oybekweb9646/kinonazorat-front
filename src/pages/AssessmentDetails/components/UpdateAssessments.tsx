@@ -1,11 +1,13 @@
 import { useTranslation } from 'react-i18next';
-import { Table, Modal } from 'antd';
+import { Table, Modal, Button } from 'antd';
 import { JSX } from 'react';
+import {DownloadOutlined} from '@ant-design/icons';
 import AssessmentSwitch from '@/shared/components/AssessmentSwitch';
 import UploadIndicatorFile from '@/shared/components/UploadIndicatorFile';
 import { useMutation } from '@/shared/hooks';
 import { toast } from 'react-toastify';
 import { useQueryClient } from '@tanstack/react-query';
+import { downloadFile } from '@/service';
 const { Column } = Table;
 
 export default function UpdateAssessments({
@@ -63,6 +65,14 @@ export default function UpdateAssessments({
           render={(item) => {
             return (
               <div className='flex flex-col items-center gap-2'>
+                {item.file?.id && (
+                  <Button
+                    icon={<DownloadOutlined />}
+                    onClick={() => downloadFile(item.file.id, item.file.name)}
+                  >
+                    {t('Fayl yuklash')}
+                  </Button>
+                )}
                 <UploadIndicatorFile item={item} />
               </div>
             );
