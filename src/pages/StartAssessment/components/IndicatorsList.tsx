@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { Button, Table } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { DownloadOutlined, SaveOutlined } from '@ant-design/icons';
+import { SaveOutlined } from '@ant-design/icons';
 import ConfirmFinishing from './ConfirmFinishing';
 import { IUseFetchResponseList } from '@/shared/types';
 import { useFetch } from '@/shared/hooks';
 import useQuery from '@/shared/hooks/use-query/use-query';
 import AssessmentSwitch from '@/shared/components/AssessmentSwitch';
-import { downloadFile } from '@/service';
 import UploadIndicatorFile from '@/shared/components/UploadIndicatorFile';
 
 const { Column } = Table;
@@ -61,14 +60,14 @@ const IndicatorsList: React.FC = () => {
           render={(item) => {
             return (
               <div className='flex flex-col items-center gap-2'>
-                {item.file?.id && (
+                {/* {item.file?.id && (
                   <Button
                     icon={<DownloadOutlined />}
                     onClick={() => downloadFile(item.file.id, item.file.name)}
                   >
                     {t('Fayl yuklash')}
                   </Button>
-                )}
+                )} */}
                 <UploadIndicatorFile item={item} />
               </div>
             );

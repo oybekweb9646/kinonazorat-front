@@ -2,11 +2,12 @@ import { useMutation } from '@/shared/hooks';
 import { JSX, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
-import { UploadOutlined } from '@ant-design/icons';
+import { LoadingOutlined, UploadOutlined } from '@ant-design/icons';
+import { Spin } from 'antd';
 
 export default function UploadIndicatorFile({ item }: any): JSX.Element {
   const { t } = useTranslation();
-  const { mutate: uploadFile } = useMutation({ mutationKey: 'upload-file' });
+  const { mutate: uploadFile, isPending } = useMutation({ mutationKey: 'upload-file' });
   const { mutate: setFile } = useMutation({ mutationKey: 'set-file' });
   const [uploadedFile, setUploadedFile] = useState<any>(null);
 
@@ -59,15 +60,14 @@ export default function UploadIndicatorFile({ item }: any): JSX.Element {
         style={{ display: 'none' }}
       />
       <label htmlFor={`file-upload-${item.id}`} className='w-full h-full'>
-        {!uploadedFile && (
-          <div className='flex gap-2 items-center justify-center'>
-            <UploadOutlined />
-            <span>{t('File biriktirish')}</span>
-          </div>
-        )}
-        {uploadedFile && (
-          <div className='flex gap-2 items-center justify-center'>{uploadedFile.name}</div>
-        )}
+        <div className='flex gap-2 items-center justify-center'>
+          {isPending ? <Spin indicator={<LoadingOutlined spin />} /> : <UploadOutlined />}
+          {!uploadedFile ? (
+            <span>{t('Fayl biriktirish')}</span>
+          ) : (
+            <span className='text-green-500'>{t('Fayl yuklandi')}</span>
+          )}
+        </div>
       </label>
     </div>
   );

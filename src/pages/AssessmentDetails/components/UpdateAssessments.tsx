@@ -1,9 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import { Button, Table, Modal } from 'antd';
-import { DownloadOutlined } from '@ant-design/icons';
+import { Table, Modal } from 'antd';
 import { JSX } from 'react';
 import AssessmentSwitch from '@/shared/components/AssessmentSwitch';
-import { downloadFile } from '@/service';
 import UploadIndicatorFile from '@/shared/components/UploadIndicatorFile';
 import { useMutation } from '@/shared/hooks';
 import { toast } from 'react-toastify';
@@ -65,14 +63,6 @@ export default function UpdateAssessments({
           render={(item) => {
             return (
               <div className='flex flex-col items-center gap-2'>
-                {item.file?.id && (
-                  <Button
-                    icon={<DownloadOutlined />}
-                    onClick={() => downloadFile(item.file.id, item.file.name)}
-                  >
-                    {t('Fayl yuklash')}
-                  </Button>
-                )}
                 <UploadIndicatorFile item={item} />
               </div>
             );
