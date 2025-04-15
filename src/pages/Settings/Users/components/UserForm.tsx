@@ -38,6 +38,9 @@ export default function UserForm({ open, onCancel, type, item }: FormModalProps)
       ...values,
       date_of_birth: values.date_of_birth && dayjs(values.date_of_birth).format('YYYY-MM-DD'),
       is_juridical: false,
+      region_id: Number(values.role) === _TERRITORIAL_RESPONSIBLE ? values.region_id : null,
+      full_name: values.full_name ?? undefined,
+      pin_fl: values.pin_fl ? Number(values.pin_fl) : undefined,
     };
     mutate(
       {
