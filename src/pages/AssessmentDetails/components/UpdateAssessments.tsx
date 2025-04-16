@@ -64,16 +64,17 @@ export default function UpdateAssessments({
         <Column
           render={(item) => {
             return (
-              <div className='flex flex-col items-center gap-2'>
+              <div className='flex items-center gap-2'>
+                <UploadIndicatorFile item={item} />
                 {item.file?.id && (
                   <Button
+                    type='primary'
+                    size='large'
+                    title={t('Fayl yuklash')}
                     icon={<DownloadOutlined />}
                     onClick={() => downloadFile(item.file.id, item.file.name)}
-                  >
-                    {t('Fayl yuklash')}
-                  </Button>
+                  ></Button>
                 )}
-                <UploadIndicatorFile item={item} />
               </div>
             );
           }}
