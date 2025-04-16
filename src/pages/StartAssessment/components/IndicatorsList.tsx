@@ -65,7 +65,7 @@ const IndicatorsList: React.FC = () => {
           render={(item) => {
             return (
               <div className='flex  items-center gap-2'>
-                <UploadIndicatorFile item={item} />
+                <UploadIndicatorFile item={item} refetch={refetch} />
                 {item.file?.id && (
                   <Button
                     type='primary'

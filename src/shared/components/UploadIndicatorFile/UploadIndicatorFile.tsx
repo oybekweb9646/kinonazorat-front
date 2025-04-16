@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { LoadingOutlined, UploadOutlined } from '@ant-design/icons';
 import { Spin } from 'antd';
 
-export default function UploadIndicatorFile({ item }: any): JSX.Element {
+export default function UploadIndicatorFile({ item, refetch }: any): JSX.Element {
   const { t } = useTranslation();
   const { mutate: uploadFile, isPending } = useMutation({ mutationKey: 'upload-file' });
   const { mutate: setFile } = useMutation({ mutationKey: 'set-file' });
@@ -46,6 +46,7 @@ export default function UploadIndicatorFile({ item }: any): JSX.Element {
       {
         onSuccess: () => {
           toast.success(t('File uploaded successfully'));
+          refetch();
         },
       },
     );
