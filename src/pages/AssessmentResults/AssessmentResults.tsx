@@ -70,7 +70,7 @@ export default function AssessmentResults(): JSX.Element {
           }
         />
         <Column
-          title={t('Yaratuvchisi')}
+          title={t('Oxirgi baholovchi')}
           dataIndex='created_by'
           align='center'
           render={(createdBy) => createdBy?.full_name || createdBy?.username}

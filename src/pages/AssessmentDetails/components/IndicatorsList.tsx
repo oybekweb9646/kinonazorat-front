@@ -77,9 +77,11 @@ export default function IndicatorsList({ request }: { request: any }): JSX.Eleme
           render={(indicator) => indicator.name}
         />
         <Column
+          align='center'
+          title={t('Yuklangan fayl')}
           render={(item) => {
             return (
-              <div className='flex  items-center gap-2'>
+              <div className='flex justify-center items-center gap-2'>
                 {item.file?.id && (
                   <Button
                     type='primary'
