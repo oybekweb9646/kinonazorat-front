@@ -36,6 +36,7 @@ const ConfirmFinishing = ({
           toast.success(t('Muvaffaqiyatli saqlandi'));
           setQuery({ ...query, request_id: '', indicator_type_id: '', stir: '' });
           queryClient.invalidateQueries({ queryKey: ['request-indicators'] });
+          queryClient.clear();
         },
       },
     );
