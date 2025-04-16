@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Table, Modal, Button } from 'antd';
 import { JSX } from 'react';
-import {DownloadOutlined} from '@ant-design/icons';
+import { DownloadOutlined } from '@ant-design/icons';
 import AssessmentSwitch from '@/shared/components/AssessmentSwitch';
 import UploadIndicatorFile from '@/shared/components/UploadIndicatorFile';
 import { useMutation } from '@/shared/hooks';

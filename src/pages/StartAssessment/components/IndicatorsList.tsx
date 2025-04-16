@@ -18,7 +18,11 @@ const IndicatorsList: React.FC = () => {
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
 
-  const { data: indicatorsList, isFetching } = useFetch<IUseFetchResponseList<any>>({
+  const {
+    data: indicatorsList,
+    isFetching,
+    refetch,
+  } = useFetch<IUseFetchResponseList<any>>({
     url: `/request/get/${query.request_id}`,
     method: 'GET',
     queryKey: ['request-indicators', String(query.request_id)],
@@ -83,7 +87,7 @@ const IndicatorsList: React.FC = () => {
         />
         <Column
           render={(item) => {
-            return item.id && <AssessmentSwitch item={item} />;
+            return item.id && <AssessmentSwitch item={item} refetch={refetch} />;
           }}
         />
       </Table>

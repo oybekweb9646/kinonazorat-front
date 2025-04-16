@@ -1,17 +1,18 @@
 import { useMutation } from '@/shared/hooks';
-import { useQueryClient } from '@tanstack/react-query';
 import { Switch } from 'antd';
-import { JSX, useState } from 'react';
+import { JSX, useEffect, useState } from 'react';
 import { toast } from 'react-toastify';
 
-export default function AssessmentSwitch({ item }: any): JSX.Element {
-  const [checked, setChecked] = useState<boolean>(item.max_score === item.score);
-
-  const queryClient = useQueryClient();
+export default function AssessmentSwitch({ item, refetch = () => {} }: any): JSX.Element {
+  const [checked, setChecked] = useState<boolean>(false);
 
   const { mutate, isPending } = useMutation({
     mutationKey: 'set-point',
   });
+
+  useEffect(() => {
+    setChecked(item.max_score === item.score);
+  }, [item]);
 
   function onChange(checked: boolean) {
     mutate(
@@ -25,7 +26,7 @@ export default function AssessmentSwitch({ item }: any): JSX.Element {
         onSuccess: () => {
           toast.success('Muvaffaqiyatli saqlandi');
           setChecked(checked);
-          queryClient.invalidateQueries({ queryKey: ['request-indicators'] });
+          refetch();
         },
       },
     );
