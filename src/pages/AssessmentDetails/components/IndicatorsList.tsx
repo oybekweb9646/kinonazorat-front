@@ -46,7 +46,7 @@ export default function IndicatorsList({ request }: { request: any }): JSX.Eleme
         pagination={false}
         summary={() => (
           <Table.Summary.Row className='bg-gray-100'>
-            <Table.Summary.Cell index={0} colSpan={2} className='font-bold'>
+            <Table.Summary.Cell index={0} colSpan={3} className='font-bold'>
               {t('Umumiy ball')}
             </Table.Summary.Cell>
             <Table.Summary.Cell align='center' index={1} colSpan={1} className='font-bold'>
