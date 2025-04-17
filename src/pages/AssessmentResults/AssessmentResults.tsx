@@ -71,9 +71,9 @@ export default function AssessmentResults(): JSX.Element {
         />
         <Column
           title={t('Oxirgi baholovchi')}
-          dataIndex='created_by'
+          dataIndex='updated_by'
           align='center'
-          render={(createdBy) => createdBy?.full_name || createdBy?.username}
+          render={(updatedBy) => updatedBy?.full_name || updatedBy?.username}
         />
         <Column title={t('Stir')} dataIndex='stir' key='stir' align='center' />
         <Column
