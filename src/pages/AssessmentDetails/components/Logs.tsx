@@ -1,12 +1,12 @@
 import { JSX } from 'react';
-import { Popover, Table } from 'antd';
+import { Button, Popover, Table } from 'antd';
 import { useTranslation } from 'react-i18next';
-import { InfoCircleOutlined } from '@ant-design/icons';
+import { DownloadOutlined, InfoCircleOutlined } from '@ant-design/icons';
 import { useFetch } from '@/shared/hooks';
 import { IUseFetchResponse } from '@/shared/types';
 import { useParams } from 'react-router-dom';
 import dayjs from 'dayjs';
-import { ACTIONS_LIST, ASSESSMENT_STATUSES_LIST } from '@/service';
+import { ACTIONS_LIST, ASSESSMENT_STATUSES_LIST, downloadFile } from '@/service';
 import Pagination from '@/shared/components/core/Pagination/Pagination';
 import useQuery from '@/shared/hooks/use-query/use-query';
 const { Column } = Table;
@@ -96,11 +96,23 @@ export default function Logs(): JSX.Element {
         className='bg-red-200'
         render={(item) => {
           const parsedData = JSON.parse(item?.data || '{}');
-
           return Object.entries(parsedData).map(([fieldName, value]: any) => (
             <div>
               <div className='!font-mono italic'>{t(fieldName)}</div>
               <div className='font-bold'>{formatValue(value.old, fieldName) || '-'}</div>
+              {item.action === 'REQUEST_SET_FILE' &&
+                fieldName === 'file_id' &&
+                parsedData?.file_id?.old && (
+                  <Button
+                    type='primary'
+                    size='large'
+                    title={t('Fayl yuklash')}
+                    icon={<DownloadOutlined />}
+                    onClick={() =>
+                      downloadFile(parsedData.file_id?.old, parsedData.file_id?.old_label)
+                    }
+                  ></Button>
+                )}
             </div>
           ));
         }}
@@ -116,6 +128,19 @@ export default function Logs(): JSX.Element {
             <div>
               <div className='!font-mono italic'>{t(fieldName)}</div>
               <div className='font-bold'>{formatValue(value?.new, fieldName) || '-'}</div>
+              {item.action === 'REQUEST_SET_FILE' &&
+                fieldName === 'file_id' &&
+                parsedData?.['file_id']?.new && (
+                  <Button
+                    type='primary'
+                    size='large'
+                    title={t('Fayl yuklash')}
+                    icon={<DownloadOutlined />}
+                    onClick={() =>
+                      downloadFile(parsedData.file_id?.new, parsedData.file_id?.new_label)
+                    }
+                  ></Button>
+                )}
             </div>
           ));
         }}

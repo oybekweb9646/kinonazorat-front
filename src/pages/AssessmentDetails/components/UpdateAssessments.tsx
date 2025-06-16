@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { Table, Modal, Button } from 'antd';
+import { Table, Modal, Button, Popover } from 'antd';
 import { JSX } from 'react';
 import { DownloadOutlined } from '@ant-design/icons';
 import AssessmentSwitch from '@/shared/components/AssessmentSwitch';
@@ -67,14 +67,34 @@ export default function UpdateAssessments({
             return (
               <div className='flex items-center gap-2'>
                 <UploadIndicatorFile item={item} />
-                {item.file?.id && (
-                  <Button
-                    type='primary'
-                    size='large'
+                {item.link_score_indicator_files.length > 0 && (
+                  <Popover
+                    overlayStyle={{ width: 400 }}
+                    trigger={'click'}
+                    content={
+                      <div className='flex justify-start flex-col gap-2'>
+                        {item?.link_score_indicator_files?.map((file: any) => {
+                          return (
+                            <p
+                              onClick={() => downloadFile(file.file?.id, file.file?.name)}
+                              key={file.file?.id}
+                              className='text-blue-500 cursor-pointer hover:underline break-words w-full'
+                            >
+                              {file?.file?.name}
+                            </p>
+                          );
+                        })}
+                      </div>
+                    }
                     title={t('Fayl yuklash')}
-                    icon={<DownloadOutlined />}
-                    onClick={() => downloadFile(item.file.id, item.file.name)}
-                  ></Button>
+                  >
+                    <Button
+                      type='primary'
+                      size='large'
+                      title={t('Fayl yuklash')}
+                      icon={<DownloadOutlined />}
+                    ></Button>
+                  </Popover>
                 )}
               </div>
             );
