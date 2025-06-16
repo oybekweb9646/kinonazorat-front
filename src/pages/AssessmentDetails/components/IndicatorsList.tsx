@@ -82,7 +82,7 @@ export default function IndicatorsList({ request }: { request: any }): JSX.Eleme
           render={(item) => {
             return (
               <div className='flex flex-wrap justify-center items-center gap-2'>
-                {item.link_score_indicator_files.length > 0 && (
+                {item?.link_score_indicator_files?.length > 0 && (
                   <Popover
                     overlayStyle={{ width: 400 }}
                     trigger={'click'}

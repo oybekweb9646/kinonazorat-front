@@ -67,7 +67,7 @@ export default function UpdateAssessments({
             return (
               <div className='flex items-center gap-2'>
                 <UploadIndicatorFile item={item} />
-                {item.link_score_indicator_files.length > 0 && (
+                {item?.link_score_indicator_files?.length > 0 && (
                   <Popover
                     overlayStyle={{ width: 400 }}
                     trigger={'click'}
