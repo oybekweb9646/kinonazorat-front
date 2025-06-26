@@ -4,9 +4,10 @@ import { JSX, useState } from 'react';
 import UpdateAssessments from './UpdateAssessments';
 import { DownloadOutlined, EditOutlined } from '@ant-design/icons';
 import { useProfile } from '@/shared/hooks/use-profile/use-profile';
-import { api, downloadFile, hasPermission } from '@/service';
+import { api, downloadFile, hasPermission, HIGH_STATUS_SCORE } from '@/service';
 import { _RESPONSIBLE, _SUPER_ADMIN, _TERRITORIAL_RESPONSIBLE } from '@/service/const/roles';
 import ApplyToChecking from './ApplyToChecking';
+import CheckingResults from './CheckingResults';
 const { Column } = Table;
 
 export default function IndicatorsList({ request }: { request: any }): JSX.Element {
@@ -38,6 +39,7 @@ export default function IndicatorsList({ request }: { request: any }): JSX.Eleme
       console.error('Faylni yuklab olishda xatolik:', error);
     }
   };
+  console.log('rewq', request);
 
   return (
     <div className='flex flex-col gap-4'>
@@ -58,19 +60,23 @@ export default function IndicatorsList({ request }: { request: any }): JSX.Eleme
         footer={() => {
           return (
             <div className='flex items-end justify-end gap-2'>
-              <ApplyToChecking />
-              <Button danger type='primary'>
-                {t("Arxivga qo'shish")}
-              </Button>
+              {request?.data?.status === 4 && <CheckingResults />}
+              {request?.data?.score >= HIGH_STATUS_SCORE && request?.data?.status === 3 && (
+                <ApplyToChecking />
+              )}
+
               <Button icon={<DownloadOutlined />} onClick={handleDownload}>
                 {t('Yuklash')}
               </Button>
 
-              {hasPermission(userRole, [_SUPER_ADMIN, _RESPONSIBLE, _TERRITORIAL_RESPONSIBLE]) && (
-                <Button icon={<EditOutlined />} onClick={() => setUpdateAssessmentsModal(true)}>
-                  {t('Tahrirlash')}
-                </Button>
-              )}
+              {request?.data?.status === 1 &&
+                request?.data?.status === 2 &&
+                request?.data?.status === 3 &&
+                hasPermission(userRole, [_SUPER_ADMIN, _RESPONSIBLE, _TERRITORIAL_RESPONSIBLE]) && (
+                  <Button icon={<EditOutlined />} onClick={() => setUpdateAssessmentsModal(true)}>
+                    {t('Tahrirlash')}
+                  </Button>
+                )}
             </div>
           );
         }}

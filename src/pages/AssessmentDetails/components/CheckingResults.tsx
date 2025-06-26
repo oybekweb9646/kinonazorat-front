@@ -9,13 +9,12 @@ import { UploadOutlined } from '@ant-design/icons';
 import dayjs from 'dayjs';
 
 type FieldType = {
-  order_number: string;
-  order_inspector: string;
-  order_date: string;
-  order_file: any;
+  act_number: string;
+  act_date: string;
+  act_file: any;
 };
 
-export default function ApplyToChecking() {
+export default function CheckingResults() {
   const { t } = useTranslation();
   const [form] = Form.useForm();
   const { mutate, isPending } = useMutation({ mutationKey: `apply-to-checking` });
@@ -36,12 +35,12 @@ export default function ApplyToChecking() {
   function onFinish(values: FieldType) {
     mutate(
       {
-        url: `request/create-order/${id}`,
+        url: `/request/request-archive/${id}`,
         data: {
           ...values,
-          order_file_id: values.order_file?.id,
-          order_file: undefined,
-          order_date: values.order_date && dayjs(values.order_date).format('YYYY-MM-DD'),
+          act_file_id: values.act_file?.id,
+          act_file: undefined,
+          act_date: values.act_date && dayjs(values.act_date).format('YYYY-MM-DD'),
         },
       },
       {
@@ -69,10 +68,10 @@ export default function ApplyToChecking() {
   return (
     <>
       <Button type='primary' onClick={showModal}>
-        {t('Tekshiruvga yuborish')}
+        {t('Tekshiruvga natijalari')}
       </Button>
       <Modal
-        title={t('Tekshiruvga yuborish')}
+        title={t('Tekshiruvga natijalari')}
         closable={{ 'aria-label': 'Custom Close Button' }}
         open={isModalOpen}
         onOk={handleOk}
@@ -82,32 +81,26 @@ export default function ApplyToChecking() {
       >
         <Form layout='vertical' form={form}>
           <Form.Item<FieldType>
-            name='order_number'
-            label={t('Buyruq raqami')}
-            rules={[{ required: true, message: t('Buyruq raqami majburiy') }]}
+            name='act_number'
+            label={t('Akt raqami')}
+            rules={[{ required: true, message: t('Akt raqami majburiy') }]}
           >
-            <Input placeholder={t('Buyruq raqami')} />
+            <Input placeholder={t('Akt raqami')} />
           </Form.Item>
+
           <Form.Item<FieldType>
-            name='order_inspector'
-            label={t("Mas'ul xodim (F.I.O)")}
-            rules={[{ required: true, message: t("Mas'ul xodim (F.I.O) majburiy") }]}
-          >
-            <Input placeholder={t("Mas'ul xodim (F.I.O)")} />
-          </Form.Item>
-          <Form.Item<FieldType>
-            name='order_date'
-            label={t('Buyruq sanasi')}
-            rules={[{ required: true, message: t('Buyruq sanasi majburiy') }]}
+            name='act_date'
+            label={t('Akt sanasi')}
+            rules={[{ required: true, message: t('Akt sanasi majburiy') }]}
           >
             <DatePicker
               style={{ width: '100%' }}
-              placeholder={t('Buyruq sanasi')}
+              placeholder={t('Akt sanasi')}
               format={'DD.MM.YYYY'}
             />
           </Form.Item>
 
-          <Form.Item name='order_file' label={t('Buyruq fayli')} required>
+          <Form.Item<FieldType> name='act_file' label={t('Akt fayli')} required>
             <Upload
               name='file'
               customRequest={({ file, onSuccess }) => {
