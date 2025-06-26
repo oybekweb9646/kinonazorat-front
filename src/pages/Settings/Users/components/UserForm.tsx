@@ -16,7 +16,7 @@ type FieldType = {
   pin_fl: number;
   status: number;
   date_of_birth: string;
-  region_id: number;
+  organization_id: number;
 };
 
 export default function UserForm({ open, onCancel, type, item }: FormModalProps): JSX.Element {
@@ -27,10 +27,10 @@ export default function UserForm({ open, onCancel, type, item }: FormModalProps)
 
   const [form] = Form.useForm();
 
-  const { data: regions } = useFetch<IUseFetchResponseList<any>>({
-    url: '/soato-region/list',
+  const { data: organizations } = useFetch<IUseFetchResponseList<any>>({
+    url: '/organization/list',
     method: 'GET',
-    queryKey: 'regions',
+    queryKey: 'aoka-organizations-list',
   });
 
   function onFinish(values: FieldType) {
@@ -38,7 +38,8 @@ export default function UserForm({ open, onCancel, type, item }: FormModalProps)
       ...values,
       date_of_birth: values.date_of_birth && dayjs(values.date_of_birth).format('YYYY-MM-DD'),
       is_juridical: false,
-      region_id: Number(values.role) === _TERRITORIAL_RESPONSIBLE ? values.region_id : null,
+      organization_id:
+        Number(values.role) === _TERRITORIAL_RESPONSIBLE ? values.organization_id : null,
       full_name: values.full_name ?? undefined,
       pin_fl: values.pin_fl ? Number(values.pin_fl) : undefined,
     };
@@ -154,14 +155,14 @@ export default function UserForm({ open, onCancel, type, item }: FormModalProps)
 
         {Number(selectedRole) === _TERRITORIAL_RESPONSIBLE && (
           <Form.Item<FieldType>
-            name='region_id'
-            label={t('Hudud')}
-            rules={[{ required: true, message: t('Hudud majburiy') }]}
+            name='organization_id'
+            label={t('Tashkilot')}
+            rules={[{ required: true, message: t('Tashkilot majburiy') }]}
           >
             <Select
-              options={regions?.data?.map((region: any) => ({
-                label: region.name,
-                value: region.id,
+              options={organizations?.data?.map((organization: any) => ({
+                label: organization.name,
+                value: organization.id,
               }))}
             />
           </Form.Item>

@@ -6,6 +6,7 @@ import { DownloadOutlined, EditOutlined } from '@ant-design/icons';
 import { useProfile } from '@/shared/hooks/use-profile/use-profile';
 import { api, downloadFile, hasPermission } from '@/service';
 import { _RESPONSIBLE, _SUPER_ADMIN, _TERRITORIAL_RESPONSIBLE } from '@/service/const/roles';
+import ApplyToChecking from './ApplyToChecking';
 const { Column } = Table;
 
 export default function IndicatorsList({ request }: { request: any }): JSX.Element {
@@ -57,6 +58,10 @@ export default function IndicatorsList({ request }: { request: any }): JSX.Eleme
         footer={() => {
           return (
             <div className='flex items-end justify-end gap-2'>
+              <ApplyToChecking />
+              <Button danger type='primary'>
+                {t("Arxivga qo'shish")}
+              </Button>
               <Button icon={<DownloadOutlined />} onClick={handleDownload}>
                 {t('Yuklash')}
               </Button>

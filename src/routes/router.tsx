@@ -28,6 +28,7 @@ import {
   _AUTHORITY,
   _TERRITORIAL_RESPONSIBLE,
 } from '@/service/const/roles';
+import AOKAOrganizations from '@/pages/Settings/AOKAOrganizations';
 
 export const router = createBrowserRouter([
   {
@@ -137,6 +138,14 @@ export const router = createBrowserRouter([
             element: (
               <RoleGuard allowedRoles={[_SUPER_ADMIN]}>
                 <OrganizationsList />
+              </RoleGuard>
+            ),
+          },
+          {
+            path: '/settings/aoka-organizations',
+            element: (
+              <RoleGuard allowedRoles={[_SUPER_ADMIN]}>
+                <AOKAOrganizations />
               </RoleGuard>
             ),
           },

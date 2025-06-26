@@ -14,7 +14,7 @@ import { useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import dayjs from 'dayjs';
 import UserForm from './components/UserForm';
-import { FormStateTypes, IUseFetchResponse, IUseFetchResponseList } from '@/shared/types';
+import { FormStateTypes, IUseFetchResponse } from '@/shared/types';
 import useQuery from '@/shared/hooks/use-query/use-query';
 import Pagination from '@/shared/components/core/Pagination/Pagination';
 import { _BANNED, USER_STATUS_LIST } from '@/service/const/user-statuses';
@@ -101,11 +101,11 @@ const Users: React.FC = () => {
     );
   }
 
-  const { data: regions } = useFetch<IUseFetchResponseList<any>>({
-    url: '/soato-region/list',
-    method: 'GET',
-    queryKey: 'regions',
-  });
+  // const { data: regions } = useFetch<IUseFetchResponseList<any>>({
+  //   url: '/soato-region/list',
+  //   method: 'GET',
+  //   queryKey: 'regions',
+  // });
 
   return (
     <div className='w-full overflow-auto'>
@@ -145,11 +145,13 @@ const Users: React.FC = () => {
           title={t('Rol')}
           render={(item) => {
             const role = ROLE_LIST.find((r) => r.id === item?.role)?.name;
-            const regionName = regions?.data.find((r: any) => r.id === item?.region_id)?.name;
+            // const regionName = regions?.data.find((r: any) => r.id === item?.region_id)?.name;
             return (
               <div className='flex flex-col items-center'>
                 <p>{role}</p>
-                {regionName && <Tag>{regionName}</Tag>}
+                {item.organization_name && (
+                  <p className='text-wrap text-sm text-gray-500 italic'>{item.organization_name}</p>
+                )}
               </div>
             );
           }}
