@@ -21,7 +21,7 @@ export default function AssessmentResults(): JSX.Element {
     method: 'POST',
     queryKey: 'ongoing-assessments',
     body: {
-      status: SCORED,
+      // status: SCORED,
       stir: query.stir,
       id: query.id,
       authority_id: query.authority_id,

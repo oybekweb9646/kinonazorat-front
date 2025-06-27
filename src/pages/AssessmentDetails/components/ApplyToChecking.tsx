@@ -45,7 +45,7 @@ export default function ApplyToChecking() {
         },
       },
       {
-        onSuccess: ({ data }: any) => {
+        onSuccess: (data: any) => {
           console.log('data', data);
 
           queryClient.invalidateQueries({ queryKey: ['request'] });
