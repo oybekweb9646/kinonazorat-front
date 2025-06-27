@@ -3,7 +3,7 @@ import { JSX } from 'react';
 import { useTranslation } from 'react-i18next';
 const { Column } = Table;
 import AssessmentFilters from '@/shared/components/AssessmentFilters';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useFetch } from '@/shared/hooks';
 import { IUseFetchResponse } from '@/shared/types';
 import { handleAssessmentColor } from '@/service';
@@ -15,13 +15,15 @@ export default function AssessmentResults(): JSX.Element {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { query } = useQuery();
+  const location = useLocation();
+  const isResults = location.pathname === '/assessment-results';
 
   const { data, isFetching } = useFetch<IUseFetchResponse<any>>({
     url: '/request/filter',
     method: 'POST',
     queryKey: 'ongoing-assessments',
     body: {
-      // status: SCORED,
+      status: isResults ? [1, 2, 3, 4] : [10],
       stir: query.stir,
       id: query.id,
       authority_id: query.authority_id,
@@ -35,7 +37,7 @@ export default function AssessmentResults(): JSX.Element {
 
   return (
     <div className='flex flex-col gap-4'>
-      <h3 className='page-title'>{t('Baholash natijalari')}</h3>
+      <h3 className='page-title'>{isResults ? t('Baholash natijalari') : t('Arxiv')}</h3>
       <AssessmentFilters />
 
       <Table
@@ -85,7 +87,7 @@ export default function AssessmentResults(): JSX.Element {
           title={t('Yakunlangan sana')}
           dataIndex='closed_at'
           align='center'
-          render={(closedAt) => dayjs(closedAt).format('DD.MM.YYYY')}
+          render={(closedAt) => closedAt && dayjs(closedAt).format('DD.MM.YYYY')}
         />
         <Column title={t('Ball')} dataIndex='score' key='score' align='center' />
       </Table>

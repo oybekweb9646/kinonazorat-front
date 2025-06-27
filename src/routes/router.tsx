@@ -74,6 +74,16 @@ export const router = createBrowserRouter([
             ),
           },
           {
+            path: '/archived-assessment-results',
+            element: (
+              <RoleGuard
+                allowedRoles={[_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN, _READ_ONLY]}
+              >
+                <AssessmentResults />
+              </RoleGuard>
+            ),
+          },
+          {
             path: '/organizations',
             element: (
               <RoleGuard

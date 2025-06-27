@@ -85,6 +85,21 @@ function generateSidebarItems(t: TFunction, userRole: number) {
       },
     },
     {
+      key: '8',
+      label: <Link to={'/archived-assessment-results'}>{t('Arxiv')}</Link>,
+      icon: <LineChartOutlined />,
+      style: {
+        display: hasPermission(userRole, [
+          _RESPONSIBLE,
+          _TERRITORIAL_RESPONSIBLE,
+          _SUPER_ADMIN,
+          _READ_ONLY,
+        ])
+          ? 'block'
+          : 'none',
+      },
+    },
+    {
       key: '5',
       label: <Link to={'/organizations'}>{t('Tashkilotlar')}</Link>,
       icon: <BankOutlined />,

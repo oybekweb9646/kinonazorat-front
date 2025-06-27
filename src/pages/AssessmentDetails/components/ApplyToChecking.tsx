@@ -46,10 +46,8 @@ export default function ApplyToChecking() {
       },
       {
         onSuccess: (data: any) => {
-          console.log('data', data);
-
           queryClient.invalidateQueries({ queryKey: ['request'] });
-          toast.success(data.message);
+          toast.success(data.message || 'Muvaffaqiyatli saqlandi');
           handleCancel();
         },
       },

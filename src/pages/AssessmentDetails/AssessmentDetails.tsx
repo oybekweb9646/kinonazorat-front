@@ -8,6 +8,8 @@ import { IUseFetchResponseList } from '@/shared/types';
 import { Button, Collapse, Spin } from 'antd';
 import { LeftOutlined } from '@ant-design/icons';
 import Logs from './components/Logs';
+import OrderItems from './components/OrderItems';
+import ActItems from './components/ActItems';
 
 export default function AssessmentDetails(): JSX.Element {
   const { t } = useTranslation();
@@ -50,6 +52,16 @@ export default function AssessmentDetails(): JSX.Element {
                 key: '1',
                 label: <div className='font-bold text-lg'>{t('Jarayonlar tarixi')}</div>,
                 children: <Logs />,
+              },
+              {
+                key: '2',
+                label: <div className='font-bold text-lg'>{t("Buyruq ma'lumotlari")}</div>,
+                children: <OrderItems request={request?.data} />,
+              },
+              {
+                key: '3',
+                label: <div className='font-bold text-lg'>{t("Akt ma'lumotlari")}</div>,
+                children: <ActItems request={request?.data} />,
               },
             ]}
             // defaultActiveKey={['1']}

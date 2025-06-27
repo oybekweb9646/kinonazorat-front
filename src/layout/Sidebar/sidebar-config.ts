@@ -3,6 +3,7 @@ export const pathToKeyMap: { [key: string]: string[] } = {
   '/start-assessments': ['2'],
   '/ongoing-assessments': ['3'],
   '/assessment-results': ['4'],
+  '/archived-assessment-results': ['8'],
   '/organizations': ['5'],
   '/normative-documents': ['6'],
   // '/checklist': ['7'],
