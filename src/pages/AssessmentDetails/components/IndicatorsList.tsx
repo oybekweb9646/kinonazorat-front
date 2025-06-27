@@ -39,7 +39,6 @@ export default function IndicatorsList({ request }: { request: any }): JSX.Eleme
       console.error('Faylni yuklab olishda xatolik:', error);
     }
   };
-  console.log('rewq', request);
 
   return (
     <div className='flex flex-col gap-4'>
@@ -69,9 +68,9 @@ export default function IndicatorsList({ request }: { request: any }): JSX.Eleme
                 {t('Yuklash')}
               </Button>
 
-              {request?.data?.status === 1 &&
-                request?.data?.status === 2 &&
-                request?.data?.status === 3 &&
+              {(request?.data?.status === 1 ||
+                request?.data?.status === 2 ||
+                request?.data?.status === 3) &&
                 hasPermission(userRole, [_SUPER_ADMIN, _RESPONSIBLE, _TERRITORIAL_RESPONSIBLE]) && (
                   <Button icon={<EditOutlined />} onClick={() => setUpdateAssessmentsModal(true)}>
                     {t('Tahrirlash')}
