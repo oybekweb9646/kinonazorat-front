@@ -57,11 +57,27 @@ export default function AssessmentDetails(): JSX.Element {
                 key: '2',
                 label: <div className='font-bold text-lg'>{t("Buyruq ma'lumotlari")}</div>,
                 children: <OrderItems request={request?.data} />,
+                style: {
+                  display:
+                    request?.data?.order_number ||
+                    request?.data?.order_date ||
+                    request?.data?.order_file_id
+                      ? 'block'
+                      : 'none',
+                },
               },
               {
                 key: '3',
                 label: <div className='font-bold text-lg'>{t("Akt ma'lumotlari")}</div>,
                 children: <ActItems request={request?.data} />,
+                style: {
+                  display:
+                    request?.data?.act_number ||
+                    request?.data?.act_date ||
+                    request?.data?.act_file_id
+                      ? 'block'
+                      : 'none',
+                },
               },
             ]}
             // defaultActiveKey={['1']}
