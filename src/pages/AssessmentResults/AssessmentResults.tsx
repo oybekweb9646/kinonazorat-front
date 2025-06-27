@@ -6,7 +6,7 @@ import AssessmentFilters from '@/shared/components/AssessmentFilters';
 import { useNavigate } from 'react-router-dom';
 import { useFetch } from '@/shared/hooks';
 import { IUseFetchResponse } from '@/shared/types';
-import { handleAssessmentColor, SCORED } from '@/service';
+import { handleAssessmentColor } from '@/service';
 import Pagination from '@/shared/components/core/Pagination/Pagination';
 import dayjs from 'dayjs';
 import useQuery from '@/shared/hooks/use-query/use-query';
