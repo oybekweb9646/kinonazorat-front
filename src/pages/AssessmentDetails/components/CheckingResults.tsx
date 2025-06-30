@@ -100,7 +100,16 @@ export default function CheckingResults() {
             />
           </Form.Item>
 
-          <Form.Item<FieldType> name='act_file' label={t('Akt fayli')} required>
+          <Form.Item<FieldType>
+            name='act_file'
+            label={t('Akt fayli')}
+            rules={[
+              {
+                required: true,
+                message: t('Akt fayli majburiy'),
+              },
+            ]}
+          >
             <Upload
               name='file'
               customRequest={({ file, onSuccess }) => {

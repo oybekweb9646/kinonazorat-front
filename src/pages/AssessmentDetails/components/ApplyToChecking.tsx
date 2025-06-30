@@ -113,7 +113,16 @@ export default function ApplyToChecking() {
             />
           </Form.Item>
 
-          <Form.Item name='order_file' label={t('Buyruq fayli')} required>
+          <Form.Item
+            name='order_file'
+            label={t('Buyruq fayli')}
+            rules={[
+              {
+                required: true,
+                message: t('Buyruq fayli majburiy'),
+              },
+            ]}
+          >
             <Upload
               name='file'
               customRequest={({ file, onSuccess }) => {
