@@ -14,11 +14,6 @@ function generateOptions(data: { high: number; low: number; normal: number }, t:
     chart: {
       type: 'pie',
       height: 300,
-      options3d: {
-        enabled: true,
-        alpha: 45,
-        beta: 0,
-      },
       backgroundColor: 'transparent',
     },
     title: {
@@ -33,14 +28,23 @@ function generateOptions(data: { high: number; low: number; normal: number }, t:
         cursor: 'pointer',
         dataLabels: {
           enabled: true,
-          format: '{point.name}',
+          format: '{point.labelOnly}', // Faqat nom chiqadi
           style: {
             fontSize: '12px',
           },
         },
-        showInLegend: false,
-        depth: 45,
+        showInLegend: true, // Legendni o‘ngda chiqaramiz
       },
+    },
+    legend: {
+      align: 'right',
+      verticalAlign: 'middle',
+      layout: 'vertical',
+      itemMarginBottom: 8,
+      labelFormatter: function (this: any) {
+        return `<span style="font-size: 14px">${this.labelOnly}: ${this.y}</span>`; // 👈 Nom + son ro‘yxatda
+      },
+      useHTML: true,
     },
     series: [
       {
@@ -48,17 +52,20 @@ function generateOptions(data: { high: number; low: number; normal: number }, t:
         colorByPoint: true,
         data: [
           {
-            name: t('Xavfi past'),
+            name: `${t('Xavfi past')}: ${data?.low}`,
+            labelOnly: t('Xavfi past'), // 👈 faqat nomni ajratib berdik
             y: data?.low,
             color: LOW_RISK_COLOR,
           },
           {
-            name: t("Xavfi o'rta"),
+            name: `${t("Xavfi o'rta")}: ${data?.normal}`,
+            labelOnly: t("Xavfi o'rta"),
             y: data?.normal,
             color: MEDIUM_RISK_COLOR,
           },
           {
-            name: t('Xavfi yuqori'),
+            name: `${t('Xavfi yuqori')}: ${data?.high}`,
+            labelOnly: t('Xavfi yuqori'),
             y: data?.high,
             color: HIGH_RISK_COLOR,
           },
@@ -66,10 +73,11 @@ function generateOptions(data: { high: number; low: number; normal: number }, t:
       },
     ],
     tooltip: {
-      pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>', // Show percentage in tooltip
+      pointFormat: '{series.name}: <b>{point.y}</b> ({point.percentage:.1f}%)',
     },
   };
 }
+
 const AssessmentResultsChart = (): JSX.Element => {
   const { t } = useTranslation();
 

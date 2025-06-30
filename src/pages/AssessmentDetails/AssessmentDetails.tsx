@@ -55,7 +55,11 @@ export default function AssessmentDetails(): JSX.Element {
               },
               {
                 key: '2',
-                label: <div className='font-bold text-lg'>{t("Buyruq ma'lumotlari")}</div>,
+                label: (
+                  <div className='font-bold text-lg'>
+                    {t("Tekshiruv o'tkazish uchun asos bo‘lgan hujjat ma'lumotlari")}
+                  </div>
+                ),
                 children: <OrderItems request={request?.data} />,
                 style: {
                   display:
