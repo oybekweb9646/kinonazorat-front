@@ -7,7 +7,7 @@ export default function OrderItems({ request }: { request: any }) {
   console.log('request', request);
 
   const { t } = useTranslation();
-  const joinOrderFileName = request?.order_file_type.split('/');
+  const joinOrderFileName = request?.order_file_type?.split('/');
   const orderFileNameFormat = joinOrderFileName?.[joinOrderFileName?.length - 1];
 
   return (

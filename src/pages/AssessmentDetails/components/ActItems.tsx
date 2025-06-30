@@ -7,7 +7,7 @@ export default function ActItems({ request }: { request: any }) {
   console.log('request', request);
 
   const { t } = useTranslation();
-  const joinActFileName = request?.act_file_type.split('/');
+  const joinActFileName = request?.act_file_type?.split('/');
   const actFileNameFormat = joinActFileName?.[joinActFileName?.length - 1];
 
   return (
