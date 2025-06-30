@@ -33,8 +33,6 @@ export default function CheckingResults() {
   };
 
   function onFinish(values: FieldType) {
-    console.log(values);
-
     mutate(
       {
         url: `/request/request-archive/${id}`,
@@ -118,7 +116,7 @@ export default function CheckingResults() {
                   {
                     onSuccess: (data: any) => {
                       onSuccess?.(data, new XMLHttpRequest());
-                      form.setFieldValue('order_file', data.data);
+                      form.setFieldValue('act_file', data.data);
                     },
                     onError: () => {
                       toast.error('Fayl yuklashda xatolik yuz berdi');
