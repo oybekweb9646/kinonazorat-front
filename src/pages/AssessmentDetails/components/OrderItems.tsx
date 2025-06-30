@@ -4,8 +4,6 @@ import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
 export default function OrderItems({ request }: { request: any }) {
-  console.log('request', request);
-
   const { t } = useTranslation();
   const joinOrderFileName = request?.order_file_type?.split('/');
   const orderFileNameFormat = joinOrderFileName?.[joinOrderFileName?.length - 1];

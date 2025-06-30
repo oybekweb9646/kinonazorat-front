@@ -4,8 +4,6 @@ import dayjs from 'dayjs';
 import { useTranslation } from 'react-i18next';
 
 export default function ActItems({ request }: { request: any }) {
-  console.log('request', request);
-
   const { t } = useTranslation();
   const joinActFileName = request?.act_file_type?.split('/');
   const actFileNameFormat = joinActFileName?.[joinActFileName?.length - 1];
