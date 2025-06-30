@@ -69,10 +69,10 @@ export default function ApplyToChecking() {
   return (
     <>
       <Button type='primary' onClick={showModal}>
-        {t('Tekshiruvga yuborish')}
+        {t('Tekshiruvga asos hujjatlar')}
       </Button>
       <Modal
-        title={t('Tekshiruvga yuborish')}
+        title={t("Tekshiruv o'tkazish uchun asos bo'lgan hujjatlar")}
         closable={{ 'aria-label': 'Custom Close Button' }}
         open={isModalOpen}
         onOk={handleOk}
@@ -82,19 +82,20 @@ export default function ApplyToChecking() {
       >
         <Form layout='vertical' form={form}>
           <Form.Item<FieldType>
+            name='order_inspector'
+            label={t('Tekshiruv o‘tkazuvchi mansabdor shaxs (F.I.O)')}
+            rules={[{ required: true, message: t("Mas'ul xodim (F.I.O) majburiy") }]}
+          >
+            <Input placeholder={t("Mas'ul xodim (F.I.O)")} />
+          </Form.Item>
+          <Form.Item<FieldType>
             name='order_number'
             label={t('Buyruq raqami')}
             rules={[{ required: true, message: t('Buyruq raqami majburiy') }]}
           >
             <Input placeholder={t('Buyruq raqami')} />
           </Form.Item>
-          <Form.Item<FieldType>
-            name='order_inspector'
-            label={t("Mas'ul xodim (F.I.O)")}
-            rules={[{ required: true, message: t("Mas'ul xodim (F.I.O) majburiy") }]}
-          >
-            <Input placeholder={t("Mas'ul xodim (F.I.O)")} />
-          </Form.Item>
+
           <Form.Item<FieldType>
             name='order_date'
             label={t('Buyruq sanasi')}
