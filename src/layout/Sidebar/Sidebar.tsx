@@ -195,13 +195,15 @@ export default function Sidebar({ collapsed, handleCollapse }: any) {
     setSelectedKeys(keys);
   }, [currentPath]);
 
-  const { data: regions } = useFetch<IUseFetchResponseList<any>>({
-    url: '/soato-region/list',
+  const { data: organizations } = useFetch<IUseFetchResponseList<any>>({
+    url: '/organization/list',
     method: 'GET',
-    queryKey: 'regions',
+    queryKey: 'aoka-organizations-list',
   });
 
-  const userRegion = regions?.data?.find((r: any) => r.id === profile?.data?.user?.region_id)?.name;
+  const userRegion = organizations?.data?.find(
+    (r: any) => r.id === profile?.data?.user?.organization_id,
+  )?.name;
 
   return (
     <Sider

@@ -17,10 +17,10 @@ export default function Profile({ open, onCancel }: Props): JSX.Element {
   const { data, isFetching } = useProfile();
   const profile = data?.data?.user;
 
-  const { data: regions } = useFetch<IUseFetchResponseList<any>>({
-    url: '/soato-region/list',
+  const { data: organizations } = useFetch<IUseFetchResponseList<any>>({
+    url: '/organization/list',
     method: 'GET',
-    queryKey: 'regions',
+    queryKey: 'aoka-organizations-list',
   });
 
   return (
@@ -54,9 +54,10 @@ export default function Profile({ open, onCancel }: Props): JSX.Element {
           },
           {
             key: '4',
-            label: t('Hudud'),
-            children: regions?.data?.find((r: any) => r.id === profile?.region_id)?.name,
-            style: { display: profile?.region_id ? 'block' : 'none' },
+            label: t('Tashkilot'),
+            children: organizations?.data?.find((r: any) => r.id === profile?.organization_id)
+              ?.name,
+            style: { display: profile?.organization_id ? 'block' : 'none' },
           },
           {
             key: '5',

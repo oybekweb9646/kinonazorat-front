@@ -17,6 +17,7 @@ export interface IProfileData {
   updated_at: string;
   authority: any;
   region_id: number;
+  organization_id: number;
 }
 
 export interface IProfile {

@@ -106,7 +106,7 @@ export default function UserForm({ open, onCancel, type, item }: FormModalProps)
           pin_fl: item?.pin_fl,
           status: item?.status,
           date_of_birth: item?.date_of_birth && dayjs(item?.date_of_birth),
-          region_id: item?.region_id,
+          organization_id: item?.organization_id,
         }}
         onValuesChange={handleValuesChange}
       >
