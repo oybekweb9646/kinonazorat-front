@@ -33,6 +33,8 @@ export default function CheckingResults() {
   };
 
   function onFinish(values: FieldType) {
+    console.log(values);
+
     mutate(
       {
         url: `/request/request-archive/${id}`,
