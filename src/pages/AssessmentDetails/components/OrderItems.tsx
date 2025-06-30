@@ -13,21 +13,21 @@ export default function OrderItems({ request }: { request: any }) {
       items={[
         {
           key: '1',
+          label: t('Tekshiruv o‘tkazuvchi mansabdor shaxs (F.I.O)'),
+          children: request?.order_inspector,
+        },
+        {
+          key: '2',
           label: t('Buyruq raqami'),
           children: request?.order_number,
         },
         {
-          key: '2',
+          key: '3',
           label: t('Buyruq sanasi'),
           children: request?.order_date && dayjs(request?.order_date).format('DD.MM.YYYY'),
         },
         {
-          key: '3',
-          label: t("Mas'ul xodim"),
-          children: request?.order_inspector,
-        },
-        {
-          key: '34',
+          key: '4',
           label: t('Buyruq fayli'),
           children: (
             <Button

@@ -13,17 +13,17 @@ export default function ActItems({ request }: { request: any }) {
       items={[
         {
           key: '1',
-          label: t('Akt raqami'),
+          label: t('Dalolatnoma (akt) raqami'),
           children: request?.act_number,
         },
         {
           key: '2',
-          label: t('Akt sanasi'),
+          label: t('Dalolatnoma (akt) sanasi'),
           children: request?.act_date && dayjs(request?.order_date).format('DD.MM.YYYY'),
         },
         {
           key: '4',
-          label: t('Akt fayli'),
+          label: t('Dalolatnoma (akt) fayli'),
           children: (
             <Button
               size='small'

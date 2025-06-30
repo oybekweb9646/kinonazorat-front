@@ -68,7 +68,9 @@ export default function AssessmentDetails(): JSX.Element {
               },
               {
                 key: '3',
-                label: <div className='font-bold text-lg'>{t("Akt ma'lumotlari")}</div>,
+                label: (
+                  <div className='font-bold text-lg'>{t("Tekshiruv natijasi ma'lumotlari")}</div>
+                ),
                 children: <ActItems request={request?.data} />,
                 style: {
                   display:

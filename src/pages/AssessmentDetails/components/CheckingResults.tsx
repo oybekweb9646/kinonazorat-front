@@ -68,10 +68,10 @@ export default function CheckingResults() {
   return (
     <>
       <Button type='primary' onClick={showModal}>
-        {t('Tekshiruvga natijalari')}
+        {t('Tekshiruv natijalari')}
       </Button>
       <Modal
-        title={t('Tekshiruvga natijalari')}
+        title={t('Tekshiruv natijalari')}
         closable={{ 'aria-label': 'Custom Close Button' }}
         open={isModalOpen}
         onOk={handleOk}
@@ -82,31 +82,31 @@ export default function CheckingResults() {
         <Form layout='vertical' form={form}>
           <Form.Item<FieldType>
             name='act_number'
-            label={t('Akt raqami')}
-            rules={[{ required: true, message: t('Akt raqami majburiy') }]}
+            label={t('Dalolatnoma (akt) raqami')}
+            rules={[{ required: true, message: t('Dalolatnoma (akt) raqami majburiy') }]}
           >
-            <Input placeholder={t('Akt raqami')} />
+            <Input placeholder={t('Dalolatnoma (akt) raqami')} />
           </Form.Item>
 
           <Form.Item<FieldType>
             name='act_date'
-            label={t('Akt sanasi')}
-            rules={[{ required: true, message: t('Akt sanasi majburiy') }]}
+            label={t('Dalolatnoma (akt) sanasi')}
+            rules={[{ required: true, message: t('Dalolatnoma (akt) sanasi majburiy') }]}
           >
             <DatePicker
               style={{ width: '100%' }}
-              placeholder={t('Akt sanasi')}
+              placeholder={t('Dalolatnoma (akt) sanasi')}
               format={'DD.MM.YYYY'}
             />
           </Form.Item>
 
           <Form.Item<FieldType>
             name='act_file'
-            label={t('Akt fayli')}
+            label={t('Dalolatnoma (akt) fayli')}
             rules={[
               {
                 required: true,
-                message: t('Akt fayli majburiy'),
+                message: t('Dalolatnoma (akt) fayli majburiy'),
               },
             ]}
           >
