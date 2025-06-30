@@ -30,7 +30,7 @@ export default function ActItems({ request }: { request: any }) {
               onClick={() =>
                 downloadFile(
                   request.act_file_id,
-                  `${request?.act_file_type || 'akt_fayli'}.${actFileNameFormat}`,
+                  `${request?.act_file_type || 'Dalolatnoma_fayli'}.${actFileNameFormat}`,
                 )
               }
             >
