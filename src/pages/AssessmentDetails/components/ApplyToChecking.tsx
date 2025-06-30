@@ -84,9 +84,14 @@ export default function ApplyToChecking() {
           <Form.Item<FieldType>
             name='order_inspector'
             label={t('Tekshiruv o‘tkazuvchi mansabdor shaxs (F.I.O)')}
-            rules={[{ required: true, message: t("Mas'ul xodim (F.I.O) majburiy") }]}
+            rules={[
+              {
+                required: true,
+                message: t('Tekshiruv o‘tkazuvchi mansabdor shaxs (F.I.O) majburiy'),
+              },
+            ]}
           >
-            <Input placeholder={t("Mas'ul xodim (F.I.O)")} />
+            <Input placeholder={t('Tekshiruv o‘tkazuvchi mansabdor shaxs (F.I.O)')} />
           </Form.Item>
           <Form.Item<FieldType>
             name='order_number'
