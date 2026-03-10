@@ -159,11 +159,6 @@ function generateSidebarItems(t: TFunction, userRole: number) {
           label: <Link to={'/settings/organizations'}>{t('Tashkilotlar')}</Link>,
           icon: <BankOutlined />,
         },
-        {
-          key: '7.5',
-          label: <Link to={'/settings/aoka-organizations'}>{t('AOKA tashkilotlari')}</Link>,
-          icon: <BankOutlined />,
-        },
         // {
         //   key: '7.5',
         //   label: <Link to={'/settings/checklists'}>{t('Checklist')}</Link>,
