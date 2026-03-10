@@ -224,7 +224,7 @@ export default function Sidebar({ collapsed, handleCollapse }: any) {
               {userRegion
                 ? `${t('Axborot va ommaviy kommunikatsiyalar boshqarmasi')} "${userRegion}"`
                 : t(
-                    'Oʻzbekiston Respublikasi Prezidenti Administratsiyasi huzuridagi Axborot va ommaviy kommunikatsiyalar agentligi',
+                    'Oʻzbekiston Respublikasi Madaniyat vazirligi huzuridagi Kinematografiya agentligi',
                   )}
             </div>
           </div>
