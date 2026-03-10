@@ -69,7 +69,7 @@ const LoginWithPassword: React.FC = () => {
           <img src={GerbIcon} alt='' className='w-30 h-30' />
           <div className='p-4 text-center font-bold'>
             {t(
-              'Oʻzbekiston Respublikasi Prezidenti Administratsiyasi huzuridagi Axborot va ommaviy kommunikatsiyalar agentligi',
+              'O‘zbekiston Respublikasi Madaniyat vazirligi huzuridagi Kinematografiya agentligi',
             )}
           </div>
         </div>
