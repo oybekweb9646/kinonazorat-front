@@ -5,10 +5,7 @@ export default function Footer() {
   const { t } = useTranslation();
   return (
     <Layout.Footer style={{ textAlign: 'center', backgroundColor: '#fff' }}>
-      {t('Xavfni tahlil qilish tizimi')} ©{new Date().getFullYear()} Created by{' '}
-      <a href='https://uzinfocom.uz/' target='_blank' className='!text-blue-500'>
-        UZINFOCOM
-      </a>
+      {t('Xavfni tahlil qilish tizimi')} ©{new Date().getFullYear()}
     </Layout.Footer>
   );
 }
