@@ -13,7 +13,7 @@ export default function StartAssessment() {
 
   const { data = {}, isFetching } = useFetch<any>({
     url: '/authority/get-by-inn',
-    method: 'GET',
+    method: 'POST',
     queryKey: 'organization',
     body: {
       inn: query.stir,
