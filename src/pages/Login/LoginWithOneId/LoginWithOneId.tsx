@@ -13,7 +13,7 @@ const generateOneIdUrl = () => {
     client_id: 'hisobim_uz',
     response_type: 'one_code',
     scope: 'hisobim_uz',
-    redirect_uri: `https://uzbkinonazorat.uz/auth`,
+    redirect_uri: `https://uzbkinonazorat.uz`,
     state: oneIdState,
   });
 
