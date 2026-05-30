@@ -12,11 +12,11 @@ export default function StartAssessment() {
   const { query, setQuery } = useQuery();
 
   const { data = {}, isFetching } = useFetch<any>({
-    url: '/mib-integration/get',
-    method: 'POST',
+    url: '/authority/get-by-inn',
+    method: 'GET',
     queryKey: 'organization',
     body: {
-      stir: query.stir,
+      inn: query.stir,
     },
     queryOptions: {
       enabled: !!query.stir,
