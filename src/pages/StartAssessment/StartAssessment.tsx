@@ -16,7 +16,7 @@ export default function StartAssessment() {
     method: 'POST',
     queryKey: 'organization',
     body: {
-      inn: query.stir,
+      stir: query.stir,
     },
     queryOptions: {
       enabled: !!query.stir,
