@@ -10,7 +10,7 @@ const generateOneIdUrl = () => {
   sessionStorage.setItem('oneIdState', String(oneIdState));
 
   const query = QueryString.stringify({
-    client_id: 'hisobim_uz',
+    client_id: 'uzbkinonazorat_uz',
     response_type: 'one_code',
     scope: 'hisobim_uz',
     redirect_uri: `https://uzbkinonazorat.uz`,
