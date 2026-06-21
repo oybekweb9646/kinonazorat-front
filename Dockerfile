@@ -5,9 +5,9 @@ ARG NEXT_PUBLIC_API_URL
 RUN apk add --no-cache libc6-compat
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+COPY package.json package-lock.json* ./
 
-RUN npm ci
+RUN npm install --prefer-offline || npm install
 
 # Production image, copy all the files and run next
 FROM node:20.11.1-alpine AS runner

@@ -10,6 +10,7 @@ import AuthorityForm from './components/AuthorityForm';
 import DeleteAuthorityConfirmation from './components/DeleteAuthorityConfirmation';
 import { useProfile } from '@/shared/hooks/use-profile/use-profile';
 import { _RESPONSIBLE, _SUPER_ADMIN, _TERRITORIAL_RESPONSIBLE } from '@/service/const/roles';
+import ExportButtons from '@/shared/components/ExportButtons/ExportButtons';
 
 const { Column } = Table;
 
@@ -50,15 +51,28 @@ export default function Organizations(): JSX.Element {
     <div>
       <div className='flex justify-between items-center mb-4'>
         <h3 className='page-title !mb-0'>{t('Tashkilotlar')}</h3>
-        {canMutate && (
-          <Button
-            type='primary'
-            icon={<PlusOutlined />}
-            onClick={() => setFormModal({ open: true, type: 'create', item: null })}
-          >
-            {t("Qo'shish")}
-          </Button>
-        )}
+        <Space>
+          <ExportButtons
+            data={authorities?.data ?? []}
+            filename='tashkilotlar'
+            title="Tashkilotlar royxati"
+            columns={[
+              { title: '#', dataIndex: 'id' },
+              { title: t('Nomi'), dataIndex: 'name_uz' },
+              { title: t('STIR'), dataIndex: 'stir' },
+              { title: t('Manzil'), dataIndex: 'address' },
+            ]}
+          />
+          {canMutate && (
+            <Button
+              type='primary'
+              icon={<PlusOutlined />}
+              onClick={() => setFormModal({ open: true, type: 'create', item: null })}
+            >
+              {t("Qo'shish")}
+            </Button>
+          )}
+        </Space>
       </div>
 
       <Table

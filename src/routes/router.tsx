@@ -27,8 +27,10 @@ import {
   _READ_ONLY,
   _AUTHORITY,
   _TERRITORIAL_RESPONSIBLE,
+  _PROKUROR,
 } from '@/service/const/roles';
 import AOKAOrganizations from '@/pages/Settings/AOKAOrganizations';
+import Monitoring from '@/pages/Monitoring';
 
 export const router = createBrowserRouter([
   {
@@ -41,7 +43,7 @@ export const router = createBrowserRouter([
             path: '/',
             element: (
               <RoleGuard
-                allowedRoles={[_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN, _READ_ONLY]}
+                allowedRoles={[_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN, _READ_ONLY, _PROKUROR]}
               >
                 <Home />
               </RoleGuard>
@@ -50,7 +52,7 @@ export const router = createBrowserRouter([
           {
             path: '/start-assessments',
             element: (
-              <RoleGuard allowedRoles={[_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN]}>
+              <RoleGuard allowedRoles={[_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN, _PROKUROR]}>
                 <StartAssessment />
               </RoleGuard>
             ),
@@ -67,7 +69,7 @@ export const router = createBrowserRouter([
             path: '/assessment-results',
             element: (
               <RoleGuard
-                allowedRoles={[_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN, _READ_ONLY]}
+                allowedRoles={[_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN, _READ_ONLY, _PROKUROR]}
               >
                 <AssessmentResults />
               </RoleGuard>
@@ -77,7 +79,7 @@ export const router = createBrowserRouter([
             path: '/archived-assessment-results',
             element: (
               <RoleGuard
-                allowedRoles={[_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN, _READ_ONLY]}
+                allowedRoles={[_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN, _READ_ONLY, _PROKUROR]}
               >
                 <AssessmentResults />
               </RoleGuard>
@@ -87,7 +89,7 @@ export const router = createBrowserRouter([
             path: '/organizations',
             element: (
               <RoleGuard
-                allowedRoles={[_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN, _READ_ONLY]}
+                allowedRoles={[_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN, _READ_ONLY, _PROKUROR]}
               >
                 <Organizations />
               </RoleGuard>
@@ -104,7 +106,7 @@ export const router = createBrowserRouter([
           {
             path: '/normative-documents',
             element: (
-              <RoleGuard allowedRoles={[_SUPER_ADMIN, _AUTHORITY]}>
+              <RoleGuard allowedRoles={[_SUPER_ADMIN, _AUTHORITY, _PROKUROR]}>
                 <Questions />
               </RoleGuard>
             ),
@@ -113,7 +115,7 @@ export const router = createBrowserRouter([
             path: '/assessment-details/:id',
             element: (
               <RoleGuard
-                allowedRoles={[_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN, _READ_ONLY]}
+                allowedRoles={[_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN, _READ_ONLY, _PROKUROR]}
               >
                 <AssessmentDetails />
               </RoleGuard>
@@ -122,7 +124,7 @@ export const router = createBrowserRouter([
           {
             path: '/settings/indicators',
             element: (
-              <RoleGuard allowedRoles={[_SUPER_ADMIN]}>
+              <RoleGuard allowedRoles={[_SUPER_ADMIN, _PROKUROR]}>
                 <Indicators />
               </RoleGuard>
             ),
@@ -130,7 +132,7 @@ export const router = createBrowserRouter([
           {
             path: '/settings/indicator-types',
             element: (
-              <RoleGuard allowedRoles={[_SUPER_ADMIN]}>
+              <RoleGuard allowedRoles={[_SUPER_ADMIN, _PROKUROR]}>
                 <IndicatorTypes />
               </RoleGuard>
             ),
@@ -138,7 +140,7 @@ export const router = createBrowserRouter([
           {
             path: '/settings/users',
             element: (
-              <RoleGuard allowedRoles={[_SUPER_ADMIN]}>
+              <RoleGuard allowedRoles={[_SUPER_ADMIN, _PROKUROR]}>
                 <Users />
               </RoleGuard>
             ),
@@ -146,7 +148,7 @@ export const router = createBrowserRouter([
           {
             path: '/settings/organizations',
             element: (
-              <RoleGuard allowedRoles={[_SUPER_ADMIN]}>
+              <RoleGuard allowedRoles={[_SUPER_ADMIN, _PROKUROR]}>
                 <OrganizationsList />
               </RoleGuard>
             ),
@@ -154,7 +156,7 @@ export const router = createBrowserRouter([
           {
             path: '/settings/aoka-organizations',
             element: (
-              <RoleGuard allowedRoles={[_SUPER_ADMIN]}>
+              <RoleGuard allowedRoles={[_SUPER_ADMIN, _PROKUROR]}>
                 <AOKAOrganizations />
               </RoleGuard>
             ),
@@ -162,7 +164,7 @@ export const router = createBrowserRouter([
           // {
           //   path: '/settings/checklists',
           //   element: (
-          //     <RoleGuard allowedRoles={[_SUPER_ADMIN]}>
+          //     <RoleGuard allowedRoles={[_SUPER_ADMIN, _PROKUROR]}>
           //       <Checklists />
           //     </RoleGuard>
           //   ),
@@ -170,8 +172,16 @@ export const router = createBrowserRouter([
           {
             path: '/settings/normative-documents',
             element: (
-              <RoleGuard allowedRoles={[_SUPER_ADMIN]}>
+              <RoleGuard allowedRoles={[_SUPER_ADMIN, _PROKUROR]}>
                 <QuestionsList />
+              </RoleGuard>
+            ),
+          },
+          {
+            path: '/monitoring',
+            element: (
+              <RoleGuard allowedRoles={[_SUPER_ADMIN, _PROKUROR]}>
+                <Monitoring />
               </RoleGuard>
             ),
           },

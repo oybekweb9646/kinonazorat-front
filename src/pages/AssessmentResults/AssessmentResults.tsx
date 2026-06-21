@@ -10,6 +10,7 @@ import { handleAssessmentColor } from '@/service';
 import Pagination from '@/shared/components/core/Pagination/Pagination';
 import dayjs from 'dayjs';
 import useQuery from '@/shared/hooks/use-query/use-query';
+import ExportButtons from '@/shared/components/ExportButtons/ExportButtons';
 
 export default function AssessmentResults(): JSX.Element {
   const { t } = useTranslation();
@@ -37,7 +38,24 @@ export default function AssessmentResults(): JSX.Element {
 
   return (
     <div className='flex flex-col gap-4'>
-      <h3 className='page-title'>{isResults ? t('Baholash natijalari') : t('Arxiv')}</h3>
+      <div className='flex justify-between items-center'>
+        <h3 className='page-title'>{isResults ? t('Baholash natijalari') : t('Arxiv')}</h3>
+        <ExportButtons
+          data={data?.data ?? []}
+          filename={isResults ? 'baholash-natijalari' : 'arxiv'}
+          title={isResults ? 'Baholash natijalari' : 'Arxiv'}
+          columns={[
+            { title: 'ID', dataIndex: 'id' },
+            { title: t('Tashkilot nomi'), render: (item) => item?.authority?.name },
+            { title: t('Manzil'), render: (item) => item?.authority?.address || item?.authority?.billing_address },
+            { title: t('Oxirgi baholovchi'), render: (item) => item?.updated_by?.full_name || item?.updated_by?.username },
+            { title: t('Stir'), dataIndex: 'stir' },
+            { title: t("Ko'rsatkich turi"), render: (item) => item?.indicator_type?.name },
+            { title: t('Yakunlangan sana'), render: (item) => item?.closed_at ? dayjs(item.closed_at).format('DD.MM.YYYY') : '' },
+            { title: t('Ball'), dataIndex: 'score' },
+          ]}
+        />
+      </div>
       <AssessmentFilters />
 
       <Table

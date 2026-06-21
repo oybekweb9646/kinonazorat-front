@@ -19,7 +19,9 @@ import useQuery from '@/shared/hooks/use-query/use-query';
 import Pagination from '@/shared/components/core/Pagination/Pagination';
 import { _BANNED, USER_STATUS_LIST } from '@/service/const/user-statuses';
 import DeleteUserConfirmation from './components/DeleteUserConfirmation';
-import { ROLE_LIST } from '@/service/const/roles';
+import { _PROKUROR, ROLE_LIST } from '@/service/const/roles';
+import ExportButtons from '@/shared/components/ExportButtons/ExportButtons';
+import { useProfile } from '@/shared/hooks/use-profile/use-profile';
 const { Column } = Table;
 
 interface IUser {
@@ -54,6 +56,9 @@ const Users: React.FC = () => {
 
     item: null,
   });
+
+  const { data: profile } = useProfile();
+  const canMutate = profile?.data?.user?.role !== _PROKUROR;
 
   const { mutate: block } = useMutation({ mutationKey: 'block-user' });
   const queryClient = useQueryClient();
@@ -109,7 +114,22 @@ const Users: React.FC = () => {
 
   return (
     <div className='w-full overflow-auto'>
-      <h3 className='page-title'>{t('Foydalanuvchilar')}</h3>
+      <div className='flex justify-between items-center'>
+        <h3 className='page-title'>{t('Foydalanuvchilar')}</h3>
+        <ExportButtons
+          data={users?.data ?? []}
+          filename='foydalanuvchilar'
+          title="Foydalanuvchilar royxati"
+          columns={[
+            { title: 'ID', dataIndex: 'id' },
+            { title: t('Foydalanuvchi nomi'), dataIndex: 'username' },
+            { title: t('F.I.SH'), dataIndex: 'full_name' },
+            { title: t('PINFL'), dataIndex: 'pin_fl' },
+            { title: t('Rol'), render: (item) => ROLE_LIST.find((r) => r.id === item?.role)?.name ?? '' },
+            { title: t('Status'), render: (item) => USER_STATUS_LIST.find((s) => s.id === item?.status)?.name ?? '' },
+          ]}
+        />
+      </div>
       <Table
         dataSource={users?.data}
         pagination={false}
@@ -164,7 +184,7 @@ const Users: React.FC = () => {
           }}
         />
 
-        <Column
+        {canMutate && <Column
           align='center'
           title={
             <Button
@@ -244,7 +264,7 @@ const Users: React.FC = () => {
               </Dropdown>
             );
           }}
-        />
+        />}
       </Table>
 
       {formModal.open && (

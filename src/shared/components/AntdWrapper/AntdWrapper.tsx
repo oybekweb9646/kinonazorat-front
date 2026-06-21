@@ -17,6 +17,14 @@ const localeMap: localeMapType = {
   ru: ruRU,
 };
 
+const GREEN = {
+  base: '#1B3A2D',    // sidebar
+  mid: '#24503E',     // jadval sarlavhasi, card header
+  primary: '#2E7D52', // tugmalar
+  hover: '#3A9E68',   // hover
+  active: '#14301F',  // active
+};
+
 export default function AntdWrapper({ children }: { children: React.ReactNode }): JSX.Element {
   const { i18n } = useTranslation();
 
@@ -26,7 +34,7 @@ export default function AntdWrapper({ children }: { children: React.ReactNode })
       theme={{
         token: {
           colorBgContainer: '#fff',
-          colorPrimary: '#0d6efd',
+          colorPrimary: GREEN.primary,
           colorSuccess: '#66bb6a',
           colorError: '#f44336',
           colorWarning: '#ffc107',
@@ -34,41 +42,40 @@ export default function AntdWrapper({ children }: { children: React.ReactNode })
         },
         components: {
           Menu: {
-            colorPrimary: '#00738A',
-            // colorBgMask: '#014158',
-            colorBgContainer: '#003a4f',
+            colorPrimary: GREEN.primary,
+            colorBgContainer: GREEN.base,
             colorText: '#fff',
-            colorPrimaryActive: '#00738A',
-            colorPrimaryTextActive: '#00738A',
-            colorPrimaryHover: '#00738A',
-            colorPrimaryTextHover: '#00738A',
-            colorBgTextActive: '#014158',
-            colorBgSolidHover: '#014158',
-            darkPopupBg: '#014158',
-            colorBgElevated: '#014158',
-            popupBg: '#014158',
-            subMenuItemBg: '#014158',
-            darkSubMenuItemBg: '#014158',
+            colorPrimaryActive: GREEN.hover,
+            colorPrimaryTextActive: GREEN.hover,
+            colorPrimaryHover: GREEN.hover,
+            colorPrimaryTextHover: GREEN.hover,
+            colorBgTextActive: GREEN.mid,
+            colorBgSolidHover: GREEN.mid,
+            darkPopupBg: GREEN.mid,
+            colorBgElevated: GREEN.mid,
+            popupBg: GREEN.mid,
+            subMenuItemBg: GREEN.mid,
+            darkSubMenuItemBg: GREEN.mid,
           },
           Button: {
-            colorPrimary: '#00738A',
-            colorPrimaryHover: '#00738A',
-            colorPrimaryActive: '#014158',
+            colorPrimary: GREEN.primary,
+            colorPrimaryHover: GREEN.hover,
+            colorPrimaryActive: GREEN.active,
             borderRadius: 50,
           },
           Input: {
-            colorPrimary: '#00738A',
-            colorPrimaryHover: '#00738A',
+            colorPrimary: GREEN.primary,
+            colorPrimaryHover: GREEN.hover,
             borderRadius: 50,
           },
           DatePicker: {
-            colorPrimary: '#00738A',
-            colorPrimaryHover: '#00738A',
+            colorPrimary: GREEN.primary,
+            colorPrimaryHover: GREEN.hover,
             borderRadius: 50,
           },
           Select: {
             borderRadius: 50,
-            colorPrimary: '#00738A',
+            colorPrimary: GREEN.primary,
           },
           Switch: {
             colorPrimary: '#07bc0c',
@@ -77,39 +84,35 @@ export default function AntdWrapper({ children }: { children: React.ReactNode })
           },
           Checkbox: {
             colorPrimary: '#07bc0c',
-            // colorBgContainer: '#d9d9d9',
             colorPrimaryHover: '#07bc0c',
           },
           Radio: {
-            colorPrimary: '#00738A',
-            // colorBgContainer: '#d9d9d9',
-            colorPrimaryHover: '#00738A',
+            colorPrimary: GREEN.primary,
+            colorPrimaryHover: GREEN.hover,
           },
           Table: {
-            headerBg: '#014158',
+            headerBg: GREEN.mid,
             headerColor: '#fff',
-            footerBg: '#014158',
+            footerBg: GREEN.mid,
             footerColor: '#fff',
           },
           Spin: {
-            colorPrimary: '#014158',
+            colorPrimary: GREEN.mid,
           },
-
           Pagination: {
-            itemActiveBg: '#014158',
+            itemActiveBg: GREEN.mid,
             itemLinkBg: '#fff',
             colorBgContainer: '#fff',
           },
-
           Card: {
-            headerBg: '#014158',
+            headerBg: GREEN.mid,
             colorTextHeading: '#fff',
           },
           Modal: {
-            titleColor: '#014158',
+            titleColor: GREEN.base,
           },
           Form: {
-            labelColor: '#014158',
+            labelColor: GREEN.base,
           },
         },
       }}

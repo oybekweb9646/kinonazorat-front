@@ -18,6 +18,9 @@ import Pagination from '@/shared/components/core/Pagination/Pagination';
 const { Column } = Table;
 import { Dropdown } from 'antd';
 import Scoring from './components/Scoring';
+import ExportButtons from '@/shared/components/ExportButtons/ExportButtons';
+import { useProfile } from '@/shared/hooks/use-profile/use-profile';
+import { _PROKUROR } from '@/service/const/roles';
 
 interface IIndicator {
   created_at: string;
@@ -48,6 +51,9 @@ const Indicators: React.FC = () => {
     type: 'create',
     item: null,
   });
+
+  const { data: profile } = useProfile();
+  const canMutate = profile?.data?.user?.role !== _PROKUROR;
 
   const { mutate } = useMutation({ mutationKey: 'indicator-delete' });
   const queryClient = useQueryClient();
@@ -85,7 +91,22 @@ const Indicators: React.FC = () => {
 
   return (
     <div>
-      <h3 className='page-title'>{t("Ko'rsatkichlar")}</h3>
+      <div className='flex justify-between items-center'>
+        <h3 className='page-title'>{t("Ko'rsatkichlar")}</h3>
+        <ExportButtons
+          data={indicator?.data ?? []}
+          filename="korsatkichlar"
+          title="Ko'rsatkichlar"
+          columns={[
+            { title: 'ID', dataIndex: 'id' },
+            { title: t('Nomi (lotin)'), dataIndex: 'name_uz' },
+            { title: t('Nomi (kirill)'), dataIndex: 'name_uzc' },
+            { title: t('Nomi (rus)'), dataIndex: 'name_ru' },
+            { title: t('Max ball'), dataIndex: 'max_score' },
+            { title: t('Turi'), render: (item) => indicatorTypes?.data?.find((it: IIndicatorType) => it.id === item?.type_id)?.name ?? '' },
+          ]}
+        />
+      </div>
       <Table
         dataSource={indicator?.data || []}
         bordered
@@ -115,7 +136,7 @@ const Indicators: React.FC = () => {
             return indicatorType?.name;
           }}
         />
-        <Column
+        {canMutate && <Column
           align='center'
           title={
             <div>
@@ -187,7 +208,7 @@ const Indicators: React.FC = () => {
               </div>
             );
           }}
-        />
+        />}
       </Table>
 
       {formModal.open && (

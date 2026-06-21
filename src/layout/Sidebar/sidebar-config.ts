@@ -6,6 +6,7 @@ export const pathToKeyMap: { [key: string]: string[] } = {
   '/archived-assessment-results': ['8'],
   '/organizations': ['5'],
   '/normative-documents': ['6'],
+  '/monitoring': ['9'],
   // '/checklist': ['7'],
   '/settings/indicator-types': ['7', '7.1'],
   '/settings/indicators': ['7', '7.2'],
@@ -23,5 +24,5 @@ export const siderStyle: React.CSSProperties = {
   bottom: 0,
   scrollbarWidth: 'thin',
   scrollbarGutter: 'stable',
-  backgroundColor: '#003a4f',
+  backgroundColor: '#1B3A2D',
 };

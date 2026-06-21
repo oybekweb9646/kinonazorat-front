@@ -1,6 +1,7 @@
 import {
   BankOutlined,
   // CheckOutlined,
+  DashboardOutlined,
   FileOutlined,
   GroupOutlined,
   HomeOutlined,
@@ -26,6 +27,7 @@ import {
   _RESPONSIBLE,
   _SUPER_ADMIN,
   _TERRITORIAL_RESPONSIBLE,
+  _PROKUROR,
 } from '@/service/const/roles';
 import { useFetch } from '@/shared/hooks';
 import { IUseFetchResponseList } from '@/shared/types';
@@ -44,6 +46,7 @@ function generateSidebarItems(t: TFunction, userRole: number) {
           _TERRITORIAL_RESPONSIBLE,
           _SUPER_ADMIN,
           _READ_ONLY,
+          _PROKUROR,
         ])
           ? 'block'
           : 'none',
@@ -54,7 +57,7 @@ function generateSidebarItems(t: TFunction, userRole: number) {
       label: <Link to={'/start-assessments'}>{t('Baholashni boshlash')}</Link>,
       icon: <PlusCircleOutlined />,
       style: {
-        display: hasPermission(userRole, [_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN])
+        display: hasPermission(userRole, [_RESPONSIBLE, _TERRITORIAL_RESPONSIBLE, _SUPER_ADMIN, _PROKUROR])
           ? 'block'
           : 'none',
       },
@@ -79,6 +82,7 @@ function generateSidebarItems(t: TFunction, userRole: number) {
           _TERRITORIAL_RESPONSIBLE,
           _SUPER_ADMIN,
           _READ_ONLY,
+          _PROKUROR,
         ])
           ? 'block'
           : 'none',
@@ -94,6 +98,7 @@ function generateSidebarItems(t: TFunction, userRole: number) {
           _TERRITORIAL_RESPONSIBLE,
           _SUPER_ADMIN,
           _READ_ONLY,
+          _PROKUROR,
         ])
           ? 'block'
           : 'none',
@@ -109,6 +114,7 @@ function generateSidebarItems(t: TFunction, userRole: number) {
           _TERRITORIAL_RESPONSIBLE,
           _SUPER_ADMIN,
           _READ_ONLY,
+          _PROKUROR,
         ])
           ? 'block'
           : 'none',
@@ -119,7 +125,7 @@ function generateSidebarItems(t: TFunction, userRole: number) {
       label: <Link to={'/normative-documents'}>{t('Normativ hujjatlar')}</Link>,
       icon: <FileOutlined />,
       style: {
-        display: hasPermission(userRole, [_AUTHORITY, _SUPER_ADMIN]) ? 'block' : 'none',
+        display: hasPermission(userRole, [_AUTHORITY, _SUPER_ADMIN, _PROKUROR]) ? 'block' : 'none',
       },
     },
     // {
@@ -132,11 +138,19 @@ function generateSidebarItems(t: TFunction, userRole: number) {
     // },
 
     {
+      key: '9',
+      label: <Link to={'/monitoring'}>{t('Monitoring')}</Link>,
+      icon: <DashboardOutlined />,
+      style: {
+        display: hasPermission(userRole, [_SUPER_ADMIN, _PROKUROR]) ? 'block' : 'none',
+      },
+    },
+    {
       key: '7',
       label: t('Sozlamalar'),
       icon: <SettingOutlined />,
       style: {
-        display: hasPermission(userRole, [_SUPER_ADMIN]) ? 'block' : 'none',
+        display: hasPermission(userRole, [_SUPER_ADMIN, _PROKUROR]) ? 'block' : 'none',
       },
       children: [
         {
@@ -212,9 +226,9 @@ export default function Sidebar({ collapsed, handleCollapse }: any) {
             </Link>
             <div className='p-4 text-center text-white font-bold'>
               {userRegion
-                ? `${t('Axborot va ommaviy kommunikatsiyalar boshqarmasi')} "${userRegion}"`
+                ? `${t('Kinematografiya agentligi hududiy vakili')} "${userRegion}"`
                 : t(
-                    'Oʻzbekiston Respublikasi  Madaniyat vazirligi huzuridagi Kinematografiya agentligi',
+                    'Oʻzbekiston Respublikasi Madaniyat vazirligi huzuridagi Kinematografiya agentligi',
                   )}
             </div>
           </div>
@@ -225,7 +239,7 @@ export default function Sidebar({ collapsed, handleCollapse }: any) {
           selectedKeys={selectedKeys}
           mode='inline'
           items={generateSidebarItems(t, userRole)}
-          style={{ backgroundColor: '#003a4f' }}
+          style={{ backgroundColor: '#1B3A2D' }}
         />
       </div>
     </Sider>
