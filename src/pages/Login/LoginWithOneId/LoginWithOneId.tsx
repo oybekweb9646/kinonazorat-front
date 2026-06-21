@@ -24,75 +24,49 @@ const LoginWithOneId: React.FC = () => {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', background: '#0f1f17' }}>
 
-      {/* Left decorative panel */}
-      <div style={{
-        flex: 1,
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        padding: '48px',
-        background: 'linear-gradient(145deg, #1B3A2D 0%, #0f2419 60%, #071510 100%)',
-        position: 'relative',
-        overflow: 'hidden',
-      }} className='login-left-panel'>
-
-        {/* Concentric circles */}
+      {/* Left decorative panel — hidden on mobile, flex on desktop via CSS */}
+      <div
+        className='l1-left'
+        style={{
+          flex: 1,
+          padding: '48px',
+          background: 'linear-gradient(145deg, #1B3A2D 0%, #0f2419 60%, #071510 100%)',
+          position: 'relative',
+          overflow: 'hidden',
+        }}
+      >
         {[500, 350, 200].map((size, i) => (
           <div key={i} style={{
-            position: 'absolute',
-            width: size, height: size,
-            borderRadius: '50%',
+            position: 'absolute', width: size, height: size, borderRadius: '50%',
             border: i < 2 ? `1px solid rgba(46,125,82,${i === 0 ? 0.12 : 0.18})` : 'none',
             background: i === 2 ? 'rgba(46,125,82,0.05)' : 'transparent',
-            top: '50%', left: '50%',
-            transform: 'translate(-50%,-50%)',
+            top: '50%', left: '50%', transform: 'translate(-50%,-50%)',
           }} />
         ))}
-
-        {/* Floating accent dots */}
         {[
-          { top: '14%', left: '18%', w: 7 },
-          { top: '22%', right: '22%', w: 5 },
-          { top: '68%', left: '12%', w: 6 },
-          { bottom: '18%', right: '18%', w: 8 },
+          { top: '14%', left: '18%', w: 7 }, { top: '22%', right: '22%', w: 5 },
+          { top: '68%', left: '12%', w: 6 }, { bottom: '18%', right: '18%', w: 8 },
           { top: '44%', left: '7%', w: 4 },
-          { bottom: '30%', right: '10%', w: 5 },
         ].map((d, i) => (
           <div key={i} style={{
-            position: 'absolute', ...d,
-            width: d.w, height: d.w,
-            borderRadius: '50%',
-            background: 'rgba(58,158,104,0.45)',
+            position: 'absolute', top: (d as any).top, left: (d as any).left,
+            right: (d as any).right, bottom: (d as any).bottom,
+            width: d.w, height: d.w, borderRadius: '50%', background: 'rgba(58,158,104,0.45)',
           }} />
         ))}
-
-        {/* Center content — explicit flex column to guarantee stacking */}
         <div style={{
           position: 'relative', zIndex: 1,
-          display: 'flex', flexDirection: 'column',
-          alignItems: 'center', textAlign: 'center',
+          display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center',
           maxWidth: 380,
         }}>
-          <img
-            src={GerbIcon}
-            alt='gerb'
-            style={{
-              width: 112, height: 112,
-              marginBottom: 28,
-              filter: 'drop-shadow(0 4px 28px rgba(46,125,82,0.45))',
-            }}
-          />
-          <h2 style={{
-            color: 'white', fontSize: 21, fontWeight: 700,
-            lineHeight: 1.45, margin: '0 0 18px',
-          }}>
+          <img src={GerbIcon} alt='gerb' style={{
+            width: 112, height: 112, marginBottom: 28,
+            filter: 'drop-shadow(0 4px 28px rgba(46,125,82,0.45))',
+          }} />
+          <h2 style={{ color: 'white', fontSize: 21, fontWeight: 700, lineHeight: 1.45, margin: '0 0 18px' }}>
             {t('Oʻzbekiston Respublikasi Madaniyat vazirligi huzuridagi Kinematografiya agentligi')}
           </h2>
-          <div style={{
-            width: 52, height: 3,
-            background: 'linear-gradient(90deg, #2E7D52, #3A9E68)',
-            borderRadius: 2, marginBottom: 20,
-          }} />
+          <div style={{ width: 52, height: 3, background: 'linear-gradient(90deg, #2E7D52, #3A9E68)', borderRadius: 2, marginBottom: 20 }} />
           <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: 14, margin: 0 }}>
             {t('Xavfni tahlil qilish tizimi')}
           </p>
@@ -108,13 +82,10 @@ const LoginWithOneId: React.FC = () => {
         background: '#111d16',
       }}>
 
-        {/* Mobile-only header (shown when left panel hidden) */}
-        <div className='login-mobile-header' style={{
-          display: 'none',
-          flexDirection: 'column',
-          alignItems: 'center',
-          marginBottom: 36,
-          textAlign: 'center',
+        {/* Mobile-only gerb header — hidden on desktop via CSS */}
+        <div className='l1-mobile-header' style={{
+          flexDirection: 'column', alignItems: 'center',
+          marginBottom: 36, textAlign: 'center',
         }}>
           <img src={GerbIcon} alt='gerb' style={{ width: 72, height: 72, marginBottom: 14 }} />
           <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: 13, margin: 0, maxWidth: 260 }}>
@@ -123,7 +94,7 @@ const LoginWithOneId: React.FC = () => {
         </div>
 
         <div style={{ width: '100%', maxWidth: 360 }}>
-          <div style={{ marginBottom: 40 }}>
+          <div style={{ marginBottom: 40, textAlign: 'center' }}>
             <h1 style={{ color: 'white', fontSize: 28, fontWeight: 700, margin: '0 0 8px' }}>
               {t('Tizimga kirish')}
             </h1>
@@ -132,21 +103,14 @@ const LoginWithOneId: React.FC = () => {
             </p>
           </div>
 
-          {/* OneID button */}
           <button
             onClick={() => { window.location.href = oneIdUrl; }}
             style={{
-              width: '100%',
-              padding: '15px 24px',
-              borderRadius: 12,
+              width: '100%', padding: '15px 24px', borderRadius: 12,
               border: '1px solid rgba(46,125,82,0.45)',
               background: 'linear-gradient(135deg, #2E7D52 0%, #1a3d28 100%)',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              gap: 12,
-              transition: 'transform 0.2s, box-shadow 0.2s',
+              cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              gap: 12, transition: 'transform 0.2s, box-shadow 0.2s',
               boxShadow: '0 4px 24px rgba(46,125,82,0.22)',
             }}
             onMouseEnter={e => {
@@ -164,27 +128,20 @@ const LoginWithOneId: React.FC = () => {
             </span>
           </button>
 
-          {/* Divider */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 12, margin: '28px 0 20px' }}>
             <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.08)' }} />
             <span style={{ color: 'rgba(255,255,255,0.22)', fontSize: 12 }}>{t('yoki')}</span>
             <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.08)' }} />
           </div>
 
-          {/* Password login link */}
           <a
             href='/login-with-password'
             style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              height: 50,
-              borderRadius: 12,
-              textDecoration: 'none',
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              height: 50, borderRadius: 12, textDecoration: 'none',
               border: '1px solid rgba(255,255,255,0.1)',
               background: 'rgba(255,255,255,0.04)',
-              color: 'rgba(255,255,255,0.55)',
-              fontSize: 14,
+              color: 'rgba(255,255,255,0.55)', fontSize: 14,
               transition: 'background 0.2s, color 0.2s',
             }}
             onMouseEnter={e => {
@@ -206,11 +163,11 @@ const LoginWithOneId: React.FC = () => {
       </div>
 
       <style>{`
-        .login-left-panel { display: none; }
-        .login-mobile-header { display: flex !important; }
+        .l1-left       { display: none; flex-direction: column; align-items: center; justify-content: center; }
+        .l1-mobile-header { display: flex; }
         @media (min-width: 1024px) {
-          .login-left-panel { display: flex !important; }
-          .login-mobile-header { display: none !important; }
+          .l1-left          { display: flex; }
+          .l1-mobile-header { display: none; }
         }
       `}</style>
     </div>
