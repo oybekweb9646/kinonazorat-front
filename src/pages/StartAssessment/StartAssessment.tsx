@@ -23,7 +23,7 @@ export default function StartAssessment() {
     },
   });
 
-  const organizationData = data?.data;
+  const organizationData = data?.data ?? data;
 
   useEffect(() => {
     if (organizationData?.id) {

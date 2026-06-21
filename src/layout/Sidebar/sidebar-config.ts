@@ -10,8 +10,6 @@ export const pathToKeyMap: { [key: string]: string[] } = {
   '/settings/indicator-types': ['7', '7.1'],
   '/settings/indicators': ['7', '7.2'],
   '/settings/users': ['7', '7.3'],
-  '/settings/organizations': ['7', '7.4'],
-  '/settings/aoka-organizations': ['7', '7.5'],
   // '/settings/checklists': ['7', '7.5'],
   '/settings/normative-documents': ['7', '7.6'],
 };

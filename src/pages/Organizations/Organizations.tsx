@@ -1,121 +1,124 @@
-import { JSX } from 'react';
+import { JSX, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Select, Table, theme } from 'antd';
+import { Button, Space, Table } from 'antd';
+import { DeleteOutlined, EditOutlined, PlusOutlined } from '@ant-design/icons';
 import useQuery from '@/shared/hooks/use-query/use-query';
 import { useFetch } from '@/shared/hooks';
-import { IUseFetchResponse } from '@/shared/types';
+import { FormStateTypes, IUseFetchResponse } from '@/shared/types';
 import Pagination from '@/shared/components/core/Pagination/Pagination';
+import AuthorityForm from './components/AuthorityForm';
+import DeleteAuthorityConfirmation from './components/DeleteAuthorityConfirmation';
+import { useProfile } from '@/shared/hooks/use-profile/use-profile';
+import { _RESPONSIBLE, _SUPER_ADMIN, _TERRITORIAL_RESPONSIBLE } from '@/service/const/roles';
 
 const { Column } = Table;
 
-interface IOrganization {
-  auth_type: string;
-  authority_id: null | number;
-  created_at: string;
-  date_of_birth: null | string;
-  egov_token: null | string;
-  full_name: null | string;
+const CAN_MUTATE = [_SUPER_ADMIN, _RESPONSIBLE, _TERRITORIAL_RESPONSIBLE];
+
+interface IAuthority {
   id: number;
-  is_juridical: boolean;
-  phone: null | string;
-  pin_fl: string;
-  position_name: null | string;
-  role: string;
-  status: number;
-  stir: null | string;
-  updated_at: string;
-  username: string;
+  stir: string;
+  name_uz: string | null;
+  name_ru: string | null;
+  name_uzc: string | null;
+  address: string | null;
+  is_checked_checklist: boolean;
+  is_checked_question: boolean;
 }
 
 export default function Organizations(): JSX.Element {
   const { t } = useTranslation();
-  const { query, setQuery } = useQuery();
-  const {
-    token: { colorSuccess, colorError },
-  } = theme.useToken();
+  const { query } = useQuery();
+  const { data: profile } = useProfile();
+  const userRole = profile?.data?.user?.role;
+  const canMutate = CAN_MUTATE.includes(userRole ?? 0);
 
-  const { data: organizations, isFetching } = useFetch<IUseFetchResponse<IOrganization[]>>({
+  const [formModal, setFormModal] = useState<FormStateTypes>({ open: false, type: 'create' });
+  const [deleteModal, setDeleteModal] = useState<FormStateTypes>({ open: false });
+
+  const { data: authorities, isFetching } = useFetch<IUseFetchResponse<IAuthority[]>>({
     url: '/authority/filter',
     method: 'POST',
-    queryKey: 'organizations',
+    queryKey: 'authorities',
     params: {
       page: query.page || 1,
       size: query.page_size || 20,
     },
-    body: {
-      is_checked_checklist: query.filterBy === 'checklist' ? true : undefined,
-      is_checked_question: query.filterBy === 'question' ? true : undefined,
-    },
   });
+
   return (
     <div>
-      <h3 className='page-title'>{t('Tashkilotlar')}</h3>
-      <Select
-        options={[
-          { value: 'checklist', label: t("Checklistdan o'tkazilgan") },
-          { value: 'question', label: t("Profilaktikadan o'tkazilgan") },
-        ]}
-        className='w-full mb-4'
-        onChange={(value) => {
-          setQuery({ ...query, filterBy: value });
-        }}
-        value={query.filterBy}
-        allowClear
-      />
+      <div className='flex justify-between items-center mb-4'>
+        <h3 className='page-title !mb-0'>{t('Tashkilotlar')}</h3>
+        {canMutate && (
+          <Button
+            type='primary'
+            icon={<PlusOutlined />}
+            onClick={() => setFormModal({ open: true, type: 'create', item: null })}
+          >
+            {t("Qo'shish")}
+          </Button>
+        )}
+      </div>
+
       <Table
-        className='mt-4'
         bordered
-        dataSource={organizations?.data}
+        dataSource={authorities?.data}
+        rowKey='id'
         pagination={false}
         loading={isFetching}
-        footer={() => {
-          return (
-            <Pagination
-              total={organizations?.total}
-              currentPage={organizations?.current_page}
-              align='end'
-            />
-          );
-        }}
+        footer={() => (
+          <Pagination
+            total={authorities?.total}
+            currentPage={authorities?.current_page}
+            align='end'
+          />
+        )}
       >
-        <Column align='center' title={t('ID')} dataIndex={'id'} />
-        <Column title={t('Tashkilot nomi')} dataIndex='name' key='name' />
-        <Column align='center' title={t('Stir')} dataIndex='stir' key='stir' />
-        {/* <Column
-          align='center'
-          title={t("Checklist dan o'tkazilganligi")}
-          onCell={(record) => {
-            return {
-              style: {
-                backgroundColor: record.is_checked_checklist ? colorSuccess : colorError,
-                color: 'white',
-              },
-            };
-          }}
-          render={(item) => {
-            return item.is_checked_checklist
-              ? t("Checklist dan o'tkazilgan")
-              : t("Checklist dan o'tkazilmagan");
-          }}
-        /> */}
-        <Column
-          align='center'
-          title={t("Profilaktikadan o'tkazilganligi")}
-          onCell={(record) => {
-            return {
-              style: {
-                backgroundColor: record.is_checked_question ? colorSuccess : colorError,
-                color: 'white',
-              },
-            };
-          }}
-          render={(item) => {
-            return item.is_checked_question
-              ? t("Profilaktikadan o'tkazilgan")
-              : t("Profilaktikadan o'tkazilmagan");
-          }}
-        />
+        <Column align='center' title='#' dataIndex='id' width={60} />
+        <Column title={t('Nomi')} dataIndex='name_uz' key='name_uz' />
+        <Column align='center' title={t('STIR')} dataIndex='stir' key='stir' />
+        <Column title={t('Manzil')} dataIndex='address' key='address' />
+        {canMutate && (
+          <Column
+            align='center'
+            title={t('Amallar')}
+            width={100}
+            render={(_: any, record: IAuthority) => (
+              <Space>
+                <Button
+                  size='small'
+                  icon={<EditOutlined />}
+                  onClick={() => setFormModal({ open: true, type: 'update', item: record })}
+                />
+                <Button
+                  size='small'
+                  danger
+                  icon={<DeleteOutlined />}
+                  onClick={() => setDeleteModal({ open: true, item: record })}
+                />
+              </Space>
+            )}
+          />
+        )}
       </Table>
+
+      {formModal.open && (
+        <AuthorityForm
+          open={formModal.open}
+          onCancel={() => setFormModal({ open: false })}
+          type={formModal.type}
+          item={formModal.item}
+        />
+      )}
+
+      {deleteModal.open && (
+        <DeleteAuthorityConfirmation
+          open={deleteModal.open}
+          onCancel={() => setDeleteModal({ open: false })}
+          item={deleteModal.item}
+        />
+      )}
     </div>
   );
 }
