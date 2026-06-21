@@ -24,7 +24,7 @@ export default function AuthorityForm({ open, onCancel, type, item }: FormModalP
     if (open) {
       if (type === 'update' && item) {
         form.setFieldsValue({
-          stir: item.stir,
+          stir: String(item.stir ?? ''),
           name_uz: item.name_uz,
           name_ru: item.name_ru,
           name_uzc: item.name_uzc,
