@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import { setToken } from '@/service/storage';
 import { useMutation } from '@/shared/hooks';
-import { LockOutlined, UserOutlined, EyeInvisibleOutlined, EyeOutlined } from '@ant-design/icons';
+import { EyeInvisibleOutlined, EyeOutlined, LockOutlined, UserOutlined } from '@ant-design/icons';
 import { DefaultError } from '@tanstack/react-query';
-import { ConfigProvider, Form, Input } from 'antd';
 import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import GerbIcon from '@/shared/assets/icons/gerb.svg';
@@ -15,7 +14,10 @@ type DataType = { code: number; message: string; success: boolean; data: { acces
 
 const LoginWithPassword: React.FC = () => {
   const { t } = useTranslation();
+  const [form, setForm] = useState<FieldType>({ username: '', password: '' });
+  const [errors, setErrors] = useState<Partial<FieldType>>({});
   const [showPass, setShowPass] = useState(false);
+
   const { mutate, isPending } = useMutation<DataType, DefaultError>({
     mutationKey: 'login',
     onError: () => {},
@@ -29,288 +31,295 @@ const LoginWithPassword: React.FC = () => {
     } catch (_) {}
   }
 
-  function onSubmit(values: FieldType) {
+  function validate() {
+    const e: Partial<FieldType> = {};
+    if (!form.username.trim()) e.username = t('Majburiy maydon');
+    if (!form.password.trim()) e.password = t('Majburiy maydon');
+    setErrors(e);
+    return Object.keys(e).length === 0;
+  }
+
+  function onSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!validate()) return;
     mutate(
-      { url: 'auth/login-by-user', data: values },
-      { onSuccess: (data: DataType) => { setToken(data.data.access_token); getProfile(); } },
+      { url: 'auth/login-by-user', data: form },
+      {
+        onSuccess: (data: DataType) => {
+          setToken(data.data.access_token);
+          getProfile();
+        },
+      },
     );
   }
 
+  const inputStyle: React.CSSProperties = {
+    width: '100%',
+    height: 50,
+    background: 'rgba(255,255,255,0.06)',
+    border: '1px solid rgba(255,255,255,0.12)',
+    borderRadius: 12,
+    color: 'white',
+    fontSize: 15,
+    paddingLeft: 44,
+    paddingRight: 16,
+    outline: 'none',
+    boxSizing: 'border-box',
+    transition: 'border-color 0.2s, box-shadow 0.2s',
+  };
+
   return (
-    <ConfigProvider
-      theme={{
-        token: {
-          colorBgContainer: 'rgba(255,255,255,0.06)',
-          colorBorder: 'rgba(255,255,255,0.12)',
-          colorText: '#ffffff',
-          colorTextPlaceholder: 'rgba(255,255,255,0.28)',
-          colorPrimary: '#3A9E68',
-          borderRadius: 12,
-          controlHeight: 50,
-          fontSize: 15,
-        },
-        components: {
-          Input: {
-            activeBorderColor: '#3A9E68',
-            hoverBorderColor: 'rgba(58,158,104,0.5)',
-            activeShadow: '0 0 0 3px rgba(58,158,104,0.12)',
-            colorBgContainer: 'rgba(255,255,255,0.06)',
-            colorText: '#ffffff',
-            colorTextPlaceholder: 'rgba(255,255,255,0.28)',
-            colorBorder: 'rgba(255,255,255,0.12)',
-          },
-          Form: {
-            labelColor: 'rgba(255,255,255,0.55)',
-            labelFontSize: 13,
-          },
-        },
-      }}
-    >
-      <div style={{ minHeight: '100vh', display: 'flex', background: '#0c1a10', position: 'relative', overflow: 'hidden' }}>
+    <div style={{ minHeight: '100vh', display: 'flex', background: '#0f1f17' }}>
 
-        {/* Animated background blobs */}
-        <div style={{
-          position: 'absolute', top: '-10%', right: '-5%',
-          width: 500, height: 500, borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(46,125,82,0.18) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }} />
-        <div style={{
-          position: 'absolute', bottom: '-15%', left: '-8%',
-          width: 600, height: 600, borderRadius: '50%',
-          background: 'radial-gradient(circle, rgba(27,58,45,0.35) 0%, transparent 70%)',
-          pointerEvents: 'none',
-        }} />
+      {/* Left decorative panel */}
+      <div style={{
+        flex: 1, flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+        padding: '48px', display: 'none',
+        background: 'linear-gradient(145deg, #1B3A2D 0%, #0f2419 60%, #071510 100%)',
+        position: 'relative', overflow: 'hidden',
+      }} className='lwp-left-panel'>
+        {/* Circles */}
+        {[500, 350, 200].map((s, i) => (
+          <div key={i} style={{
+            position: 'absolute', width: s, height: s, borderRadius: '50%',
+            border: i < 2 ? `1px solid rgba(46,125,82,${i === 0 ? 0.15 : 0.2})` : 'none',
+            background: i === 2 ? 'rgba(46,125,82,0.06)' : 'transparent',
+            top: '50%', left: '50%', transform: 'translate(-50%,-50%)',
+          }} />
+        ))}
+        {/* Floating dots */}
+        {[
+          { top: '15%', left: '20%' }, { top: '25%', right: '25%' },
+          { top: '70%', left: '15%' }, { bottom: '20%', right: '20%' },
+          { top: '45%', left: '8%' },
+        ].map((pos, i) => (
+          <div key={i} style={{
+            position: 'absolute', ...pos,
+            width: 5 + i, height: 5 + i,
+            borderRadius: '50%', background: 'rgba(58,158,104,0.5)',
+          }} />
+        ))}
 
-        {/* Grid lines */}
         <div style={{
-          position: 'absolute', inset: 0,
-          backgroundImage: 'linear-gradient(rgba(46,125,82,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(46,125,82,0.04) 1px, transparent 1px)',
-          backgroundSize: '48px 48px',
-          pointerEvents: 'none',
-        }} />
-
-        {/* Left — info panel */}
-        <div style={{
-          flex: 1, display: 'none', flexDirection: 'column',
-          justifyContent: 'space-between', padding: '56px 64px',
-          borderRight: '1px solid rgba(255,255,255,0.05)',
           position: 'relative', zIndex: 1,
-        }} className='lg:flex! flex-col'>
+          display: 'flex', flexDirection: 'column', alignItems: 'center',
+          textAlign: 'center', maxWidth: 380,
+        }}>
+          <img src={GerbIcon} alt='gerb' style={{
+            width: 110, height: 110, marginBottom: 32,
+            filter: 'drop-shadow(0 4px 24px rgba(46,125,82,0.4))',
+          }} />
+          <h2 style={{ color: 'white', fontSize: 22, fontWeight: 700, lineHeight: 1.4, margin: '0 0 16px' }}>
+            {t('Oʻzbekiston Respublikasi Madaniyat vazirligi huzuridagi Kinematografiya agentligi')}
+          </h2>
+          <div style={{ width: 60, height: 3, background: 'linear-gradient(90deg, #2E7D52, #3A9E68)', borderRadius: 2, marginBottom: 24 }} />
+          <p style={{ color: 'rgba(255,255,255,0.5)', fontSize: 14, margin: 0 }}>
+            {t('Xavfni tahlil qilish tizimi')}
+          </p>
+        </div>
+      </div>
 
-          {/* Logo top */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
-            <img src={GerbIcon} alt='gerb' style={{ width: 44, height: 44 }} />
-            <div>
-              <div style={{ color: 'rgba(255,255,255,0.9)', fontWeight: 700, fontSize: 13, lineHeight: 1.3 }}>
-                Kinematografiya agentligi
-              </div>
-              <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: 11 }}>
-                O'zbekiston Respublikasi
-              </div>
-            </div>
-          </div>
+      {/* Right form panel */}
+      <div style={{
+        width: '100%', maxWidth: 480,
+        display: 'flex', flexDirection: 'column',
+        alignItems: 'center', justifyContent: 'center',
+        padding: '48px 40px',
+        background: '#111d16',
+      }}>
+        {/* Mobile header */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', marginBottom: 36 }} className='lwp-mobile-header'>
+          <img src={GerbIcon} alt='gerb' style={{ width: 72, height: 72, marginBottom: 12 }} />
+          <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 13, margin: 0, textAlign: 'center' }}>
+            Kinematografiya agentligi
+          </p>
+        </div>
 
-          {/* Center content */}
-          <div>
-            <div style={{
-              display: 'inline-flex', alignItems: 'center', gap: 8,
-              background: 'rgba(46,125,82,0.15)', border: '1px solid rgba(46,125,82,0.25)',
-              borderRadius: 20, padding: '6px 14px', marginBottom: 28,
-            }}>
-              <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#3A9E68' }} />
-              <span style={{ color: '#3A9E68', fontSize: 12, fontWeight: 600 }}>
-                Xavfni tahlil qilish tizimi
-              </span>
-            </div>
-
-            <h1 style={{ color: 'white', fontSize: 38, fontWeight: 800, lineHeight: 1.25, margin: 0, marginBottom: 20, maxWidth: 440 }}>
-              {t('Oʻzbekiston Respublikasi Madaniyat vazirligi huzuridagi Kinematografiya agentligi')}
+        <div style={{ width: '100%', maxWidth: 360 }}>
+          <div style={{ marginBottom: 36 }}>
+            <h1 style={{ color: 'white', fontSize: 28, fontWeight: 700, margin: '0 0 8px' }}>
+              {t('Tizimga kirish')}
             </h1>
-
-            <p style={{ color: 'rgba(255,255,255,0.4)', fontSize: 15, margin: 0, maxWidth: 380, lineHeight: 1.7 }}>
-              {t('Tashkilotlar faoliyatini baholash va monitoring qilish uchun avtomatlashtirilgan tizim')}
+            <p style={{ color: 'rgba(255,255,255,0.4)', margin: 0, fontSize: 14 }}>
+              {t('Login va parol bilan kiring')}
             </p>
           </div>
 
-          {/* Stats row */}
-          <div style={{ display: 'flex', gap: 32 }}>
-            {[
-              { label: t('Tashkilotlar'), value: '100+' },
-              { label: t('Baholashlar'), value: '500+' },
-              { label: t('Foydalanuvchilar'), value: '50+' },
-            ].map((s, i) => (
-              <div key={i}>
-                <div style={{ color: '#3A9E68', fontSize: 22, fontWeight: 800 }}>{s.value}</div>
-                <div style={{ color: 'rgba(255,255,255,0.35)', fontSize: 12 }}>{s.label}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Right — form panel */}
-        <div style={{
-          width: '100%', maxWidth: 500, flexShrink: 0,
-          display: 'flex', alignItems: 'center', justifyContent: 'center',
-          padding: '40px 48px',
-          position: 'relative', zIndex: 1,
-          background: 'rgba(10,20,13,0.7)',
-          backdropFilter: 'blur(20px)',
-          borderLeft: '1px solid rgba(255,255,255,0.05)',
-        }}>
-          <div style={{ width: '100%', maxWidth: 380 }}>
-
-            {/* Mobile header */}
-            <div style={{ textAlign: 'center', marginBottom: 40 }} className='block lg:hidden'>
-              <img src={GerbIcon} alt='gerb' style={{ width: 64, height: 64, marginBottom: 12 }} />
-              <div style={{ color: 'rgba(255,255,255,0.6)', fontSize: 13 }}>
-                Kinematografiya agentligi
-              </div>
-            </div>
-
-            {/* Form header */}
-            <div style={{ marginBottom: 36 }}>
-              <h2 style={{ color: 'white', fontSize: 26, fontWeight: 700, margin: 0, marginBottom: 6 }}>
-                {t('Tizimga kirish')}
-              </h2>
-              <p style={{ color: 'rgba(255,255,255,0.35)', margin: 0, fontSize: 14 }}>
-                {t('Hisobingizga kirish uchun ma\'lumotlarni kiriting')}
-              </p>
-            </div>
-
-            <Form layout='vertical' onFinish={onSubmit}>
-              <Form.Item<FieldType>
-                name='username'
-                label={t('Foydalanuvchi nomi')}
-                rules={[{ required: true, message: t('Majburiy maydon') }]}
-                style={{ marginBottom: 18 }}
-              >
-                <Input
-                  prefix={<UserOutlined style={{ color: 'rgba(255,255,255,0.3)', marginRight: 4 }} />}
+          <form onSubmit={onSubmit} noValidate>
+            {/* Username */}
+            <div style={{ marginBottom: 16 }}>
+              <label style={{ display: 'block', color: 'rgba(255,255,255,0.55)', fontSize: 13, marginBottom: 8 }}>
+                {t('Foydalanuvchi nomi')}
+              </label>
+              <div style={{ position: 'relative' }}>
+                <span style={{
+                  position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)',
+                  color: 'rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center',
+                }}>
+                  <UserOutlined />
+                </span>
+                <input
+                  type='text'
+                  value={form.username}
+                  onChange={e => { setForm(f => ({ ...f, username: e.target.value })); setErrors(er => ({ ...er, username: undefined })); }}
                   placeholder='username'
-                  size='large'
                   autoComplete='username'
-                />
-              </Form.Item>
-
-              <Form.Item<FieldType>
-                name='password'
-                label={t('Parol')}
-                rules={[{ required: true, message: t('Majburiy maydon') }]}
-                style={{ marginBottom: 28 }}
-              >
-                <Input
-                  type={showPass ? 'text' : 'password'}
-                  prefix={<LockOutlined style={{ color: 'rgba(255,255,255,0.3)', marginRight: 4 }} />}
-                  suffix={
-                    <span
-                      onClick={() => setShowPass(p => !p)}
-                      style={{ color: 'rgba(255,255,255,0.3)', cursor: 'pointer', display: 'flex', alignItems: 'center' }}
-                    >
-                      {showPass ? <EyeOutlined /> : <EyeInvisibleOutlined />}
-                    </span>
-                  }
-                  placeholder='••••••••'
-                  size='large'
-                  autoComplete='current-password'
-                />
-              </Form.Item>
-
-              <Form.Item style={{ marginBottom: 16 }}>
-                <button
-                  type='submit'
-                  disabled={isPending}
                   style={{
-                    width: '100%', height: 52, border: 'none', borderRadius: 12,
-                    background: isPending
-                      ? 'rgba(46,125,82,0.4)'
-                      : 'linear-gradient(135deg, #3A9E68 0%, #1B5E35 100%)',
-                    color: 'white', fontSize: 15, fontWeight: 700,
-                    cursor: isPending ? 'not-allowed' : 'pointer',
-                    display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
-                    letterSpacing: 0.3,
-                    boxShadow: isPending ? 'none' : '0 4px 24px rgba(58,158,104,0.35)',
-                    transition: 'all 0.25s',
+                    ...inputStyle,
+                    borderColor: errors.username ? '#ff4d4f' : 'rgba(255,255,255,0.12)',
                   }}
-                  onMouseEnter={e => {
-                    if (!isPending) {
-                      (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)';
-                      (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 32px rgba(58,158,104,0.5)';
-                    }
+                  onFocus={e => {
+                    e.currentTarget.style.borderColor = '#3A9E68';
+                    e.currentTarget.style.boxShadow = '0 0 0 3px rgba(58,158,104,0.12)';
                   }}
-                  onMouseLeave={e => {
-                    (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
-                    (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 24px rgba(58,158,104,0.35)';
+                  onBlur={e => {
+                    e.currentTarget.style.borderColor = errors.username ? '#ff4d4f' : 'rgba(255,255,255,0.12)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                />
+              </div>
+              {errors.username && <p style={{ color: '#ff7875', fontSize: 12, margin: '4px 0 0' }}>{errors.username}</p>}
+            </div>
+
+            {/* Password */}
+            <div style={{ marginBottom: 28 }}>
+              <label style={{ display: 'block', color: 'rgba(255,255,255,0.55)', fontSize: 13, marginBottom: 8 }}>
+                {t('Parol')}
+              </label>
+              <div style={{ position: 'relative' }}>
+                <span style={{
+                  position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)',
+                  color: 'rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center',
+                }}>
+                  <LockOutlined />
+                </span>
+                <input
+                  type={showPass ? 'text' : 'password'}
+                  value={form.password}
+                  onChange={e => { setForm(f => ({ ...f, password: e.target.value })); setErrors(er => ({ ...er, password: undefined })); }}
+                  placeholder='••••••••'
+                  autoComplete='current-password'
+                  style={{
+                    ...inputStyle,
+                    paddingRight: 48,
+                    borderColor: errors.password ? '#ff4d4f' : 'rgba(255,255,255,0.12)',
+                  }}
+                  onFocus={e => {
+                    e.currentTarget.style.borderColor = '#3A9E68';
+                    e.currentTarget.style.boxShadow = '0 0 0 3px rgba(58,158,104,0.12)';
+                  }}
+                  onBlur={e => {
+                    e.currentTarget.style.borderColor = errors.password ? '#ff4d4f' : 'rgba(255,255,255,0.12)';
+                    e.currentTarget.style.boxShadow = 'none';
+                  }}
+                />
+                <button
+                  type='button'
+                  onClick={() => setShowPass(p => !p)}
+                  style={{
+                    position: 'absolute', right: 14, top: '50%', transform: 'translateY(-50%)',
+                    background: 'none', border: 'none', cursor: 'pointer',
+                    color: 'rgba(255,255,255,0.3)', display: 'flex', alignItems: 'center', padding: 0,
                   }}
                 >
-                  {isPending ? (
-                    <>
-                      <span style={{
-                        width: 18, height: 18,
-                        border: '2px solid rgba(255,255,255,0.25)',
-                        borderTopColor: 'white', borderRadius: '50%',
-                        animation: 'lwp-spin 0.7s linear infinite',
-                        display: 'inline-block',
-                      }} />
-                      {t('Kirish...')}
-                    </>
-                  ) : (
-                    t('Kirish')
-                  )}
+                  {showPass ? <EyeOutlined /> : <EyeInvisibleOutlined />}
                 </button>
-              </Form.Item>
-            </Form>
-
-            {/* Divider */}
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, margin: '4px 0 20px' }}>
-              <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.07)' }} />
-              <span style={{ color: 'rgba(255,255,255,0.2)', fontSize: 12 }}>{t('yoki')}</span>
-              <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.07)' }} />
+              </div>
+              {errors.password && <p style={{ color: '#ff7875', fontSize: 12, margin: '4px 0 0' }}>{errors.password}</p>}
             </div>
 
-            <a
-              href='/login'
+            {/* Submit */}
+            <button
+              type='submit'
+              disabled={isPending}
               style={{
+                width: '100%', height: 50, border: 'none', borderRadius: 12,
+                background: isPending
+                  ? 'rgba(46,125,82,0.5)'
+                  : 'linear-gradient(135deg, #3A9E68 0%, #2E7D52 100%)',
+                color: 'white', fontSize: 16, fontWeight: 600,
+                cursor: isPending ? 'not-allowed' : 'pointer',
                 display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-                height: 48, borderRadius: 12, textDecoration: 'none',
-                border: '1px solid rgba(58,158,104,0.3)',
-                background: 'rgba(58,158,104,0.07)',
-                color: 'rgba(58,158,104,0.9)', fontSize: 14, fontWeight: 600,
+                boxShadow: '0 4px 20px rgba(46,125,82,0.3)',
                 transition: 'all 0.2s',
               }}
               onMouseEnter={e => {
-                (e.currentTarget as HTMLElement).style.background = 'rgba(58,158,104,0.14)';
-                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(58,158,104,0.5)';
+                if (!isPending) {
+                  (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)';
+                  (e.currentTarget as HTMLElement).style.boxShadow = '0 8px 32px rgba(46,125,82,0.5)';
+                }
               }}
               onMouseLeave={e => {
-                (e.currentTarget as HTMLElement).style.background = 'rgba(58,158,104,0.07)';
-                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(58,158,104,0.3)';
+                (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
+                (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 20px rgba(46,125,82,0.3)';
               }}
             >
-              {t('One ID orqali kirish')}
-            </a>
+              {isPending ? (
+                <>
+                  <span style={{
+                    width: 16, height: 16,
+                    border: '2px solid rgba(255,255,255,0.3)',
+                    borderTopColor: 'white', borderRadius: '50%',
+                    animation: 'lwp-spin 0.7s linear infinite',
+                    display: 'inline-block',
+                  }} />
+                  {t('Kirish...')}
+                </>
+              ) : t('Kirish')}
+            </button>
+          </form>
 
-            <p style={{ color: 'rgba(255,255,255,0.15)', fontSize: 11, textAlign: 'center', marginTop: 40 }}>
-              © 2025 Kinematografiya agentligi
-            </p>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12, margin: '24px 0 20px' }}>
+            <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.08)' }} />
+            <span style={{ color: 'rgba(255,255,255,0.25)', fontSize: 12 }}>{t('yoki')}</span>
+            <div style={{ flex: 1, height: 1, background: 'rgba(255,255,255,0.08)' }} />
           </div>
-        </div>
 
-        <style>{`
-          @keyframes lwp-spin { to { transform: rotate(360deg); } }
-          .lg\\:flex\\! { display: flex !important; }
-          .lg\\:hidden { display: none; }
-          @media (min-width: 1024px) {
-            .lg\\:flex\\! { display: flex !important; }
-            .lg\\:hidden { display: none !important; }
-            .block.lg\\:hidden { display: none !important; }
-          }
-          @media (max-width: 1023px) {
-            .lg\\:flex\\! { display: none !important; }
-          }
-        `}</style>
+          <a
+            href='/login'
+            style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              height: 48, borderRadius: 12, textDecoration: 'none',
+              border: '1px solid rgba(255,255,255,0.1)',
+              background: 'rgba(255,255,255,0.04)',
+              color: 'rgba(255,255,255,0.55)', fontSize: 14,
+              transition: 'all 0.2s',
+            }}
+            onMouseEnter={e => {
+              (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.08)';
+              (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.8)';
+            }}
+            onMouseLeave={e => {
+              (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.04)';
+              (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.55)';
+            }}
+          >
+            ← {t('One ID orqali kirish')}
+          </a>
+
+          <p style={{ color: 'rgba(255,255,255,0.2)', fontSize: 12, textAlign: 'center', marginTop: 40 }}>
+            © 2025 Kinematografiya agentligi
+          </p>
+        </div>
       </div>
-    </ConfigProvider>
+
+      <style>{`
+        @keyframes lwp-spin { to { transform: rotate(360deg); } }
+        .lwp-left-panel { display: none; }
+        .lwp-mobile-header { display: block; }
+        @media (min-width: 1024px) {
+          .lwp-left-panel { display: flex !important; }
+          .lwp-mobile-header { display: none !important; }
+        }
+        input:-webkit-autofill,
+        input:-webkit-autofill:hover,
+        input:-webkit-autofill:focus {
+          -webkit-box-shadow: 0 0 0 1000px #1a2e20 inset !important;
+          -webkit-text-fill-color: white !important;
+          caret-color: white;
+        }
+      `}</style>
+    </div>
   );
 };
 
