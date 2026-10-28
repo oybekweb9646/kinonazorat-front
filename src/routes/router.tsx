@@ -31,6 +31,7 @@ import {
 } from '@/service/const/roles';
 import AOKAOrganizations from '@/pages/Settings/AOKAOrganizations';
 import Monitoring from '@/pages/Monitoring';
+import Integration from '@/pages/Settings/Integration';
 
 export const router = createBrowserRouter([
   {
@@ -182,6 +183,14 @@ export const router = createBrowserRouter([
             element: (
               <RoleGuard allowedRoles={[_SUPER_ADMIN, _PROKUROR]}>
                 <Monitoring />
+              </RoleGuard>
+            ),
+          },
+          {
+            path: '/settings/integration',
+            element: (
+              <RoleGuard allowedRoles={[_SUPER_ADMIN]}>
+                <Integration />
               </RoleGuard>
             ),
           },

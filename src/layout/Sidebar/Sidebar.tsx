@@ -1,4 +1,5 @@
 import {
+  ApiOutlined,
   BankOutlined,
   // CheckOutlined,
   DashboardOutlined,
@@ -177,6 +178,14 @@ function generateSidebarItems(t: TFunction, userRole: number) {
           key: '7.6',
           label: <Link to={'/settings/normative-documents'}>{t('Normativ hujjatlar')}</Link>,
           icon: <FileOutlined />,
+        },
+        {
+          key: '7.7',
+          label: <Link to={'/settings/integration'}>{t('MSPD integratsiyasi')}</Link>,
+          icon: <ApiOutlined />,
+          style: {
+            display: hasPermission(userRole, [_SUPER_ADMIN]) ? 'block' : 'none',
+          },
         },
       ],
     },

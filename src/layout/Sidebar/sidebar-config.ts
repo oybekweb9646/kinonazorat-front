@@ -13,6 +13,7 @@ export const pathToKeyMap: { [key: string]: string[] } = {
   '/settings/users': ['7', '7.3'],
   // '/settings/checklists': ['7', '7.5'],
   '/settings/normative-documents': ['7', '7.6'],
+  '/settings/integration': ['7', '7.7'],
 };
 
 export const siderStyle: React.CSSProperties = {
